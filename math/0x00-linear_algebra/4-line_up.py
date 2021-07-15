@@ -4,6 +4,12 @@
 
 def add_arrays(arr1, arr2):
     """adds arrays together"""
+    for item in arr1 + arr2:
+        try:
+            test = len(item)
+            return None
+        except TypeError:
+            continue
     if len(arr1) != len(arr2):
         return None
     sum_array = []
