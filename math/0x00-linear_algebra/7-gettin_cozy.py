@@ -15,6 +15,9 @@ def cat_matrices2D(mat1, mat2, axis=0):
         return matrix
     elif len(mat1) != len(mat2):
         return None
-    for x, row in enumerate(matrix):
-        row.append(mat2.copy()[x][0])
-    return matrix
+    if axis == 1:
+        for x, row in enumerate(matrix):
+            row.append(mat2.copy()[x][0])
+        return matrix
+    else:
+        return None
