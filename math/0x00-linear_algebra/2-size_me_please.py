@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""finds dimensions of matrix"""
+
 
 def matrix_shape(matrix):
     """finds dimensions of a matrix"""

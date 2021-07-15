@@ -1,4 +1,6 @@
 #!/bin/usr/env python3
+"""array arithmatic"""
+
 
 def add_arrays(arr1, arr2):
     """adds arrays together"""
