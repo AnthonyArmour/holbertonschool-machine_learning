@@ -2,15 +2,21 @@
 """Matrix multiplication"""
 
 
+def matrix_transpose(matrix):
+    """transposes a 2d matrix"""
+    mTransposed = [[] for x in range(len(matrix[0]))]
+    for x, arr in enumerate(mTransposed):
+        for row in matrix.copy():
+            arr.append(row[x])
+    return mTransposed
+
+
 def mat_mul(mat1, mat2):
     """matrix mutltiplication"""
     if len(mat1[0]) != len(mat2):
         return None
     matrix = [[] for x in range(len(mat1))]
-    mat2_transposed = [[] for x in range(len(mat2[0]))]
-    for x, arr in enumerate(mat2_transposed):
-        for row in mat2:
-            arr.append(row.copy()[x])
+    mat2_transposed = matrix_transpose(mat2)
 
     eSum = 0
     for x, row in enumerate(mat1):
