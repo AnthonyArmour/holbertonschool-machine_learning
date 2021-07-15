@@ -8,7 +8,6 @@ def matrix_shape(matrix):
         try:
             dim.append(len(mat))
             mat = mat[0]
-        except:
+        except TypeError:
             break
     return dim
-
