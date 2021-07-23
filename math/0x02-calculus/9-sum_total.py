@@ -5,6 +5,6 @@
 def summation_i_squared(n):
     """calculates sigma"""
     sum = 0
-    for i in range(1, n + 1):
-        sum += i * i
-    return sum
+    if type(n) is not int:
+        return None
+    return int((n * (n + 1) * ((2 * n) + 1)) / 6)
