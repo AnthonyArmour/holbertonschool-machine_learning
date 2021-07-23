@@ -4,9 +4,8 @@
 
 def poly_derivative(poly):
     """finds derivative of polynomial"""
-    if type(poly) is not list:
+    if type(poly) is not list or len(poly) < 1:
         return None
-    elif len(poly) < 2:
+    elif len(poly) == 1:
         return [0]
     return [num * i for i, num in enumerate(poly[1:], start=1)]
-
