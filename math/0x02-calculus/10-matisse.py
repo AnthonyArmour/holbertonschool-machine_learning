@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""finds derivative of polynomial"""
+"""finds derivative of polynomial """
 
 
 def poly_derivative(poly):
