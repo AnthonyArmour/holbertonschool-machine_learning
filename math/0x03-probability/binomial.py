@@ -22,9 +22,9 @@ class Binomial():
             mean = sum(data) / len(data)
             v = sum([(i - mean) ** 2 for i in data]) / len(data)
             q = v / mean
-            p = round(1 - q, 3)
+            p = 1 - q
             self.n = round(mean / p)
-            self.p = round(mean / self.n, 3)
+            self.p = mean / self.n
 
     def factorial(self, lst):
         """finds factorial"""

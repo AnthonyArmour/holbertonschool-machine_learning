@@ -26,4 +26,6 @@ class Exponential():
 
     def cdf(self, x):
         """Exponential Cumulative Distribution Function"""
+        if x < 0:
+            return 0
         return 1 - (self.pdf(x) / self.lambtha)
