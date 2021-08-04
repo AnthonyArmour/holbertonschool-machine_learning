@@ -98,7 +98,4 @@ class Neuron():
             plt.suptitle("Training Cost")
             plt.plot(x_points, costs, "b")
             plt.show()
-
-
-
         return self.evaluate(X, Y)
