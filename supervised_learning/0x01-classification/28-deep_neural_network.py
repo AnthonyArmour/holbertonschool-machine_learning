@@ -102,7 +102,7 @@ class DeepNeuralNetwork():
         if self.__activation == "sig":
             return self.cache["A{}".format(layer)] * (1 - cache["A{}".format(layer)])
         else:
-            return 1 - (self.__cache["A{}".format(layer - 1)] ** 2)
+            return 1 - (self.__cache["A{}".format(layer)] ** 2)
 
 
     def forward_prop(self, X):
