@@ -3,6 +3,7 @@
 
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class NeuralNetwork():
@@ -90,3 +91,42 @@ class NeuralNetwork():
         self.__b2 = self.__b2 - (alpha * dB2)
         self.__W1 = self.__W1 - (alpha * dW1)
         self.__b1 = self.__b1 - (alpha * dB1)
+
+    def train(self, X, Y, iterations=5000,
+              alpha=0.05, verbose=True, graph=True, step=100):
+        """Trains NN using forward and back propagation"""
+        if type(iterations) is not int:
+            raise TypeError("iterations must be an integer")
+        if iterations < 1:
+            raise ValueError("iterations must be a positive integer")
+        if type(alpha) is not float:
+            raise TypeError("alpha must be a float")
+        if alpha <= 0:
+            raise ValueError("alpha must be positive")
+        if verbose is True or graph is True:
+            costs, x_points = [], []
+            if type(step) is not int:
+                raise TypeError("step must be an integer")
+            if step < 1 or step > iterations:
+                raise ValueError("step must be positive and <= iterations")
+        for x in range(iterations):
+            A1, A2 = self.forward_prop(X)
+            self.gradient_descent(X, Y, A1, A2)
+            if ((x == 0 or x % step == 0) and
+               (verbose is True or graph is True)):
+                cost = self.cost(Y, self.__A2)
+                costs.append(cost), x_points.append(x)
+                if verbose is True:
+                    print("Cost after {} iterations: {}".format(x, cost))
+        if verbose is True or graph is True:
+            cost = self.cost(Y, self.__A2)
+            costs.append(cost), x_points.append(iterations)
+            if verbose is True:
+                print("Cost after {} iterations: {}".format(iterations, cost))
+        if graph is True:
+            plt.xlabel("iteration")
+            plt.ylabel("cost")
+            plt.suptitle("Training Cost")
+            plt.plot(x_points, costs, "b")
+            plt.show()
+        return self.evaluate(X, Y)

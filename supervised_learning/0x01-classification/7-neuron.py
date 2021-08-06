@@ -82,7 +82,8 @@ class Neuron():
         for x in range(iterations):
             self.__A = self.forward_prop(X)
             self.gradient_descent(X, Y, self.__A, alpha)
-            if (x == 0 or x % step == 0) and (verbose is True or graph is True):
+            if ((x == 0 or x % step == 0) and
+               (verbose is True or graph is True)):
                 cost = self.cost(Y, self.A)
                 costs.append(cost), x_points.append(x)
                 if verbose is True:

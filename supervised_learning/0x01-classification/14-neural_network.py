@@ -59,7 +59,7 @@ class NeuralNetwork():
         z1 = np.matmul(self.__W1, X) + self.b1
         self.__A1 = 1/(1 + np.exp(-z1))
         z2 = np.matmul(self.__W2, self.__A1) + self.b2
-        self.__A2 = 1/(1+ np.exp(-z2))
+        self.__A2 = 1/(1 + np.exp(-z2))
         return self.__A1, self.__A2
 
     def cost(self, Y, A):
@@ -105,5 +105,5 @@ class NeuralNetwork():
             if x % 100 == 0:
                 print("{}th iteration".format(x))
             A1, A2 = self.forward_prop(X)
-            self.gradient_descent(X, Y, A1, A2)
+            self.gradient_descent(X, Y, A1, A2, alpha=alpha)
         return self.evaluate(X, Y)
