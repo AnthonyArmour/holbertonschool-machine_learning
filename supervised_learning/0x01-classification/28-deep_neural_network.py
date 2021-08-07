@@ -92,11 +92,6 @@ class DeepNeuralNetwork():
         A = (np.exp(Z) - np.exp(-Z))/(np.exp(Z) + np.exp(-Z))
         self.__cache["A{}".format(layer)] = A
 
-
-    # def dtanh(self, layer, cache):
-    #     """derivative of tanh method for NN"""
-    #     return 1 - (self.__cache["A{}".format(layer - 1)] ** 2)
-
     def dsig_tanh(self, layer, cache):
         """derivative of sig for NN"""
         if self.__activation == "sig":
@@ -111,33 +106,24 @@ class DeepNeuralNetwork():
            Deep Neural Network using sigmoid
            activation function
         """
-        # print("very start of forward prop")
         self.__cache["A0"] = X
         for layer in range(1, self.__L):
             if self.__activation == "sig":
                 self.sigNN(layer)
             else:
                 self.tanhNN(layer)
-            # print("before iteration")
-            # print(self.__weights["W{}".format(layer)].shape, "\n\n\n")
-            # print(self.__cache["A{}".format(layer - 1)].shape)
         Z = (
             np.matmul(self.__weights["W{}".format(self.__L)],
                         self.__cache["A{}".format(self.__L - 1)]) +
             self.__weights["b{}".format(self.__L)]
             )
         T = np.exp(Z)
-        # print("sum of t axis is 0:", np.sum(T, axis = 0))
-        # print("length of L:", self.__L)
         self.__cache["A{}".format(self.__L)] = T/np.sum(T, axis = 0)
-        #     print("after iteration")
-        # print("end of forward prop")
         return self.__cache["A{}".format(self.__L)], self.__cache
 
     def cost(self, Y, A):
         """Logistic Regression Cost Function"""
         mth = -1/A.shape[1]
-        # costs = (Y * np.log(A)) + ((1.0000001 - Y) * np.log(1.0000001 - A))
         costs = Y * np.log(A)
         return np.sum(costs) * mth
 
@@ -145,15 +131,13 @@ class DeepNeuralNetwork():
         """Evaluates the predictions made and the cost"""
         predictions, cache = self.forward_prop(X)
         cost = self.cost(Y, predictions)
-        # print("prediction shape: ", predictions.shape)
         for x, max in enumerate(np.amax(predictions, axis=0)):
             predictions.T[x] = predictions.T[x] == max
         evaluation = predictions.astype(int)
-        # eval_bool = predictions >= 0.5
-        # evaluation = eval_bool.astype(int)
         return evaluation, cost
 
     def gradient_descent(self, Y, cache, alpha=0.05):
+        """Gradient descent method for deep neural network"""
         mth = 1/cache["A1"].shape[1]
         partials = {}
         new_weights = {}
@@ -179,7 +163,7 @@ class DeepNeuralNetwork():
             partials["Z{}".format(layer)] = (
                 np.matmul(self.__weights["W{}".format(layer + 1)].T,
                           partials["Z{}".format(layer + 1)]) *
-                self.dsig_tanh(layer, cache) #activation derivative
+                self.dsig_tanh(layer, cache)
             )
             partials["W{}".format(layer)] = (
                 mth * np.matmul(partials["Z{}".format(layer)],
@@ -206,7 +190,6 @@ class DeepNeuralNetwork():
            and back propagation to train deep
            neural net
         """
-        # print("very start of train method")
         if type(iterations) is not int:
             raise TypeError("iterations must be an integer")
         if iterations < 1:
@@ -221,7 +204,6 @@ class DeepNeuralNetwork():
                 raise TypeError("step must be an integer")
             if step < 1 or step > iterations:
                 raise ValueError("step must be positive and <= iterations")
-        # print("before for loop in train method")
         for x in range(iterations):
             AL, self.__cache = self.forward_prop(X)
             self.gradient_descent(Y, self.__cache, alpha=alpha)

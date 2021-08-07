@@ -79,6 +79,7 @@ class DeepNeuralNetwork():
         return evaluation, cost
 
     def gradient_descent(self, Y, cache, alpha=0.05):
+        """Gradient descent method for deep neural network"""
         mth = 1/cache["A1"].shape[1]
         partials = {}
         new_weights = {}
