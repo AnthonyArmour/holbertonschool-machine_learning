@@ -77,7 +77,7 @@ class DeepNeuralNetwork():
         """sigmoid method for hidden layers"""
         Z = (
             np.matmul(self.__weights["W{}".format(layer)],
-                        self.__cache["A{}".format(layer - 1)]) +
+                      self.__cache["A{}".format(layer - 1)]) +
             self.__weights["b{}".format(layer)]
             )
         self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
@@ -86,7 +86,7 @@ class DeepNeuralNetwork():
         """Tanh method for hidden layers"""
         Z = (
             np.matmul(self.__weights["W{}".format(layer)],
-                        self.__cache["A{}".format(layer - 1)]) +
+                      self.__cache["A{}".format(layer - 1)]) +
             self.__weights["b{}".format(layer)]
             )
         A = (np.exp(Z) - np.exp(-Z))/(np.exp(Z) + np.exp(-Z))
@@ -94,11 +94,9 @@ class DeepNeuralNetwork():
 
     def dsig_tanh(self, layer, cache):
         """derivative of sig for NN"""
-        if self.__activation == "sig":
-            return self.cache["A{}".format(layer)] * (1 - cache["A{}".format(layer)])
-        else:
+        if self.__activation == "tanh":
             return 1 - (self.__cache["A{}".format(layer)] ** 2)
-
+        return self.cache["A{}".format(layer)]*(1 - cache["A{}".format(layer)])
 
     def forward_prop(self, X):
         """
@@ -114,11 +112,11 @@ class DeepNeuralNetwork():
                 self.tanhNN(layer)
         Z = (
             np.matmul(self.__weights["W{}".format(self.__L)],
-                        self.__cache["A{}".format(self.__L - 1)]) +
+                      self.__cache["A{}".format(self.__L - 1)]) +
             self.__weights["b{}".format(self.__L)]
             )
         T = np.exp(Z)
-        self.__cache["A{}".format(self.__L)] = T/np.sum(T, axis = 0)
+        self.__cache["A{}".format(self.__L)] = T/np.sum(T, axis=0)
         return self.__cache["A{}".format(self.__L)], self.__cache
 
     def cost(self, Y, A):
