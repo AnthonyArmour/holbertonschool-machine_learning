@@ -82,7 +82,7 @@ class NeuralNetwork():
         mth = 1/A1.shape[1]
         dZ2 = A2 - Y
         dW2 = np.matmul(dZ2, A1.T) * mth
-        dB2 = mth * np.sum(dZ2, axis=1)
+        dB2 = mth * np.sum(dZ2, axis=1, keepdims=True)
         dsigmoid = A1 * (1 - A1)
         dZ1 = np.matmul(self.__W2.T, dZ2) * dsigmoid
         dW1 = mth * np.matmul(dZ1, X.T)
