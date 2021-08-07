@@ -85,7 +85,6 @@ class DeepNeuralNetwork():
         """Logistic Regression Cost Function"""
         mth = -1/A.shape[1]
         costs = (Y * np.log(A)) + ((1 - Y) * np.log(1.0000001 - A))
-        print("end of cost")
         return np.sum(costs) * mth
 
     def evaluate(self, X, Y):
@@ -94,7 +93,6 @@ class DeepNeuralNetwork():
         cost = self.cost(Y, predictions)
         eval_bool = predictions >= 0.5
         evaluation = eval_bool.astype(int)
-        print("end of evaluate")
         return evaluation, cost
 
     def gradient_descent(self, Y, cache, alpha=0.05):
