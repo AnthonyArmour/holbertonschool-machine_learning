@@ -41,7 +41,7 @@ class Neuron():
     def cost(self, Y, A):
         """Logistic Regression Cost Function"""
         div_cost = -1/A.shape[1]
-        costs = (Y * np.log(A)) + ((1.0000001 - Y) * np.log(1.0000001 - A))
+        costs = (Y * np.log(A)) + ((1 - Y) * np.log(1.0000001 - A))
         return np.sum(costs) * div_cost
 
     def evaluate(self, X, Y):

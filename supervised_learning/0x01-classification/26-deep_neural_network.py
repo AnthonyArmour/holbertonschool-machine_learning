@@ -84,7 +84,7 @@ class DeepNeuralNetwork():
     def cost(self, Y, A):
         """Logistic Regression Cost Function"""
         mth = -1/A.shape[1]
-        costs = (Y * np.log(A)) + ((1.0000001 - Y) * np.log(1.0000001 - A))
+        costs = (Y * np.log(A)) + ((1 - Y) * np.log(1.0000001 - A))
         print("end of cost")
         return np.sum(costs) * mth
 
