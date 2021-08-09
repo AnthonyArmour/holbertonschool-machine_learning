@@ -32,7 +32,7 @@ class DeepNeuralNetwork():
                 np.random.randn(l, layers[x - 1]) *
                 np.sqrt(2/(layers[x - 1]))
             )
-            self.__weights["b{}".format(x)] = np.zeros((l, 1))
+            self.__weights["b{}".format(x)] = np.zeros((l, 1), dtype='uint8')
 
     @property
     def cache(self):
@@ -72,26 +72,23 @@ class DeepNeuralNetwork():
            activation function
         """
         self.__cache["A0"] = X
-        for layer in range(1, self.__L):
+        for layer in range(1, self.__L + 1):
             Z = (
                 np.matmul(self.__weights["W{}".format(layer)],
                           self.__cache["A{}".format(layer - 1)]) +
                 self.__weights["b{}".format(layer)]
                 )
-            self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
-        Z = (
-            np.matmul(self.__weights["W{}".format(self.__L)],
-                      self.__cache["A{}".format(self.__L - 1)]) +
-            self.__weights["b{}".format(self.__L)]
-            )
-        T = np.exp(Z)
-        self.__cache["A{}".format(self.__L)] = T/np.sum(T, axis=0)
+            if layer == self.__L:
+                T = np.exp(Z)
+                self.__cache["A{}".format(self.__L)] = T/np.sum(T, axis=0)
+            else:
+                self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
         return self.__cache["A{}".format(self.__L)], self.__cache
 
     def cost(self, Y, A):
         """Logistic Regression Cost Function"""
         mth = -1 / A.shape[1]
-        costs = Y*np.log(A)
+        costs = Y * np.log(A)
         return np.sum(costs) * mth
 
     def evaluate(self, X, Y):
