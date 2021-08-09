@@ -111,7 +111,7 @@ class DeepNeuralNetwork():
         new_weights = {}
         for layer in range(self.__L, 0, -1):
             if layer == self.__L:
-                partials["Z{}".format(self.__L)] = (cache["A{}".format(self.__L)] - Y)
+                partials["Z{}".format(self.__L)] = (cache["A{}".format(self.__L)] - Y) * (cache["A{}".format(self.__L)] - Y)
             else:
                 partials["Z{}".format(layer)] = (
                     np.matmul(self.__weights["W{}".format(layer + 1)].T,
