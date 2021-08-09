@@ -69,7 +69,7 @@ class DeepNeuralNetwork():
         """
            Forward Propagation method for
            Deep Neural Network using sigmoid
-           activation function
+           and softmax activation functions
         """
         self.__cache["A0"] = X
         for layer in range(1, self.__L + 1):
