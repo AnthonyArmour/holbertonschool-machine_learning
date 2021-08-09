@@ -78,18 +78,19 @@ class DeepNeuralNetwork():
                           self.__cache["A{}".format(layer - 1)]) +
                 self.__weights["b{}".format(layer)]
                 )
+            self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
             if layer == self.__L:
-                T = np.exp(Z)
+                sig = 1/(1 + np.exp(-Z))
+                T = np.exp(sig)
                 self.__cache["A{}".format(self.__L)] = T/np.sum(T, axis=0)
-            else:
-                self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
+            # else:
+            #     self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
         return self.__cache["A{}".format(self.__L)], self.__cache
 
     def cost(self, Y, A):
         """Logistic Regression Cost Function"""
-        mth = A.shape[1]
-        costs = Y * np.log(A)
-        return np.sum(costs) / -mth
+        costs = -Y * np.log(A)
+        return np.sum(costs) / A.shape[1]
 
     def evaluate(self, X, Y):
         """Evaluates the predictions made and the cost"""
@@ -110,7 +111,7 @@ class DeepNeuralNetwork():
         new_weights = {}
         for layer in range(self.__L, 0, -1):
             if layer == self.__L:
-                partials["Z{}".format(self.__L)] = cache["A{}".format(self.__L)] - Y
+                partials["Z{}".format(self.__L)] = (cache["A{}".format(self.__L)] - Y)
             else:
                 partials["Z{}".format(layer)] = (
                     np.matmul(self.__weights["W{}".format(layer + 1)].T,
