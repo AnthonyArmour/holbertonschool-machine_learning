@@ -87,9 +87,9 @@ class DeepNeuralNetwork():
 
     def cost(self, Y, A):
         """Logistic Regression Cost Function"""
-        mth = -1 / A.shape[1]
+        mth = A.shape[1]
         costs = Y * np.log(A)
-        return np.sum(costs) * mth
+        return np.sum(costs) / -mth
 
     def evaluate(self, X, Y):
         """Evaluates the predictions made and the cost"""
@@ -105,7 +105,7 @@ class DeepNeuralNetwork():
            Gradient descent method for deep neural network
            using back propogation
         """
-        mth = 1/cache["A1"].shape[1]
+        mth = cache["A1"].shape[1]
         partials = {}
         new_weights = {}
         for layer in range(self.__L, 0, -1):
@@ -118,16 +118,16 @@ class DeepNeuralNetwork():
                     (cache["A{}".format(layer)] * (1 - cache["A{}".format(layer)]))
                 )
             partials["W{}".format(layer)] = (
-                mth * np.matmul(partials["Z{}".format(layer)],
-                                cache["A{}".format(layer - 1)].T)
+                np.matmul(partials["Z{}".format(layer)],
+                          cache["A{}".format(layer - 1)].T) / mth
             )
             new_weights["W{}".format(layer)] = (
                 self.__weights["W{}".format(layer)] -
                 (alpha * partials["W{}".format(layer)])
             )
             partials["b{}".format(layer)] = (
-                mth * np.sum(partials["Z{}".format(layer)],
-                             axis=1, keepdims=True)
+                np.sum(partials["Z{}".format(layer)],
+                       axis=1, keepdims=True) / mth
             )
             new_weights["b{}".format(layer)] = (
                 self.__weights["b{}".format(layer)] -
