@@ -78,13 +78,11 @@ class DeepNeuralNetwork():
                           self.__cache["A{}".format(layer - 1)]) +
                 self.__weights["b{}".format(layer)]
                 )
-            self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
             if layer == self.__L:
-                sig = 1/(1 + np.exp(-Z))
-                T = np.exp(sig)
+                T = np.exp(Z)
                 self.__cache["A{}".format(self.__L)] = T/np.sum(T, axis=0)
-            # else:
-            #     self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
+            else:
+                self.__cache["A{}".format(layer)] = 1/(1 + np.exp(-Z))
         return self.__cache["A{}".format(self.__L)], self.__cache
 
     def cost(self, Y, A):
@@ -96,9 +94,10 @@ class DeepNeuralNetwork():
         """Evaluates the predictions made and the cost"""
         predictions, cache = self.forward_prop(X)
         cost = self.cost(Y, predictions)
+        p = np.zeros_like(predictions.T)
         for x, max in enumerate(np.amax(predictions, axis=0)):
-            predictions.T[x] = predictions.T[x] == max
-        evaluation = predictions.astype(int)
+            p[x] = predictions.T[x] == max
+        evaluation = p.astype(int)
         return evaluation, cost
 
     def gradient_descent(self, Y, cache, alpha=0.05):
@@ -111,12 +110,15 @@ class DeepNeuralNetwork():
         new_weights = {}
         for layer in range(self.__L, 0, -1):
             if layer == self.__L:
-                partials["Z{}".format(self.__L)] = (cache["A{}".format(self.__L)] - Y) * (cache["A{}".format(self.__L)] - Y)
+                partials["Z{}".format(self.__L)] = (
+                                    cache["A{}".format(self.__L)] - Y
+                    )
             else:
                 partials["Z{}".format(layer)] = (
                     np.matmul(self.__weights["W{}".format(layer + 1)].T,
-                            partials["Z{}".format(layer + 1)]) *
-                    (cache["A{}".format(layer)] * (1 - cache["A{}".format(layer)]))
+                              partials["Z{}".format(layer + 1)]) *
+                    (cache["A{}".format(layer)] *
+                     (1 - cache["A{}".format(layer)]))
                 )
             partials["W{}".format(layer)] = (
                 np.matmul(partials["Z{}".format(layer)],
