@@ -94,9 +94,9 @@ class DeepNeuralNetwork():
         """Evaluates the predictions made and the cost"""
         predictions, cache = self.forward_prop(X)
         cost = self.cost(Y, predictions)
-        p = np.zeros_like(predictions.T)
+        p = np.zeros_like(predictions)
         for x, max in enumerate(np.amax(predictions, axis=0)):
-            p[x] = predictions.T[x] == max
+            p.T[x] = predictions.T[x] == max
         evaluation = p.astype(int)
         return evaluation, cost
 
