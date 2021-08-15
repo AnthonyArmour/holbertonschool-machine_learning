@@ -2,9 +2,7 @@
 """Placeholders with tensorflow"""
 
 
-import numpy as np
 import tensorflow as tf
-import matplotlib as plt
 
 
 def create_placeholders(nx, classes):
