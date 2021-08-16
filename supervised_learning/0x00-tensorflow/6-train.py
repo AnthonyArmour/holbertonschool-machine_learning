@@ -27,7 +27,6 @@ def train(X_train, Y_train, X_valid,
     tf.add_to_collection('Graphkeys', accuracy)
     train_op = create_train_op(loss, alpha)
     init = tf.global_variables_initializer()
-    saver = tf.train.Saver()
     with tf.Session() as sess:
         sess.run(init)
         for i in range(iterations + 1):
@@ -43,4 +42,5 @@ def train(X_train, Y_train, X_valid,
                 print("\tValidation Accuracy: {}".format(vaccuracy))
             if i < iterations:
                 sess.run(train_op, feed_dict={x: X_train, y: Y_train})
+        saver = tf.train.Saver()
         return saver.save(sess, save_path)
