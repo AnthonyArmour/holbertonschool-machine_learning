@@ -3,7 +3,6 @@
 
 
 import tensorflow as tf
-from tensorflow.python.client.session import Session
 
 
 create_placeholders = __import__('0-create_placeholders').create_placeholders
