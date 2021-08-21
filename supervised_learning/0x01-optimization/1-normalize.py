@@ -3,8 +3,6 @@
 
 
 import numpy as np
-import tensorflow as tf
-from tensorflow.python.client.session import Session
 
 
 def normalize(X, m, s):

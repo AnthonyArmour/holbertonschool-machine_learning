@@ -3,7 +3,6 @@
 
 import tensorflow as tf
 import numpy as np
-from tensorflow.python.training.input import batch
 
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
