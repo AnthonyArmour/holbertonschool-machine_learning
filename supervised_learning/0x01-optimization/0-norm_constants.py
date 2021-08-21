@@ -3,9 +3,7 @@
 
 
 import numpy as np
-from numpy.core.fromnumeric import var
 import tensorflow as tf
-from tensorflow.python.client.session import Session
 
 
 def normalization_constants(X):
