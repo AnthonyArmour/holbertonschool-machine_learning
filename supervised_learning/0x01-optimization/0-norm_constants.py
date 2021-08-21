@@ -3,6 +3,9 @@
 
 
 import numpy as np
+from numpy.core.fromnumeric import var
+import tensorflow as tf
+from tensorflow.python.client.session import Session
 
 
 def normalization_constants(X):
@@ -17,3 +20,4 @@ def normalization_constants(X):
          The mean and standard deviation
          of each feature, respectively.
     """
+    return np.mean(X, axis=0), np.std(X, axis=0)

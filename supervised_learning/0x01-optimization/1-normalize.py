@@ -3,6 +3,8 @@
 
 
 import numpy as np
+import tensorflow as tf
+from tensorflow.python.client.session import Session
 
 
 def normalize(X, m, s):
@@ -18,3 +20,4 @@ def normalize(X, m, s):
        Returns:
          The normalized X matrix.
     """
+    return (X - m)/s

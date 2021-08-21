@@ -16,3 +16,5 @@ def shuffle_data(X, Y):
        Returns:
          The shuffled X and Y matrices
     """
+    shuff = np.random.permutation(len(X))
+    return X[shuff], Y[shuff]
