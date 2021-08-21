@@ -2,7 +2,7 @@
 """Module contains train_mini_batch() function"""
 
 import tensorflow as tf
-import numpy as np
+
 
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
