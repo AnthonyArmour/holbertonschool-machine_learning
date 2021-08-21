@@ -14,6 +14,6 @@ def normalization_constants(X):
          X: numpy.ndarray - matrix to normalize
 
        Returns:
-         Returns: the mean and standard deviation
+         The mean and standard deviation
          of each feature, respectively.
     """
