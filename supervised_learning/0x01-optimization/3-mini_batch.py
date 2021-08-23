@@ -59,5 +59,4 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                     mini_loss, mini_acc = loss.eval(feed), accuracy.eval(feed)
                     print("\t\tCost:", mini_loss)
                     print("\t\tAccuracy:", mini_acc)
-        saver = tf.train.Saver()
-        return saver.save(sess, save_path)
+        return loader.save(sess, save_path)
