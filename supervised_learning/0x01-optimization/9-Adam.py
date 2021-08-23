@@ -28,3 +28,9 @@ def update_variables_Adam(alpha, beta1, beta2, epsilon, var, grad, v, s, t):
          The updated variable, the new first moment, and the new second moment,
          respectively.
     """
+    vdw = (beta1*v) + ((1-beta1)*grad)
+    vdw_correct = vdw/(1-(beta1**2))
+    sdw = (beta2*s) + (1-beta2)*(grad**2)
+    sdw_correct = sdw/(1-(beta2**2))
+    sdw_correct_sqrt = (sdw_correct**(1/2.0))+epsilon
+    return var - (alpha*(vdw_correct/sdw_correct_sqrt)), vdw, sdw
