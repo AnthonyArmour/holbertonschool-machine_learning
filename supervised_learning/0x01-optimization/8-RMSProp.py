@@ -5,7 +5,7 @@
 """
 
 
-import numpy as np
+import tensorflow as tf
 
 
 def create_RMSProp_op(loss, alpha, beta2, epsilon):
@@ -22,3 +22,5 @@ def create_RMSProp_op(loss, alpha, beta2, epsilon):
        Returns:
          The RMSProp optimization operation.
     """
+    rmsProp = tf.train.RMSPropOptimizer(alpha, momentum=beta2, epsilon=epsilon)
+    return rmsProp.minimize(loss)
