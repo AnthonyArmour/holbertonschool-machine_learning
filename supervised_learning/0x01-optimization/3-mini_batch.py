@@ -55,11 +55,11 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
             for step in range(0, X_shuff.shape[0], batch_size):
             # for step in range(batches):
                 feed = {
-                    x: X_shuff[step:step+batch_size],
-                    y: Y_shuff[step:step+batch_size]
+                    x: X_shuff[step:step+batch_size, :],
+                    y: Y_shuff[step:step+batch_size, :]
                     }
                 sess.run(train_op, feed_dict=feed)
-                if (step/batch_size) % 100 == 0 and step != 0:
+                if int(step/batch_size) % 100 == 0 and step != 0:
                     print("\tStep {}:".format(int(step/batch_size)))
                     mini_loss, mini_acc = loss.eval(feed), accuracy.eval(feed)
                     print("\t\tCost: {}".format(mini_loss))
