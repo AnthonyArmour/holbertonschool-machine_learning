@@ -5,7 +5,7 @@
 """
 
 
-import numpy as np
+import tensorflow as tf
 
 
 def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
@@ -23,3 +23,5 @@ def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
        Returns:
          The Adam optimization operation.
     """
+    Adam = tf.train.AdamOptimizer(alpha, beta1, beta2, epsilon)
+    return Adam.minimize(loss)
