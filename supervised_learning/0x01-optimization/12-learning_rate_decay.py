@@ -5,7 +5,7 @@
 """
 
 
-import numpy as np
+import tensorflow as tf
 
 
 def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
@@ -15,7 +15,8 @@ def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
 
        Args:
          alpha: original learning rate
-         decay_rate: weight used to determine the rate at which alpha will decay
+         decay_rate: weight used to determine the rate at which
+           alpha will decay
          global_step: number of passes of gradient descent that have elapsed
          decay_step: number of passes of gradient descent that should occur
            before alpha is decayed further
@@ -23,3 +24,8 @@ def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
        Returns:
          The learning rate decay operation.
     """
+    op = tf.train.inverse_time_decay(
+                                  alpha, global_step, decay_step,
+                                  decay_rate, staircase=True
+                                  )
+    return op
