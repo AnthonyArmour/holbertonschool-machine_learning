@@ -95,7 +95,7 @@ def model(Data_train, Data_valid, layers, activations,
                        shape=[None, X_train.shape[1]])
     y = tf.placeholder(name="y", dtype=tf.float32,
                        shape=[None, Y_train.shape[1]])
-    tf.add_to_collection("alpha", alphaP)
+    # tf.add_to_collection("alpha", alphaP)
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
     y_pred = forward_prop(x, layers, activations)
@@ -107,7 +107,7 @@ def model(Data_train, Data_valid, layers, activations,
     train_op = tf.train.AdamOptimizer(
         alphaP, beta1, beta2, epsilon
         ).minimize(loss)
-    alpha_decay = tf.train.inverse_time_decay(
+    alpha_decay_op = tf.train.inverse_time_decay(
                                   alpha, global_step, decay_step,
                                   decay_rate, staircase=True
                                   )
@@ -141,12 +141,13 @@ def model(Data_train, Data_valid, layers, activations,
                     global_step: epoch,
                     decay_step: 1
                     }
+                alpha = alpha_decay_op.eval(feed)
                 sess.run(train_op, feed)
                 if (step+1) % 100 == 0 and step != 0:
                     print("\tStep {}:".format(step+1))
                     mini_loss, mini_acc = loss.eval(feed), accuracy.eval(feed)
                     print("\t\tCost: {}".format(mini_loss))
                     print("\t\tAccuracy: {}".format(mini_acc))
-            alpha = alpha_decay.eval(feed)
+            # alpha = alpha_decay_op.eval(feed)
         saver = tf.train.Saver()
         return saver.save(sess, save_path)
