@@ -2,7 +2,7 @@
 """Module contains create_momentum_op(loss, alpha, beta1) function"""
 
 
-import numpy as np
+import tensorflow as tf
 
 
 def create_momentum_op(loss, alpha, beta1):
@@ -18,3 +18,5 @@ def create_momentum_op(loss, alpha, beta1):
        Returns:
          The momentum optimization operation.
     """
+    momentum = tf.train.MomentumOptimizer(alpha, beta1)
+    return momentum.minimize(loss)
