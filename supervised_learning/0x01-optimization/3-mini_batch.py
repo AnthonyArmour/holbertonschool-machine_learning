@@ -59,7 +59,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                     }
                 sess.run(train_op, feed_dict=feed)
                 if (step+1) % 100 == 0 and step != 0:
-                    print("\tStep {}:".format(int(step/batch_size)))
+                    print("\tStep {}:".format(step+1))
                     mini_loss, mini_acc = loss.eval(feed), accuracy.eval(feed)
                     print("\t\tCost: {}".format(mini_loss))
                     print("\t\tAccuracy: {}".format(mini_acc))
