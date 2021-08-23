@@ -45,10 +45,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
             vLoss = loss.eval({x: X_valid, y: Y_valid})
             vAccuracy = accuracy.eval({x: X_valid, y: Y_valid})
             print("After {} epochs:".format(epoch))
-            print("\tTraining Cost:", tLoss)
-            print("\tTraining Accuracy:", tAccuracy)
-            print("\tValidation Cost:", vLoss)
-            print("\tValidation Accuracy:", vAccuracy)
+            print("\tTraining Cost: {}".format(tLoss))
+            print("\tTraining Accuracy: {}".format(tAccuracy))
+            print("\tValidation Cost: {}".format(vLoss))
+            print("\tValidation Accuracy: {}".format(vAccuracy))
             if epoch == epochs:
                 break
             X_shuff, Y_shuff = shuffle_data(X_train, Y_train)
@@ -62,6 +62,6 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                 if (step+1) % 100 == 0 and step != 0:
                     print("\tStep {}:".format(step+1))
                     mini_loss, mini_acc = loss.eval(feed), accuracy.eval(feed)
-                    print("\t\tCost:", mini_loss)
-                    print("\t\tAccuracy:", mini_acc)
+                    print("\t\tCost: {}".format(mini_loss))
+                    print("\t\tAccuracy: {}".format(mini_acc))
         return loader.save(sess, save_path)
