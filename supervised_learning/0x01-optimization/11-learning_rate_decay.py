@@ -14,7 +14,8 @@ def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
 
        Args:
          alpha: original learning rate
-         decay_rate: weight used to determine the rate at which alpha will decay
+         decay_rate: weight used to determine the rate at which
+           alpha will decay
          global_step: number of passes of gradient descent that have elapsed
          decay_step: number of passes of gradient descent that should occur
            before alpha is decayed further
@@ -22,4 +23,5 @@ def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
        Returns:
          The updated value for alpha.
     """
-    return (1/(1+(decay_rate*int(global_step/decay_step))))*alpha
+    learning_rate = (1+(decay_rate*int(global_step/decay_step)))
+    return alpha/learning_rate
