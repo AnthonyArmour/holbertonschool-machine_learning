@@ -35,6 +35,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
         accuracy = tf.get_collection("accuracy")[0]
         loss = tf.get_collection("loss")[0]
         train_op = tf.get_collection("train_op")[0]
+        nx = X_train.shape[0]
+        batches = nx // batch_size
+        if batches % batch_size != 0:
+            batches += 1
         for epoch in range(epochs + 1):
             tLoss = loss.eval({x: X_train, y: Y_train})
             tAccuracy = accuracy.eval({x: X_train, y: Y_train})
@@ -48,14 +52,15 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
             if epoch == epochs:
                 break
             X_shuff, Y_shuff = shuffle_data(X_train, Y_train)
-            for step in range(0, X_shuff.shape[0], batch_size):
+            # for step in range(0, X_shuff.shape[0], batch_size):
+            for step in range(batches):
                 feed = {
-                    x: X_shuff[step:step+batch_size, :],
-                    y: Y_shuff[step:step+batch_size, :]
+                    x: X_shuff[batch_size*step:batch_size*(step+1)],
+                    y: Y_shuff[batch_size*step:batch_size*(step+1)]
                     }
                 sess.run(train_op, feed_dict=feed)
-                if int(step/batch_size) % 100 == 0 and step != 0:
-                    print("\tStep {}:".format(int(step/batch_size)))
+                if (step+1) % 100 == 0 and step != 0:
+                    print("\tStep {}:".format(step+1))
                     mini_loss, mini_acc = loss.eval(feed), accuracy.eval(feed)
                     print("\t\tCost:", mini_loss)
                     print("\t\tAccuracy:", mini_acc)
