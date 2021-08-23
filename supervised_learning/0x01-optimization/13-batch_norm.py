@@ -24,3 +24,6 @@ def batch_norm(Z, gamma, beta, epsilon):
        Returns:
          The normalized Z matrix.
     """
+    mean, variance = np.mean(Z, axis=0), np.std(Z, axis=0)**2
+    Z_norm = (Z - mean)/((variance+epsilon)**(1/2.0))
+    return gamma*Z_norm+beta

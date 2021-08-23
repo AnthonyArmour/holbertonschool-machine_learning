@@ -5,7 +5,7 @@
 """
 
 
-import numpy as np
+import tensorflow as tf
 
 
 def create_batch_norm_layer(prev, n, activation):
@@ -21,3 +21,13 @@ def create_batch_norm_layer(prev, n, activation):
        Returns:
          A tensor of the activated output for the layer.
     """
+    weights = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    layerX = tf.layers.dense(prev, n, kernel_initializer=weights)
+    mean, variance = tf.nn.moments(layerX, 0)
+    gamma = tf.Variable(tf.ones(n), trainable=True)
+    beta = tf.Variable(tf.zeros(n), trainable=True)
+    epsilon = 1e-8
+    batch_norm = tf.nn.batch_normalization(
+        layerX, mean, variance, beta, gamma, epsilon
+    )
+    return activation(batch_norm)
