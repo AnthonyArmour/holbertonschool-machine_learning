@@ -27,7 +27,7 @@ def calculate_accuracy(y, y_pred):
     return accuracy
 
 
-def create_batch_norm_layer(prev, n, activation):
+def create_batch_norm_layer(prev, n, activation, last):
     """
        Creates a batch normalization layer for a neural network in tensorflow.
 
@@ -41,24 +41,27 @@ def create_batch_norm_layer(prev, n, activation):
          A tensor of the activated output for the layer.
     """
     weights = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
-    layerX = tf.layers.dense(prev, n, kernel_initializer=weights)
-    mean, variance = tf.nn.moments(layerX, 0)
+    Z = tf.layers.dense(prev, n, kernel_initializer=weights)
+    if last is True:
+        return Z
+    mean, variance = tf.nn.moments(Z, 0)
     gamma = tf.Variable(tf.ones(n), trainable=True)
     beta = tf.Variable(tf.zeros(n), trainable=True)
     epsilon = 1e-8
     batch_norm = tf.nn.batch_normalization(
-        layerX, mean, variance, beta, gamma, epsilon
+        Z, mean, variance, beta, gamma, epsilon
     )
-    if activation is not None:
-        return activation(batch_norm)
-    return batch_norm
+    # if activation is not None:
+    return activation(batch_norm)
 
 
 def forward_prop(x, layer_sizes=[], activations=[]):
     """Forward_prop using tensorflow"""
-    pred = x
+    pred, last = x, False
     for i in range(len(layer_sizes)):
-        pred = create_batch_norm_layer(pred, layer_sizes[i], activations[i])
+        if i == len(layer_sizes)-1:
+            last = True
+        pred = create_batch_norm_layer(pred, layer_sizes[i], activations[i], last)
     return pred
 
 
