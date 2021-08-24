@@ -21,7 +21,7 @@ def calculate_accuracy(y, y_pred):
     return accuracy
 
 
-def create_batch_norm_layer(prev, n, activation, last):
+def create_batch_norm_layer(prev, n, activation, last, epsilon):
     """
        Creates a batch normalization layer for a neural network in tensorflow.
 
@@ -41,20 +41,21 @@ def create_batch_norm_layer(prev, n, activation, last):
     mean, variance = tf.nn.moments(Z, 0)
     gamma = tf.Variable(tf.ones(n), trainable=True)
     beta = tf.Variable(tf.zeros(n), trainable=True)
-    epsilon = 1e-8
     batch_norm = tf.nn.batch_normalization(
         Z, mean, variance, beta, gamma, epsilon
     )
     return activation(batch_norm)
 
 
-def forward_prop(x, layer_sizes=[], activations=[]):
+def forward_prop(x, epsilon, layer_sizes=[], activations=[]):
     """Forward_prop using tensorflow"""
     pred, last = x, False
     for i in range(len(layer_sizes)):
         if i == len(layer_sizes)-1:
             last = True
-        pred = create_batch_norm_layer(pred, layer_sizes[i], activations[i], last)
+        pred = create_batch_norm_layer(
+            pred, layer_sizes[i], activations[i], last, epsilon
+            )
     return pred
 
 
@@ -88,15 +89,15 @@ def model(Data_train, Data_valid, layers, activations,
        Returns:
          The path where the model was saved.
     """
-    X_train, Y_train = Data_train[0], Data_train[1]
-    X_valid, Y_valid = Data_valid[0], Data_valid[1]
+    X_train, Y_train = Data_train
+    X_valid, Y_valid = Data_valid
     # alphaP = tf.placeholder(name="alpha", dtype=tf.float32)
     global_step = tf.Variable(0, trainable=False)
     # decay_step = tf.placeholder(name="decay_step", dtype=tf.float32)
     decay_step = X_train.shape[0] // batch_size
-    batches = X_train.shape[0] // batch_size
-    if batches % batch_size != 0:
-        batches += 1
+    # batches = X_train.shape[0] // batch_size
+    # if batches % batch_size != 0:
+    #     batches += 1
     if decay_step % batch_size != 0:
         decay_step += 1
     x = tf.placeholder(name="x", dtype=tf.float32,
@@ -106,7 +107,7 @@ def model(Data_train, Data_valid, layers, activations,
     # tf.add_to_collection("alpha", alphaP)
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
-    y_pred = forward_prop(x, layers, activations)
+    y_pred = forward_prop(x, epsilon, layers, activations)
     tf.add_to_collection('y_pred', y_pred)
     loss = tf.losses.softmax_cross_entropy(y, y_pred)
     tf.add_to_collection('loss', loss)
@@ -141,7 +142,7 @@ def model(Data_train, Data_valid, layers, activations,
                 break
             shuff = np.random.permutation(len(X_train))
             X_shuff, Y_shuff = X_train[shuff], Y_train[shuff]
-            for step in range(batches):
+            for step in range(decay_step):
                 feed = {
                     x: X_shuff[batch_size*step:batch_size*(step+1)],
                     y: Y_shuff[batch_size*step:batch_size*(step+1)]
