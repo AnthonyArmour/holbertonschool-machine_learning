@@ -12,6 +12,12 @@ import tensorflow as tf
 import numpy as np
 
 
+def cost(Y, A):
+    loss = - (Y * tf.math.log(A) + (1 - Y) * tf.math.log(1 - A))
+    cost = np.sum(loss) / Y.shape[0]
+    return cost
+
+
 def calculate_accuracy(y, y_pred):
     """Calculates accuracy of prediction"""
     pred = tf.math.argmax(y_pred, axis=1)
@@ -88,9 +94,10 @@ def model(Data_train, Data_valid, layers, activations,
     """
     X_train, Y_train = Data_train[0], Data_train[1]
     X_valid, Y_valid = Data_valid[0], Data_valid[1]
-    alphaP = tf.placeholder(name="alpha", dtype=tf.float32)
-    global_step = tf.placeholder(name="global_step", dtype=tf.float32)
-    decay_step = tf.placeholder(name="decay_step", dtype=tf.float32)
+    # alphaP = tf.placeholder(name="alpha", dtype=tf.float32)
+    global_step = tf.Variable(0, trainable=False)
+    # decay_step = tf.placeholder(name="decay_step", dtype=tf.float32)
+    decay_step = X_train.shape[1] // batch_size
     x = tf.placeholder(name="x", dtype=tf.float32,
                        shape=[None, X_train.shape[1]])
     y = tf.placeholder(name="y", dtype=tf.float32,
@@ -105,9 +112,9 @@ def model(Data_train, Data_valid, layers, activations,
     accuracy = calculate_accuracy(y, y_pred)
     tf.add_to_collection('accuracy', accuracy)
     train_op = tf.train.AdamOptimizer(
-        alphaP, beta1, beta2, epsilon
-        ).minimize(loss)
-    alpha_decay_op = tf.train.inverse_time_decay(
+        alpha, beta1, beta2, epsilon
+        ).minimize(loss, global_step)
+    alpha = tf.train.inverse_time_decay(
                                   alpha, global_step, decay_step,
                                   decay_rate, staircase=True
                                   )
@@ -120,10 +127,10 @@ def model(Data_train, Data_valid, layers, activations,
         if batches % batch_size != 0:
             batches += 1
         for epoch in range(epochs + 1):
-            tLoss = loss.eval({x: X_train, y: Y_train, alphaP: alpha})
-            tAccuracy = accuracy.eval({x: X_train, y: Y_train, alphaP: alpha})
-            vLoss = loss.eval({x: X_valid, y: Y_valid, alphaP: alpha})
-            vAccuracy = accuracy.eval({x: X_valid, y: Y_valid, alphaP: alpha})
+            tLoss = loss.eval({x: X_train, y: Y_train})
+            tAccuracy = accuracy.eval({x: X_train, y: Y_train})
+            vLoss = loss.eval({x: X_valid, y: Y_valid})
+            vAccuracy = accuracy.eval({x: X_valid, y: Y_valid})
             print("After {} epochs:".format(epoch))
             print("\tTraining Cost: {}".format(tLoss))
             print("\tTraining Accuracy: {}".format(tAccuracy))
@@ -136,12 +143,9 @@ def model(Data_train, Data_valid, layers, activations,
             for step in range(batches):
                 feed = {
                     x: X_shuff[batch_size*step:batch_size*(step+1)],
-                    y: Y_shuff[batch_size*step:batch_size*(step+1)],
-                    alphaP: alpha,
-                    global_step: epoch,
-                    decay_step: 1
+                    y: Y_shuff[batch_size*step:batch_size*(step+1)]
                     }
-                alpha = alpha_decay_op.eval(feed)
+                # alpha = alpha_decay_op.eval(feed)
                 sess.run(train_op, feed)
                 if (step+1) % 100 == 0 and step != 0:
                     print("\tStep {}:".format(step+1))
