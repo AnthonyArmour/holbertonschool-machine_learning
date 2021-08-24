@@ -91,10 +91,6 @@ def model(Data_train, Data_valid, layers, activations,
     """
     X_train, Y_train = Data_train
     X_valid, Y_valid = Data_valid
-    global_step = tf.Variable(0, trainable=False)
-    decay_step = X_train.shape[0] // batch_size
-    if decay_step % batch_size != 0:
-        decay_step += 1
     x = tf.placeholder(name="x", dtype=tf.float32,
                        shape=[None, X_train.shape[1]])
     y = tf.placeholder(name="y", dtype=tf.float32,
@@ -107,6 +103,10 @@ def model(Data_train, Data_valid, layers, activations,
     tf.add_to_collection('loss', loss)
     accuracy = calculate_accuracy(y, y_pred)
     tf.add_to_collection('accuracy', accuracy)
+    global_step = tf.Variable(0, trainable=False)
+    decay_step = X_train.shape[0] // batch_size
+    if decay_step % batch_size != 0:
+        decay_step += 1
     alpha = tf.train.inverse_time_decay(
                                   alpha, global_step, decay_step,
                                   decay_rate, staircase=True
