@@ -12,12 +12,6 @@ import tensorflow as tf
 import numpy as np
 
 
-def cost(Y, A):
-    loss = - (Y * tf.math.log(A) + (1 - Y) * tf.math.log(1 - A))
-    cost = np.sum(loss) / Y.shape[0]
-    return cost
-
-
 def calculate_accuracy(y, y_pred):
     """Calculates accuracy of prediction"""
     pred = tf.math.argmax(y_pred, axis=1)
@@ -51,7 +45,6 @@ def create_batch_norm_layer(prev, n, activation, last):
     batch_norm = tf.nn.batch_normalization(
         Z, mean, variance, beta, gamma, epsilon
     )
-    # if activation is not None:
     return activation(batch_norm)
 
 
