@@ -97,7 +97,12 @@ def model(Data_train, Data_valid, layers, activations,
     # alphaP = tf.placeholder(name="alpha", dtype=tf.float32)
     global_step = tf.Variable(0, trainable=False)
     # decay_step = tf.placeholder(name="decay_step", dtype=tf.float32)
-    decay_step = X_train.shape[1] // batch_size
+    decay_step = X_train.shape[0] // batch_size
+    batches = X_train.shape[0] // batch_size
+    if batches % batch_size != 0:
+        batches += 1
+    if decay_step % batch_size != 0:
+        decay_step += 1
     x = tf.placeholder(name="x", dtype=tf.float32,
                        shape=[None, X_train.shape[1]])
     y = tf.placeholder(name="y", dtype=tf.float32,
@@ -111,21 +116,21 @@ def model(Data_train, Data_valid, layers, activations,
     tf.add_to_collection('loss', loss)
     accuracy = calculate_accuracy(y, y_pred)
     tf.add_to_collection('accuracy', accuracy)
-    train_op = tf.train.AdamOptimizer(
-        alpha, beta1, beta2, epsilon
-        ).minimize(loss, global_step)
     alpha = tf.train.inverse_time_decay(
                                   alpha, global_step, decay_step,
                                   decay_rate, staircase=True
                                   )
+    train_op = tf.train.AdamOptimizer(
+        alpha, beta1, beta2, epsilon
+        ).minimize(loss, global_step)
     tf.add_to_collection("train_op", train_op)
     init = tf.global_variables_initializer()
     with tf.Session() as sess:
         sess.run(init)
-        nx = X_train.shape[0]
-        batches = nx // batch_size
-        if batches % batch_size != 0:
-            batches += 1
+        # nx = X_train.shape[0]
+        # batches = nx // batch_size
+        # if batches % batch_size != 0:
+        #     batches += 1
         for epoch in range(epochs + 1):
             tLoss = loss.eval({x: X_train, y: Y_train})
             tAccuracy = accuracy.eval({x: X_train, y: Y_train})
