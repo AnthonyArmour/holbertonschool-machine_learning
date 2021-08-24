@@ -91,20 +91,14 @@ def model(Data_train, Data_valid, layers, activations,
     """
     X_train, Y_train = Data_train
     X_valid, Y_valid = Data_valid
-    # alphaP = tf.placeholder(name="alpha", dtype=tf.float32)
     global_step = tf.Variable(0, trainable=False)
-    # decay_step = tf.placeholder(name="decay_step", dtype=tf.float32)
     decay_step = X_train.shape[0] // batch_size
-    # batches = X_train.shape[0] // batch_size
-    # if batches % batch_size != 0:
-    #     batches += 1
     if decay_step % batch_size != 0:
         decay_step += 1
     x = tf.placeholder(name="x", dtype=tf.float32,
                        shape=[None, X_train.shape[1]])
     y = tf.placeholder(name="y", dtype=tf.float32,
                        shape=[None, Y_train.shape[1]])
-    # tf.add_to_collection("alpha", alphaP)
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
     y_pred = forward_prop(x, epsilon, layers, activations)
@@ -124,10 +118,6 @@ def model(Data_train, Data_valid, layers, activations,
     init = tf.global_variables_initializer()
     with tf.Session() as sess:
         sess.run(init)
-        # nx = X_train.shape[0]
-        # batches = nx // batch_size
-        # if batches % batch_size != 0:
-        #     batches += 1
         for epoch in range(epochs + 1):
             tLoss = loss.eval({x: X_train, y: Y_train})
             tAccuracy = accuracy.eval({x: X_train, y: Y_train})
@@ -142,18 +132,16 @@ def model(Data_train, Data_valid, layers, activations,
                 break
             shuff = np.random.permutation(len(X_train))
             X_shuff, Y_shuff = X_train[shuff], Y_train[shuff]
-            for step in range(decay_step):
+            for step in range(0, X_train.shape[0], batch_size):
                 feed = {
-                    x: X_shuff[batch_size*step:batch_size*(step+1)],
-                    y: Y_shuff[batch_size*step:batch_size*(step+1)]
+                    x: X_shuff[step:step+batch_size],
+                    y: Y_shuff[step:step+batch_size]
                     }
-                # alpha = alpha_decay_op.eval(feed)
                 sess.run(train_op, feed)
-                if (step+1) % 100 == 0 and step != 0:
-                    print("\tStep {}:".format(step+1))
+                if not ((step // batch_size + 1) % 100):
+                    print("\tStep {}:".format(step//batch_size+1))
                     mini_loss, mini_acc = loss.eval(feed), accuracy.eval(feed)
                     print("\t\tCost: {}".format(mini_loss))
                     print("\t\tAccuracy: {}".format(mini_acc))
-            # alpha = alpha_decay_op.eval(feed)
         saver = tf.train.Saver()
         return saver.save(sess, save_path)
