@@ -15,3 +15,7 @@ This project is about understanding statistical errors for applied machine learn
 * precision(confusion):
 
 > Calculates the precision for each class in a confusion matrix
+
+* specificity(confusion):
+
+> Calculates the specificity for each class in a confusion matrix
