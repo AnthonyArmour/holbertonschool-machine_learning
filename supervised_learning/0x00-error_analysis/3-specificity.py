@@ -23,10 +23,13 @@ def specificity(confusion):
             of each class.
 
     """
-    diag = np.trace(confusion)
+    cSum = np.sum(confusion.flatten())
     specificity = np.zeros((confusion.shape[0]))
     for x in range(confusion.shape[0]):
-        t_neg= diag - confusion[x][x]
+        t_neg = cSum - (
+            np.sum(confusion[x]) + np.sum(confusion[:, x]) -
+            confusion[x][x]
+            )
         specificity[x] = t_neg/(
           np.sum(confusion[:, x]) - confusion[x][x] + t_neg
           )
