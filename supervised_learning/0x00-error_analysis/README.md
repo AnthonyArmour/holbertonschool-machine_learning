@@ -18,4 +18,8 @@ This project is about understanding statistical errors for applied machine learn
 
 * specificity(confusion):
 
-> Calculates the specificity for each class in a confusion matrix
+> Calculates the specificity for each class in a confusion matrix.
+
+* f1_score(confusion):
+
+> Calculates the F1 score of a confusion matrix.
