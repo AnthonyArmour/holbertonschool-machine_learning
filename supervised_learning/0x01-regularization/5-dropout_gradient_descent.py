@@ -28,12 +28,13 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
     dZL, m = cache["A{}".format(L)] - Y, Y.shape[1]
     for x in range(L, 0, -1):
         dw = (np.matmul(dZL, cache["A{}".format(x-1)].T)/m)
-
         db = np.sum(dZL, axis=1, keepdims=True)/m
+
         weights["b{}".format(x)] -= (alpha * db)
         if x != 1:
             mask = cache["D{}".format(x-1)]
             dz = (1 - (cache["A{}".format(x-1)]**2))
             dZL = np.matmul(weights["W{}".format(x)].T, dZL)*dz*mask
+            dZL /= keep_prob
 
         weights["W{}".format(x)] -= alpha * dw
