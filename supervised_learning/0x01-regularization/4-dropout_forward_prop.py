@@ -48,12 +48,10 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     A = {"A0": X}
     for i in range(1, L+1):
         if i != L:
-            A["A{}".format(i)] = activate(i, weights, A, softmax=False)
+            a = activate(i, weights, A, softmax=False)
+            mask = (np.random.rand(a.shape[0], a.shape[1]) < keep_prob).astype(int)
+            A["A{}".format(i)] = (a*mask)/keep_prob
+            A["D{}".format(i)] = mask
         else:
             A["A{}".format(i)] = activate(i, weights, A, softmax=True)
-    for i in range(1, L):
-        a = A["A{}".format(i)]
-        mask = (np.random.rand(a.shape[0], a.shape[1]) < keep_prob).astype(int)
-        A["A{}".format(i)] = (a*mask)/keep_prob
-        A["D{}".format(i)] = mask
     return A
