@@ -22,7 +22,8 @@ def l2_reg_cost(cost, lambtha, weights, L, m):
          The cost of the network accounting for L2.
     """
     norm = 0
-    for w in weights.values():
-        norm += np.sum((w**2).flatten())
+    for k, w in weights.items():
+        if 'W' in k:
+            norm += np.sum((w**2).flatten())
     L2 = (lambtha/(2*m)) * norm
     return cost + L2
