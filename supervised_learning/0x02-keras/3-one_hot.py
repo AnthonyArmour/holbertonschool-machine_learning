@@ -20,7 +20,11 @@ def one_hot(labels, classes=None):
        Returns:
          One hot matrix.
     """
-    classes = np.amax(labels) + 1
+    if classes is None:
+        k = labels.copy()
+        k.sort()
+        classes = k[-1] + 1
+
     mat_encode = np.zeros((len(labels), classes))
     for x, label in enumerate(labels):
         mat_encode[x, label] = 1
