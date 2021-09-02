@@ -5,9 +5,6 @@
 """
 
 
-import numpy as np
-
-
 def one_hot(labels, classes=None):
     """
        One hot encode function to be used to reshape
