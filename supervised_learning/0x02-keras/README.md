@@ -17,3 +17,7 @@
 * one_hot(labels, classes=None):
 
 > One hot encode function to be used to reshape Y_label vector.
+
+* train_model(network, data, labels, batch_size, epochs, verbose=True, shuffle=False):
+
+> Trains a model using mini-batch gradient descent.
