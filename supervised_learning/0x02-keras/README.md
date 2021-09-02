@@ -33,3 +33,23 @@
 * load_model(filename):
 
 > loads model
+
+* save_weights(network, filename, save_format='h5'):
+
+> Saves weights of the model
+
+* load_weights(network, filename):
+
+> Loads weights of a model.
+
+* save_config(network, filename):
+
+> Saves config of model to json.
+
+* load_config(filename):
+
+> Loads model with specific cofiguration
+
+* test_model(network, data, labels, verbose=True):
+
+> Tests model on testing data.
