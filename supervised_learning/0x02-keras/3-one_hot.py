@@ -5,6 +5,9 @@
 """
 
 
+import tensorflow.keras as k
+
+
 def one_hot(labels, classes=None):
     """
        One hot encode function to be used to reshape
@@ -17,12 +20,4 @@ def one_hot(labels, classes=None):
        Returns:
          One hot matrix.
     """
-    if classes is None:
-        k = labels.copy()
-        k.sort()
-        classes = k[-1] + 1
-
-    mat_encode = np.zeros((len(labels), classes))
-    for x, label in enumerate(labels):
-        mat_encode[x, label] = 1
-    return mat_encode
+    return k.utils.to_categorical(labels, classes)
