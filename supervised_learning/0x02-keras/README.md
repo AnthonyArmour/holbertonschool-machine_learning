@@ -53,3 +53,7 @@
 * test_model(network, data, labels, verbose=True):
 
 > Tests model on testing data.
+
+* predict(network, data, verbose=False):
+
+> Makes a prediction using a neural network.
