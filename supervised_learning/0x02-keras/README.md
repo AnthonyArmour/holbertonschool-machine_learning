@@ -21,3 +21,15 @@
 * train_model(network, data, labels, batch_size, epochs, verbose=True, shuffle=False):
 
 > Trains a model using mini-batch gradient descent.
+
+* train_model(network, data, labels, batch_size, epochs, validation_data=none, learning_rate_decay=False, alpha=0.1, decay_rate=1, verbose=True, shuffle=False):
+
+> Trains a model using mini-batch gradient descent.
+
+* save_model(network, filename):
+
+> Saves Model
+
+* load_model(filename):
+
+> loads model
