@@ -6,7 +6,6 @@
 
 
 import numpy as np
-from math import ceil, floor
 
 
 def convolve_grayscale_same(images, kernel):
@@ -23,8 +22,8 @@ def convolve_grayscale_same(images, kernel):
     samples, samp_h, samp_w = images.shape
     filter_h, filter_w = kernel.shape
 
-    pad_h = ceil((filter_h-1)/2)
-    pad_w = ceil((filter_w-1)/2)
+    pad_h = filter_h // 2
+    pad_w = filter_w // 2
 
     padded = np.pad(
         images, ((0, 0), (pad_h, pad_h), (pad_w, pad_w)), 'constant'
