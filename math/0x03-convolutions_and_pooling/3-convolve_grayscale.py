@@ -40,7 +40,7 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     out_h = (samp_h + (2 * pad_h) - filter_h) // sh + 1
     out_w = (samp_w + (2 * pad_w) - filter_w) // sw + 1
 
-    conv = np.zeros((samples, samp_h, samp_w))
+    conv = np.zeros((samples, out_h, out_w))
 
     for h in range(out_h):
         for w in range(out_w):
