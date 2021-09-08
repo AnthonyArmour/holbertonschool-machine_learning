@@ -44,7 +44,7 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
 
     for h in range(out_h):
         for w in range(out_w):
-            conv[:, w, h] = (
+            conv[:, h, w] = (
                 kernel * padded[:, sh*h: sh*h+filter_h, sw*w:sw*w+filter_w]
                 ).sum(axis=(1, 2))
     return conv
