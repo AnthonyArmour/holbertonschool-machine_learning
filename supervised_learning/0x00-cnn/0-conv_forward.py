@@ -34,8 +34,8 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
         pad_h = int((((hP - 1) * sh) + kh - hP) // 2 + 1)
         pad_w = int((((wP - 1) * sw) + kw - wP) // 2 + 1)
 
-    outH = int((hP + (2 * pad_h) - kh) // sh + 1)
-    outW = int((wP + (2 * pad_w) - kw) // sw + 1)
+    outH = int(((hP + 2 * pad_h - kh) / sh) + 1)
+    outW = int(((wP + 2 * pad_w - kw) / sw) + 1)
 
     out_dim = (m, outH, outW, cN)
     conv = np.zeros(out_dim)
