@@ -30,7 +30,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
 
     if padding == 'valid':
         pad_h, pad_w = 0, 0
-    else:
+    elif padding == 'same':
         pad_h = (((hP - 1) * sh) + kh - hP) // 2
         pad_w = (((wP - 1) * sw) + kw - wP) // 2
 
@@ -43,14 +43,14 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
         mode='constant', constant_values=0
         )
 
-    for i in range(outH):
-        for j in range(outW):
-            h = i * sh
-            w = j * sw
-            box = padded[:, h:h+kh, w:w+kw]
-            for prop in range(cN):
+    for prop in range(cN):
+        for i in range(outH):
+            for j in range(outW):
+                h = i * sh
+                w = j * sw
+                box = padded[:, h:h+kh, w:w+kw]
                 conv[:, i, j, prop] = np.sum(np.multiply(
                     W[:, :, :, prop], box, axis=(1, 2, 3)
-                    )) + b[:, :, :, i]
+                    )) + b[:, :, :, prop]
 
     return activation(conv)
