@@ -23,9 +23,9 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
          padding: Indicates type of padding
          stride: tuple - (sh, sw) containing strides
     """
-    m, hP, wP, cP = A_prev.shape
+    _, hP, wP, cP = A_prev.shape
     m, hN, wN, cN = dZ.shape
-    kh, kw, cP, cN = W.shape
+    kh, kw, _, _ = W.shape
     sh, sw = stride
 
     if padding == 'valid':
@@ -51,7 +51,9 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                 for flt in range(cN):
                     dz = dZ[frame, h, w, flt]
                     box = A_prev[frame, h*sh:h*sh+kh, w*sw:w*sw+kw, :]
-                    dW[:, :, :, flt] += box*dz
+                    dW[:, :, :, flt] += np.multiply(
+                        box, dz
+                    )
                     dA[frame, h*sh:h*sh+kh, w*sw:w*sw+kw, :] += (
                         np.multiply(W[:, :, :, flt], dz)
                     )
