@@ -13,9 +13,9 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
        Performs back propagation over a pooling layer of a neural network.
 
        Args:
-         dA: numpy.ndarray - (m, h_new, w_new, c_new) contains partial
+         dA: numpy.ndarray - (m, hP, wP, cP) contains partial
            derivatives with respect to the pooling layer
-         A_prev: numpy.ndarray - (m, h_prev, w_prev, c) output
+         A_prev: numpy.ndarray - (m, hN, wN, c) output
            of previous layer
          kernel_shape: tuple - (kh, kw) size of kernel
          stride: tuple - (sh, sw) containing strides
@@ -24,28 +24,28 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
        Return:
          Partial derivatives with respect to previous layer.
     """
-    m, hP, wP, cP = A_prev.shape
-    _, hN, wN, cN = dA.shape
+    m, hP, wP, cP = dA.shape
+    _, hN, wN, cN = A_prev.shape
     kh, kw = kernel_shape
     sh, sw = stride
-    da = np.zeros_like(A_prev)
+
+    der = np.zeros_like(A_prev)
 
     for frame in range(m):
         for h in range(hP):
-            ah = sh*h
+            ah = sh * h
             for w in range(wP):
-                aw = sw+w
-                for flt in range(cP):
+                aw = sw * w
+                for c in range(cP):
                     if mode == 'avg':
-                        avg = dA[frame, h, w, flt]/kh/kw
-                        da[frame, ah:ah+kh, aw:aw+kw, flt] += (
-                            np.ones((kh, kw))*avg
+                        avg_dA = dA[frame, h, w, c] / kh / kw
+                        der[frame, ah: ah+kh, aw: aw+kw, c] += (
+                            np.ones((kh, kw)) * avg_dA
                         )
                     if mode == 'max':
-                        box = A_prev[frame, ah:ah+kh, aw:aw+kw, flt]
+                        box = A_prev[frame, ah: ah+kh, aw: aw+kw, c]
                         mask = (box == np.max(box))
-                        da[frame, ah:ah+kh, aw:aw+kw, flt] += (
-                            mask*dA[frame, h, w, flt]
+                        der[frame, ah: ah+kh, aw: aw+kw, c] += (
+                            mask * dA[frame, h, w, c]
                         )
-
-    return da
+    return der
