@@ -40,7 +40,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     out_dim = (m, outH, outW, cN)
     conv = np.zeros(out_dim)
     padded = np.pad(
-        A_prev, ((0, 0), (pad_h, pad_h), (pad_w, pad_w), (0, 0)), 'constant'
+        A_prev, ((0,), (pad_h,), (pad_w,), (0,)), 'constant'
         )
 
     for i in range(outH):
