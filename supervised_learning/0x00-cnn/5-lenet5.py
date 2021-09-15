@@ -21,7 +21,7 @@ def lenet5(X):
          loss tensor
          accuracy tensor
     """
-    init = K.initializers.HeNormal()
+    init = K.initializers.he_normal()
     conv1 = K.layers.Conv2D(
         filters=6, kernel_size=(5, 5), padding='same',
         activation='relu', kernel_initializer=init
