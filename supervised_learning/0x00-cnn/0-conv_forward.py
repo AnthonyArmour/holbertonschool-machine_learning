@@ -29,13 +29,13 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     sh, sw = stride[0], stride[1]
 
     if padding == 'valid':
-        ph = pw = 0
+        ph, pw = 0, 0
     else:
-        pad_h = int((((hP - 1) * sh) + kh - hP) // 2)
-        pad_w = int((((wP - 1) * sw) + kw - wP) // 2)
+        pad_h = (((hP - 1) * sh) + kh - hP) // 2
+        pad_w = (((wP - 1) * sw) + kw - wP) // 2
 
-    outH = int(((hP + 2 * pad_h - kh) / sh) + 1)
-    outW = int(((wP + 2 * pad_w - kw) / sw) + 1)
+    outH = ((hP + (2 * pad_h) - kh) // sh + 1)
+    outW = ((wP + (2 * pad_w) - kw) // sw + 1)
 
     out_dim = (m, outH, outW, cN)
     conv = np.zeros(out_dim)
