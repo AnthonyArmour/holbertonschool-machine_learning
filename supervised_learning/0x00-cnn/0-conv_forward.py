@@ -26,7 +26,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     """
     m, hP, wP, cP = A_prev.shape
     kh, kw, cP, cN = W.shape
-    sh, sw = stride[0], stride[1]
+    sh, sw = stride
 
     if padding == 'valid':
         ph, pw = 0, 0
@@ -34,11 +34,10 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
         pad_h = (((hP - 1) * sh) + kh - hP) // 2
         pad_w = (((wP - 1) * sw) + kw - wP) // 2
 
-    outH = ((hP + (2 * pad_h) - kh) // sh + 1)
-    outW = ((wP + (2 * pad_w) - kw) // sw + 1)
+    outH = (hP + (2 * pad_h) - kh) // sh + 1
+    outW = (wP + (2 * pad_w) - kw) // sw + 1
 
-    out_dim = (m, outH, outW, cN)
-    conv = np.zeros(out_dim)
+    conv = np.zeros((m, outH, outW, cN))
     padded = np.pad(
         A_prev, ((0, 0), (pad_h, pad_h), (pad_w, pad_w), (0, 0)),
         mode='constant', constant_values=0
@@ -52,6 +51,6 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
             for prop in range(cN):
                 conv[:, i, j, prop] = np.sum(np.multiply(
                     W[:, :, :, prop], box, axis=(1, 2, 3)
-                    ))
+                    )) + b[:, :, :, i]
 
-    return activation(conv+b)
+    return activation(conv)
