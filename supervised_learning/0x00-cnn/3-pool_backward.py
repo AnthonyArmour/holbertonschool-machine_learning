@@ -24,24 +24,24 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
        Return:
          Partial derivatives with respect to previous layer.
     """
-    _, hP, wP, cP = A_prev.shape
-    m, hN, wN, cN = dA.shape
+    m, hP, wP, cP = A_prev.shape
+    _, hN, wN, cN = dA.shape
     kh, kw = kernel_shape
     sh, sw = stride
     da = np.zeros_like(A_prev)
 
     for frame in range(m):
-        for h in range(hN):
+        for h in range(hP):
             ah = sh*h
-            for w in range(wN):
+            for w in range(wP):
                 aw = sw+w
-                for flt in range(cN):
+                for flt in range(cP):
                     if mode == 'avg':
                         avg = dA[frame, h, w, flt]/kh/kw
                         da[frame, ah:ah+kh, aw:aw+kw, flt] += (
                             np.ones((kh, kw))*avg
                         )
-                    else:
+                    if mode == 'max':
                         box = A_prev[frame, ah:ah+kh, aw:aw+kw, flt]
                         mask = (box == np.max(box))
                         da[frame, ah:ah+kh, aw:aw+kw, flt] += (
