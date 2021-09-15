@@ -53,6 +53,6 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     dW[:, :, :, flt] += box*dz
                     dA[frame, h*sh:h*sh+kh, w*sw:w*sw+kw, :] += dz*filter
 
-    if padding == 'same':
-        dA = dA[:, pad_h:-pad_h, pad_w:-pad_w, :]
+    # if padding == 'same':
+    #     dA = dA[:, pad_h:-pad_h, pad_w:-pad_w, :]
     return dA, dW, db
