@@ -48,9 +48,9 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
             for j in range(outW):
                 h = i * sh
                 w = j * sw
-                box = padded[:, h:h+kh, w:w+kw]
                 conv[:, i, j, prop] = np.sum(np.multiply(
-                    W[:, :, :, prop], box, axis=(1, 2, 3)
+                    W[:, :, :, prop], padded[:, h:h+kh, w:w+kw],
+                    axis=(1, 2, 3)
                     )) + b[:, :, :, prop]
 
     return activation(conv)
