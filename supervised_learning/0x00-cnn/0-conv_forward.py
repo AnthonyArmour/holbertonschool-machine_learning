@@ -50,8 +50,8 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
             w = j * sw
             box = padded[:, h:h+kh, w:w+kw, :]
             for prop in range(cN):
-                conv[:, i, j, prop] = np.tensordot(
-                    box, W[:, :, :, prop], axis=3
-                    )
+                conv[:, i, j, prop] = np.sum(np.multiply(
+                    W[:, :, :, prop], box, axis=(1, 2, 3)
+                    ))
 
     return activation(conv+b)
