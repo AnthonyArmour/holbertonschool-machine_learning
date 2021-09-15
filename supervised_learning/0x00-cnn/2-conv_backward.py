@@ -40,19 +40,22 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
         )
 
     dW = np.zeros_like(W)
-    dA = np.zeros_like(A_prev)
+    da = np.zeros_like(A_prev)
+    dA = np.pad(da, ((0, 0), (pad_h, pad_h), (pad_w, pad_w), (0, 0)),
+                      mode='constant', constant_values=0)
     db = np.sum(dZ, axis=(0, 1, 2), keepdims=True)
 
     for frame in range(m):
         for h in range(hN):
             for w in range(wN):
                 for flt in range(cN):
-                    filter = W[:, :, :, flt]
                     dz = dZ[frame, h, w, flt]
                     box = A_prev[frame, h*sh:h*sh+kh, w*sw:w*sw+kw, :]
                     dW[:, :, :, flt] += box*dz
-                    dA[frame, h*sh:h*sh+kh, w*sw:w*sw+kw, :] += dz*filter
+                    dA[frame, h*sh:h*sh+kh, w*sw:w*sw+kw, :] += (
+                        np.multiply(W[:, :, :, flt], dz)
+                    )
 
-    # if padding == 'same':
-    #     dA = dA[:, pad_h:-pad_h, pad_w:-pad_w, :]
+    if padding == 'same':
+        dA = dA[:, pad_h:-pad_h, pad_w:-pad_w, :]
     return dA, dW, db
