@@ -34,7 +34,9 @@ def resnet50():
     input = K.Input(shape=(224, 224, 3))
 
     X = K.layers.ZeroPadding2D((3, 3))(input)
-    X = K.layers.Conv2D(64, (7, 7), strides=(2, 2), kernel_initializer=init)(X)
+    X = K.layers.Conv2D(
+        64, (7, 7), strides=(2, 2), padding='same', kernel_initializer=init
+        )(input)
     X = K.layers.BatchNormalization(axis=3)(X)
     X = K.layers.Activation('relu')(X)
     X = K.layers.MaxPooling2D((3, 3), strides=(2, 2), padding='same')(X)
