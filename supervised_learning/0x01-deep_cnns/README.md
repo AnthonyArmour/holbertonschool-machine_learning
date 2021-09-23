@@ -25,3 +25,7 @@
 * dense_block(X, nb_filters, growth_rate, layers):
 
 > Builds a dense block as described in Densely Connected Convolutional Networks.
+
+* transition_layer(X, nb_filters, compression):
+
+> Builds a transition layer as described in Densely Connected Convolutional Networks.
