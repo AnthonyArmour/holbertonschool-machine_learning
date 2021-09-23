@@ -17,3 +17,7 @@
 * projection_block(A_prev, filters, s=2):
 
 > Builds a projection block as described in Deep Residual Learning for Image Recognition (2015).
+
+* resnet50():
+
+> Builds the ResNet-50 architecture as described in Deep Residual Learning for Image Recognition (2015).
