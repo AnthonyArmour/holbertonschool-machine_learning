@@ -21,3 +21,7 @@
 * resnet50():
 
 > Builds the ResNet-50 architecture as described in Deep Residual Learning for Image Recognition (2015).
+
+* dense_block(X, nb_filters, growth_rate, layers):
+
+> Builds a dense block as described in Densely Connected Convolutional Networks.
