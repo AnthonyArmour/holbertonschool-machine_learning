@@ -9,3 +9,7 @@
 * inception_network():
 
 > Builds the inception network as described in Going Deeper with Convolutions (2014).
+
+* identity_block(A_prev, filters):
+
+> Builds an identity block as described in Deep Residual Learning for Image Recognition (2015).
