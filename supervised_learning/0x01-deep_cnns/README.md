@@ -29,3 +29,7 @@
 * transition_layer(X, nb_filters, compression):
 
 > Builds a transition layer as described in Densely Connected Convolutional Networks.
+
+* densenet121(growth_rate=32, compression=1.0):
+
+> Builds the DenseNet-121 architecture as described in Densely Connected Convolutional Networks.
