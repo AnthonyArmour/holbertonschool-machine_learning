@@ -23,12 +23,6 @@ def projection_block(A_prev, filters, s=2):
     filts = [(1, 1), (3, 3), (1, 1)]
     init, activation = K.initializers.he_normal(), A_prev
 
-    projection = K.layers.Conv2D(
-        filters[-1], (1, 1), strides=(s, s), padding='same',
-        kernel_initializer=init
-    )(A_prev)
-    batch_projection = K.layers.BatchNormalization(axis=3)(projection)
-
     for x, f in enumerate(filters):
         if x == 0:
             stride = (s, s)
@@ -41,6 +35,12 @@ def projection_block(A_prev, filters, s=2):
         batch1 = K.layers.BatchNormalization(axis=3)(conv1)
         if x < len(filts) - 1:
             activation = K.layers.Activation('relu')(batch1)
+
+    projection = K.layers.Conv2D(
+        filters[-1], (1, 1), strides=(s, s), padding='same',
+        kernel_initializer=init
+    )(A_prev)
+    batch_projection = K.layers.BatchNormalization(axis=3)(projection)
 
     out = K.layers.Add()([batch1, batch_projection])
     activated_out = K.layers.Activation('relu')(out)
