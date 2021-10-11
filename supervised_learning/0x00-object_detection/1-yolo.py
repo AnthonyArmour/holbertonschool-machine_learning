@@ -67,57 +67,50 @@ class Yolo():
                 contains class probabilities for each output
         """
         img_height, img_width = image_size[0], image_size[1]
-        boxes = [output[:, :, :, :4] for output in outputs]
-        # print("Boxes shape - {} {} {}".format(
-        # boxes[0].shape, boxes[1].shape, boxes[2].shape))
+        boxes = [output[:, :, :, 1:5] for output in outputs]
         box_confidence = []
         class_probs = []
-        # box_confidence = [output[:, :, :, 5] for output in outputs]
-        # class_probs = [output[:, :, :, 6:] for output in outputs]
+
         Cx, Cy, cornersX, cornersY = [], [], [], []
         for output in outputs:
+            # Get width and height of grid cells
             Cx.append(img_width/output.shape[1])
             Cy.append(img_height/output.shape[0])
+            # create grid cells
             cornersX.append(np.zeros((output.shape[0], output.shape[1], 1)))
             cornersY.append(np.zeros((output.shape[0], output.shape[1], 1)))
 
+        # Set grid cells top left corner X and Y
         for i in range(len(cornersX)):
-            for x in range(outputs[i].shape[0]):
-                for y in range(outputs[i].shape[1]):
-                    cornersX[i][x, y, 0] = Cx[i] * y
-                    cornersY[i][x, y, 0] = Cy[i] * x
-
-        # print("CornersX then CornersY")
-        # for x in range(3):
-        #     print("shape", cornersX[x].shape, cornersY[x].shape)
-        # print(cornersX)
-        # print(cornersY)
-
-        for output in outputs:
-            box_confidence.append(backend.sigmoid(output[:, :, :, 5]))
-
-        for output in outputs:
-            class_probs.append(backend.softmax(output[:, :, :, 6:]))
+            for k in range(outputs[i].shape[0]):
+                for j in range(outputs[i].shape[1]):
+                    cornersX[i][k, j, 0] = Cx[i] * j
+                    cornersY[i][k, j, 0] = Cy[i] * k
 
         sess = backend.get_session()
+
+        for out in outputs:
+            conf = sess.run(backend.sigmoid(out[:, :, :, 0]))
+            # box_confidence.append(np.expand_dims(conf, axis=2))
+            shp = out.shape[:3]
+            box_confidence.append(
+                conf.reshape((shp[0], shp[1], shp[2], 1))
+                )
+            class_probs.append(backend.softmax(out[:, :, :, 5:]))
+
         for x, box in enumerate(boxes):
             b1 = (
                 (backend.sigmoid(box[:, :, :, 0])+cornersX[x])/img_width
                 )
-            # print("b1 and folling shapes")
-            # print(b1.shape)
             b2 = (
                 (backend.sigmoid(box[:, :, :, 1])+cornersY[x])/img_height
                 )
-            # print(b2.shape)
             b3 = (
                 (tf.math.exp(box[:, :, :, 2])*self.anchors[x, :, 0])/img_width
                 )
-            # print(b3.shape)
             b4 = (
                 (tf.math.exp(box[:, :, :, 3])*self.anchors[x, :, 1])/img_height
                 )
-            # print(type(sess.run(b4)))
             box = np.stack(
                 (sess.run(b1), sess.run(b2), sess.run(b3), sess.run(b4)),
                 axis=2)
@@ -131,7 +124,4 @@ class Yolo():
             y2 = box[:, :, :, 1] + (box[:, :, :, 3] * 0.5)
             box_pred.append(np.concatenate((x1, y1, x2, y2), axis=2))
 
-        # for box in box_pred:
-        #     print("prediction box shape- ", box.shape)
-
-        return (box_pred, sess.run(box_confidence), sess.run(class_probs))
+        return (box_pred, box_confidence, sess.run(class_probs))
