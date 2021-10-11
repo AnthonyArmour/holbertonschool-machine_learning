@@ -83,8 +83,7 @@ class Yolo():
             cx = np.repeat(cx, gridH, axis=0)
             cy = np.arange(gridW).reshape(1, gridW)
             cy = np.repeat(cy, gridH, axis=0).T
-            # print("\n\n\n\n\n\n\ncx shape- {} | cy shape- {}
-            # \n\n\n\n\n".format(cx.shape, cy.shape))
+
             cornersX.append(
                 np.repeat(cx[..., np.newaxis], anchors, axis=2)
                 )
@@ -94,34 +93,7 @@ class Yolo():
             box_confidence.append(self.sigmoid(output[..., 4:5]))
             class_probs.append(self.sigmoid(output[..., 5:]))
 
-            # create grid cells
-            # cornersX.append(np.zeros((output.shape[0], output.shape[1], 1)))
-            # cornersY.append(np.zeros((output.shape[0], output.shape[1], 1)))
 
-            # cx = np.arange(grid_width).reshape(1, grid_width)
-            # cx = np.repeat(cx, grid_height, axis=0)
-            # cx = np.repeat(cx[..., np.newaxis], anchors, axis=2)
-            # cy = np.arange(grid_width).reshape(1, grid_width)
-            # cy = np.repeat(cy, grid_height, axis=0).T
-            # cy = np.repeat(cy[..., np.newaxis], anchors, axis=2)
-
-        # Set grid cells top left corner X and Y
-
-        # for i in range(len(cornersX)):
-        #     for k in range(outputs[i].shape[0]):
-        #         for j in range(outputs[i].shape[1]):
-        #             cornersX[i][k, j, 0] = Cx[i] * j
-        #             cornersY[i][k, j, 0] = Cy[i] * k
-
-        # sess = backend.get_session()
-
-        # for out in outputs:
-        #     # conf = sess.run(backend.sigmoid(out[:, :, :, 0]))
-        #     conf = self.sigmoid(out[:, :, :, 0])
-        #     # box_confidence.append(np.expand_dims(conf, axis=2))
-        #     shp = out.shape[:3]
-        #     box_confidence.append(self.sigmoid(out[..., 4:5]))
-        #     class_probs.append(self.sigmoid(out[..., 5:]))
         inputW = self.model.input.shape[1].value
         inputH = self.model.input.shape[2].value
 
@@ -144,10 +116,10 @@ class Yolo():
         box_pred = []
 
         for box in boxes:
-            x1 = box[..., 0] - (box[..., 2] * 0.5)*IW
-            y1 = box[..., 1] - (box[..., 3] * 0.5)*IH
-            x2 = box[..., 0] + (box[..., 2] * 0.5)*IW
-            y2 = box[..., 1] + (box[..., 3] * 0.5)*IH
+            x1 = (box[..., 0] - (box[..., 2] * 0.5))*IW
+            y1 = (box[..., 1] - (box[..., 3] * 0.5))*IH
+            x2 = (box[..., 0] + (box[..., 2] * 0.5))*IW
+            y2 = (box[..., 1] + (box[..., 3] * 0.5))*IH
             box_pred.append(np.concatenate((x1, y1, x2, y2), axis=2))
 
         return (box_pred, box_confidence, class_probs)
