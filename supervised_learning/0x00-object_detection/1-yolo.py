@@ -48,13 +48,17 @@ class Yolo():
         self.nms_t = nms_t
         self.anchors = anchors
 
+    def sigmoid(self, arr):
+        """sigmoid activation function"""
+        return 1 / (1+np.exp(-1*arr))
+
     def process_outputs(self, outputs, image_size):
         """
            Args:
              outputs: numpy.ndarray - contains predictions from model
                for single image.
              image_size: numpy.ndarray - images original
-               size (img_height, img_width)
+               size (image_height, image_width)
 
            Return:
               tuple - (boxes, box_confidence, box_class_probs)
@@ -66,62 +70,81 @@ class Yolo():
                 (grid_height, grid_width, anchor_boxes, classes)
                 contains class probabilities for each output
         """
-        img_height, img_width = image_size[0], image_size[1]
-        boxes = [output[:, :, :, 1:5] for output in outputs]
+        IH, IW = image_size[0], image_size[1]
+        boxes = [output[:, :, :, :4] for output in outputs]
         box_confidence = []
         class_probs = []
 
         Cx, Cy, cornersX, cornersY = [], [], [], []
         for output in outputs:
             # Get width and height of grid cells
-            Cx.append(img_width/output.shape[1])
-            Cy.append(img_height/output.shape[0])
+            gridH, gridW, anchors = output.shape[:3]
+            cx = np.arange(gridW).reshape(1, gridW)
+            cx = np.repeat(cx, gridH, axis=0)
+            cy = np.arange(gridW).reshape(1, gridW)
+            cy = np.repeat(cy, gridH, axis=0).T
+            # print("\n\n\n\n\n\n\ncx shape- {} | cy shape- {}
+            # \n\n\n\n\n".format(cx.shape, cy.shape))
+            cornersX.append(
+                np.repeat(cx[..., np.newaxis], anchors, axis=2)
+                )
+            cornersY.append(
+                np.repeat(cy[..., np.newaxis], anchors, axis=2)
+                )
             # create grid cells
-            cornersX.append(np.zeros((output.shape[0], output.shape[1], 1)))
-            cornersY.append(np.zeros((output.shape[0], output.shape[1], 1)))
+            # cornersX.append(np.zeros((output.shape[0], output.shape[1], 1)))
+            # cornersY.append(np.zeros((output.shape[0], output.shape[1], 1)))
+
+            # cx = np.arange(grid_width).reshape(1, grid_width)
+            # cx = np.repeat(cx, grid_height, axis=0)
+            # cx = np.repeat(cx[..., np.newaxis], anchors, axis=2)
+            # cy = np.arange(grid_width).reshape(1, grid_width)
+            # cy = np.repeat(cy, grid_height, axis=0).T
+            # cy = np.repeat(cy[..., np.newaxis], anchors, axis=2)
 
         # Set grid cells top left corner X and Y
-        for i in range(len(cornersX)):
-            for k in range(outputs[i].shape[0]):
-                for j in range(outputs[i].shape[1]):
-                    cornersX[i][k, j, 0] = Cx[i] * j
-                    cornersY[i][k, j, 0] = Cy[i] * k
 
-        sess = backend.get_session()
+        # for i in range(len(cornersX)):
+        #     for k in range(outputs[i].shape[0]):
+        #         for j in range(outputs[i].shape[1]):
+        #             cornersX[i][k, j, 0] = Cx[i] * j
+        #             cornersY[i][k, j, 0] = Cy[i] * k
+
+        # sess = backend.get_session()
 
         for out in outputs:
-            conf = sess.run(backend.sigmoid(out[:, :, :, 0]))
+            # conf = sess.run(backend.sigmoid(out[:, :, :, 0]))
+            conf = self.sigmoid(out[:, :, :, 0])
             # box_confidence.append(np.expand_dims(conf, axis=2))
             shp = out.shape[:3]
             box_confidence.append(
                 conf.reshape((shp[0], shp[1], shp[2], 1))
                 )
-            class_probs.append(backend.softmax(out[:, :, :, 5:]))
+            class_probs.append(self.sigmoid(out[:, :, :, 5:]))
 
         for x, box in enumerate(boxes):
             b1 = (
-                (backend.sigmoid(box[:, :, :, 0])+cornersX[x])/img_width
+                (self.sigmoid(box[:, :, :, 0])+cornersX[x])/IW
                 )
             b2 = (
-                (backend.sigmoid(box[:, :, :, 1])+cornersY[x])/img_height
+                (self.sigmoid(box[:, :, :, 1])+cornersY[x])/IH
                 )
             b3 = (
-                (tf.math.exp(box[:, :, :, 2])*self.anchors[x, :, 0])/img_width
+                (np.exp(box[:, :, :, 2])*self.anchors[x, :, 0])/IW
                 )
             b4 = (
-                (tf.math.exp(box[:, :, :, 3])*self.anchors[x, :, 1])/img_height
+                (np.exp(box[:, :, :, 3])*self.anchors[x, :, 1])/IH
                 )
-            box = np.stack(
-                (sess.run(b1), sess.run(b2), sess.run(b3), sess.run(b4)),
-                axis=2)
+            box = np.stack((b1, b2, b3, b4), axis=2)
             # print(box.shape, "box shape")
+            # (sess.run(b1), sess.run(b2), sess.run(b3), sess.run(b4))
         box_pred = []
 
         for box in boxes:
-            x1 = box[:, :, :, 0] - (box[:, :, :, 2] * 0.5)
-            y1 = box[:, :, :, 1] - (box[:, :, :, 3] * 0.5)
-            x2 = box[:, :, :, 0] + (box[:, :, :, 2] * 0.5)
-            y2 = box[:, :, :, 1] + (box[:, :, :, 3] * 0.5)
+            x1 = box[:, :, :, 0] - (box[:, :, :, 2] * 0.5)*IW
+            y1 = box[:, :, :, 1] - (box[:, :, :, 3] * 0.5)*IH
+            x2 = box[:, :, :, 0] + (box[:, :, :, 2] * 0.5)*IW
+            y2 = box[:, :, :, 1] + (box[:, :, :, 3] * 0.5)*IH
             box_pred.append(np.concatenate((x1, y1, x2, y2), axis=2))
 
-        return (box_pred, box_confidence, sess.run(class_probs))
+        return (box_pred, box_confidence, class_probs)
