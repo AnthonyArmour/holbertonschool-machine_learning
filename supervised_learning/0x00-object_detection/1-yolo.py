@@ -72,10 +72,9 @@ class Yolo():
         """
         IH, IW = image_size[0], image_size[1]
         boxes = [output[..., :4] for output in outputs]
-        box_confidence = []
-        class_probs = []
-
+        box_confidence, class_probs = [], []
         cornersX, cornersY = [], []
+
         for output in outputs:
             # Get width and height of grid cells
             gridH, gridW, anchors = output.shape[:3]
@@ -93,7 +92,6 @@ class Yolo():
             box_confidence.append(self.sigmoid(output[..., 4:5]))
             class_probs.append(self.sigmoid(output[..., 5:]))
 
-
         inputW = self.model.input.shape[1].value
         inputH = self.model.input.shape[2].value
 
@@ -110,16 +108,14 @@ class Yolo():
             bh = (
                 (np.exp(box[..., 3])*self.anchors[x, :, 1])/inputH
                 )
-            box = np.stack((bx, by, bw, bh), axis=2)
-            # print(box.shape, "box shape")
-            # (sess.run(bx), sess.run(by), sess.run(bw), sess.run(bh))
-        box_pred = []
 
-        for box in boxes:
-            x1 = (box[..., 0] - (box[..., 2] * 0.5))*IW
-            y1 = (box[..., 1] - (box[..., 3] * 0.5))*IH
-            x2 = (box[..., 0] + (box[..., 2] * 0.5))*IW
-            y2 = (box[..., 1] + (box[..., 3] * 0.5))*IH
-            box_pred.append(np.concatenate((x1, y1, x2, y2), axis=2))
+            # x1
+            box[..., 0] = (bx - (bw * 0.5))*IW
+            # y1
+            box[..., 1] = (by - (bh * 0.5))*IH
+            # x2
+            box[..., 2] = (bx + (bw * 0.5))*IW
+            # y2
+            box[..., 3] = (by + (bh * 0.5))*IH
 
-        return (box_pred, box_confidence, class_probs)
+        return (boxes, box_confidence, class_probs)
