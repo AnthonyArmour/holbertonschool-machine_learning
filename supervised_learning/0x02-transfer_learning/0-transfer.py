@@ -82,3 +82,5 @@ model.compile(optimizer=Adam, loss="categorical_crossentropy", metrics=['acc'])
 history = model.fit(
     x_train, y_train, validation_data=(x_valid, y_valid),
     batch_size=300, epochs=5, verbose=True)
+
+model.save("cifar10.h5")
