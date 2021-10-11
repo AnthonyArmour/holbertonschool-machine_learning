@@ -71,7 +71,7 @@ class Yolo():
                 contains class probabilities for each output
         """
         IH, IW = image_size[0], image_size[1]
-        boxes = [output[:, :, :, :4] for output in outputs]
+        boxes = [output[..., :4] for output in outputs]
         box_confidence = []
         class_probs = []
 
@@ -122,23 +122,25 @@ class Yolo():
         #     shp = out.shape[:3]
         #     box_confidence.append(self.sigmoid(out[..., 4:5]))
         #     class_probs.append(self.sigmoid(out[..., 5:]))
+        inputW = self.model.input.shape[1].value
+        inputH = self.model.input.shape[2].value
 
         for x, box in enumerate(boxes):
-            b1 = (
-                (self.sigmoid(box[:, :, :, 0])+cornersX[x])/IW
+            bx = (
+                (self.sigmoid(box[..., 0])+cornersX[x])/outputs[x].shape[1]
                 )
-            b2 = (
-                (self.sigmoid(box[:, :, :, 1])+cornersY[x])/IH
+            by = (
+                (self.sigmoid(box[..., 1])+cornersY[x])/outputs[x].shape[0]
                 )
-            b3 = (
-                (np.exp(box[:, :, :, 2])*self.anchors[x, :, 0])/IW
+            bw = (
+                (np.exp(box[..., 2])*self.anchors[x, :, 0])/inputW
                 )
-            b4 = (
-                (np.exp(box[:, :, :, 3])*self.anchors[x, :, 1])/IH
+            bh = (
+                (np.exp(box[..., 3])*self.anchors[x, :, 1])/inputH
                 )
-            box = np.stack((b1, b2, b3, b4), axis=2)
+            box = np.stack((bx, by, bw, bh), axis=2)
             # print(box.shape, "box shape")
-            # (sess.run(b1), sess.run(b2), sess.run(b3), sess.run(b4))
+            # (sess.run(bx), sess.run(by), sess.run(bw), sess.run(bh))
         box_pred = []
 
         for box in boxes:
