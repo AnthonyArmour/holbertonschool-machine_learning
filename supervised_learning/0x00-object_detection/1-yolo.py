@@ -76,7 +76,7 @@ class Yolo():
         cornersX, cornersY = [], []
 
         for output in outputs:
-            # Get width and height of grid cells
+            # Organize grid cells
             gridH, gridW, anchors = output.shape[:3]
             cx = np.arange(gridW).reshape(1, gridW)
             cx = np.repeat(cx, gridH, axis=0)
@@ -89,12 +89,14 @@ class Yolo():
             cornersY.append(
                 np.repeat(cy[..., np.newaxis], anchors, axis=2)
                 )
+            # box confidence and class probability activations
             box_confidence.append(self.sigmoid(output[..., 4:5]))
             class_probs.append(self.sigmoid(output[..., 5:]))
 
         inputW = self.model.input.shape[1].value
         inputH = self.model.input.shape[2].value
 
+        # Predicted boundary box
         for x, box in enumerate(boxes):
             bx = (
                 (self.sigmoid(box[..., 0])+cornersX[x])/outputs[x].shape[1]
