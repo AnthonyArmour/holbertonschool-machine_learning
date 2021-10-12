@@ -185,29 +185,30 @@ class Yolo():
               the box scores for box_predictions ordered by class and
               box score, respectively
         """
+        # Non max suppression
         idx = tf.image.non_max_suppression(
             filtered_boxes, box_scores, box_scores.shape[0],
             iou_threshold=self.nms_t
         )
         run = backend.eval
-        # print("\nidx\n{}\n\n".format(type(run(idx))))
-        run = backend.eval
         sup_boxes = run(tf.gather(filtered_boxes, idx))
         sup_scores = run(tf.gather(box_scores, idx))
         sup_classes = run(tf.gather(box_classes, idx))
 
+        # Sort by class
         srt = sup_classes.argsort()
         sup_classes = sup_classes[srt]
         sup_scores = sup_scores[srt]
         sup_boxes = sup_boxes[srt, :]
 
+        # Get indexes for sorting by score within
+        # within each each group pre sorted by class
         idxs = []
         for x in range(81):
-            idx_chunk = np.where(sup_classes==x)
+            idx_chunk = np.where(sup_classes == x)
             if idx_chunk[0].shape[0] > 0:
                 idxs.append(np.amax(idx_chunk))
         prev = 0
-
 
         for x in idxs:
             # ordered slice of box scores
