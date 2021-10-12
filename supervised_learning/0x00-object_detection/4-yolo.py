@@ -231,7 +231,6 @@ class Yolo():
             images: a list of images as numpy.ndarrays
             image_paths: a list of paths to the individual images in images
         """
-        print("here2000")
         import os
         image_paths = os.listdir(folder_path)
         images = []
