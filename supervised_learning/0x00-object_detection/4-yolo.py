@@ -233,10 +233,10 @@ class Yolo():
         """
         import os
         image_paths = os.listdir(folder_path)
-        images = []
+        images, new_paths = [], []
 
         for path in image_paths:
             images.append(cv2.imread(folder_path+"/"+path))
-            path = folder_path+"/"+path
+            new_paths.append(folder_path+"/"+path)
 
-        return images, image_paths
+        return images, new_paths
