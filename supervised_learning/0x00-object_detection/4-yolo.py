@@ -237,5 +237,6 @@ class Yolo():
 
         for path in image_paths:
             images.append(cv2.imread(folder_path+"/"+path))
+            path = folder_path+"/"+path
 
         return images, image_paths
