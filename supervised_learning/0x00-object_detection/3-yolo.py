@@ -5,6 +5,7 @@
 """
 
 
+from numpy.core.defchararray import index
 from numpy.core.fromnumeric import searchsorted
 import tensorflow.keras as K
 import tensorflow.keras.backend as backend
@@ -189,7 +190,30 @@ class Yolo():
             iou_threshold=self.nms_t
         )
         run = backend.eval
-        ordered_boxes = run(tf.gather(filtered_boxes, idx))
-        ordered_scores = run(tf.gather(box_scores, idx))
-        ordered_classes = run(tf.gather(box_classes, idx))
-        return (ordered_boxes, ordered_classes, ordered_scores)
+        # print("\nidx\n{}\n\n".format(type(run(idx))))
+        run = backend.eval
+        sup_boxes = run(tf.gather(filtered_boxes, idx))
+        sup_scores = run(tf.gather(box_scores, idx))
+        sup_classes = run(tf.gather(box_classes, idx))
+
+        srt = sup_classes.argsort()
+        sup_classes = sup_classes[srt]
+        sup_scores = sup_scores[srt]
+        sup_boxes = sup_boxes[srt, :]
+
+        idxs = []
+        for x in range(81):
+            idx_chunk = np.where(sup_classes==x)
+            if idx_chunk[0].shape[0] > 0:
+                idxs.append(np.amax(idx_chunk))
+        prev = 0
+
+
+        for x in idxs:
+            # ordered slice of box scores
+            slice = (-sup_scores[prev:x+1]).argsort()
+            sup_scores[prev:x+1] = (sup_scores[prev:x+1])[slice]
+            sup_boxes[prev:x+1, :] = (sup_boxes[prev:x+1, :])[slice]
+            prev = x+1
+
+        return (sup_boxes, sup_classes, sup_scores)
