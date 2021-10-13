@@ -339,8 +339,8 @@ class Yolo():
                 )
 
         cv2.imshow(file_name, image)
-        wait = cv2.waitKey(0)
-        if wait == ord('s'):
+        wait = input("Press the s button to save image")
+        if wait == "s":
             import os
             if os.path.isdir("./detections") is False:
                 os.mkdir("./detections")
