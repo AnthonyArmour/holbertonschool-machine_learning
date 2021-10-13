@@ -293,5 +293,8 @@ class Yolo():
                     ), axis=0)
             channels = None
 
-        pimages = pimages.astype(np.float32) / 255
+        pimages = cv2.normalize(
+            pimages, None, alpha=0, beta=1,
+            norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F
+            )
         return (pimages, image_sizes)
