@@ -344,6 +344,71 @@ class Yolo():
             import os
             if os.path.isdir("./detections") is False:
                 os.mkdir("./detections")
-            cv2.imwrite("./detections/{}".format(file_name), image)
+            detection_path = "./detections/{}".format(file_name)
+            cv2.imwrite(detection_path, image)
 
         cv2.destroyAllWindows()
+        return detection_path
+
+    def predict(self, folder_path):
+        """
+           Makes detection predictions on all images
+             in specified folder.
+
+           Args:
+            folder_path: a string representing the path to the folder
+              holding all the images to predict
+        
+           Return:
+            tuple (predictions, image_paths)
+              predictions: a list of tuples for each image of
+                (boxes, box_classes, box_scores)
+              image_paths: a list of image paths corresponding to
+                each prediction in predictions
+        """
+        img_stack, predictions = None, []
+        detection_paths = []
+
+        # Load and preprocess images
+        images, paths = self.load_images(folder_path)
+        pimages, img_shapes = self.preprocess_images(images)
+
+        # Stack processed images
+        for img in pimages:
+            if img_stack is None:
+                img_stack = img[np.newaxis, ...]
+            else:
+                img_stack = np.concatenate(
+                    (img_stack, img[np.newaxis, ...]), axis=0
+                )
+
+        # Make pass through ConvNet for raw predictions
+        raw_predictions = self.model.predict(img_stack)
+
+        # Process box coordinates, confidences, and class_probs
+        # followed by filtering and non max suppression, for
+        # each prediction individually.
+        for x, img in enumerate(images):
+            one_raw = [
+                raw_predictions[0][x, ...],
+                raw_predictions[1][x, ...],
+                raw_predictions[2][x, ...]
+            ]
+            boxes, confidences, class_probs = self.process_outputs(
+                one_raw, img_shapes[x]
+            )
+            boxes, box_classes, box_scores = self.filter_boxes(
+                boxes, confidences, class_probs
+            )
+            box_preds, class_preds, score_preds = self.non_max_suppression(
+                boxes, box_classes, box_scores
+            )
+            detection_paths.append(self.show_boxes(
+                img, box_preds, class_preds,
+                score_preds, paths[x].rpartition('/')[-1]
+            ))
+            predictions.append(
+                (box_preds, class_preds, score_preds)
+            )
+        
+        return (predictions, detection_paths)

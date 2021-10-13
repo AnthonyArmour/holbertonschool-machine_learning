@@ -269,6 +269,7 @@ class Yolo():
 
         for img in images:
             for ch in range(3):
+                # resize each channel individually
                 if channels is None:
                     channels = cv2.resize(
                         img[:, :, ch], dims, interpolation=Q
@@ -281,6 +282,7 @@ class Yolo():
                     resized = resized[..., np.newaxis]
                     channels = np.concatenate((channels, resized), axis=2)
 
+            # Stack resized images
             if pimages is None:
                 pimages = (channels.copy())[np.newaxis, ...]
                 image_sizes = np.array([[img.shape[0], img.shape[1]]])
