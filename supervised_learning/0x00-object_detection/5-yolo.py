@@ -293,5 +293,5 @@ class Yolo():
                     ), axis=0)
             channels = None
 
-        pimages = pimages / 255
+        pimages = pimages.astype(np.float32) / 255
         return (pimages, image_sizes)
