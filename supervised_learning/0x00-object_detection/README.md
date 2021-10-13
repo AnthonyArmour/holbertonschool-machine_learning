@@ -21,11 +21,20 @@ Using the yolo v3 algorithm to perform object detection.
 ---
 
 ### [4. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/4-yolo.py#:~:text=def%20load_images(folder_path)%3A "4. Yolo")
-> Loading images
+> load_images(folder_path): Loading images
 ---
 
 ### [5. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/5-yolo.py#:~:text=preprocess_images(self%2C%20images)%3A "5. Yolo")
-> Process images for yolo algorithm
+> preprocess_images(self, images): Process images for yolo algorithm
+---
+
+### [6. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/6-yolo.py#:~:text=show_boxes(self%2C%20image%2C%20boxes%2C%20box_classes%2C%20box_scores%2C%20file_name)%3A "6. Yolo")
+> show_boxes(self, image, boxes, box_classes, box_scores, file_name): Displays the image with all boundary boxes, class names, and box scores.
+---
+
+### [7. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/7-yolo.py#:~:text=predict(self%2C%20folder_path)%3A "7. Yolo")
+> predict(self, folder_path): Makes detections on images provided by file path to folder.
+---
 
 
 
