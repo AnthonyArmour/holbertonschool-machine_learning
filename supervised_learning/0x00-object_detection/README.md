@@ -33,7 +33,7 @@ Using the yolo v3 algorithm to perform object detection.
 ---
 
 ### [7. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/7-yolo.py#:~:text=predict(self%2C%20folder_path)%3A "7. Yolo")
-> predict(self, folder_path): Makes detections on images provided by file path to folder.
+> predict(self, folder_path): Makes detections on images included in folder referenced by <folder_path>.
 ---
 
 
