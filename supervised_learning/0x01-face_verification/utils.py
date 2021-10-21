@@ -32,7 +32,7 @@ def load_images(images_path, as_array=True):
         filenames.append(path)
 
     if as_array:
-        images = np.stack(images)
+        images = np.array(images)
 
     return images, filenames
 
