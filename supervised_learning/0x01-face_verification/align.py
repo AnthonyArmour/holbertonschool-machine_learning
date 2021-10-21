@@ -90,6 +90,7 @@ class FaceAlign():
             containing the aligned image, or None if no face is detected
         """
         detection = self.detect(image)
+        print(type(detection))
         if detection.left() == 0 and detection.top() == 0:
             return None
         else:
