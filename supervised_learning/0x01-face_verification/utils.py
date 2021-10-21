@@ -38,6 +38,7 @@ def load_images(images_path, as_array=True):
 
     """
     import os
+    import matplotlib.image as mpimg
     images_paths = os.listdir(images_path)
     images, filenames = [], []
     d = []
@@ -46,6 +47,7 @@ def load_images(images_path, as_array=True):
         image = cv2.imread(images_path+"/"+path)
         if image is None:
             continue
+
         images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         filenames.append(path)
 
@@ -127,10 +129,6 @@ def generate_triplets(images, filenames, triplet_names):
 
     for x, file in enumerate(filenames):
         imgs[file] = images[x]
-
-    # for x, trip in enumerate(triplet_names):
-    #     if trip[0] in debug or trip[1] in debug or trip[2] in debug:
-    #         triplet_names.pop(x)
 
     for triplet in triplet_names:
         if (triplet[0]+".jpg" in filenames and
