@@ -50,3 +50,23 @@ class FaceAlign():
             return dets[0]
         else:
             return dlib.rectangle(0, 0, image.shape[-2], image.shape[-3])
+
+    def find_landmarks(self, image, detection):
+        """
+           Finds facial landmarks
+
+           Args:
+            image numpy.ndarray - image from which to find facial landmarks
+            detection idlib.rectangle - boundary box of the face in the image
+
+           Returns:
+            numpy.ndarray of shape (p, 2)
+              containing the landmark points, or None on failure.
+            p: number of landmark points
+            2: x and y coordinates
+        """
+        pred = self.shape_predictor(image, detection)
+        landmarks = []
+        for x in range(68):
+            landmarks.append(np.array([pred.part(x).x, pred.part(x).y]))
+        return np.stack(landmarks)
