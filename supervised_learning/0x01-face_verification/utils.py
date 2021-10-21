@@ -6,7 +6,7 @@
 
 
 import numpy as np
-import imageio
+import cv2
 
 
 def load_images(images_path, as_array=True):
@@ -26,10 +26,11 @@ def load_images(images_path, as_array=True):
     images, filenames = [], []
 
     for path in sorted(images_paths):
-        images.append(imageio.imread(images_path+"/"+path))
+        image = cv2.imread(images_path+"/"+path)
+        images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         filenames.append(path)
 
     if as_array:
-        images = np.stack(images, axis=0)
+        images = np.stack(images)
 
     return images, filenames
