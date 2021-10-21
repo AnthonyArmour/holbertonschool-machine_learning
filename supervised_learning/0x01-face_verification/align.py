@@ -45,6 +45,7 @@ class FaceAlign():
 
         dets = self.detector(image, 1)
         if len(dets):
+            # Get detection with largest box
             dets = sorted(dets, key=lambda x: area(x), reverse=True)
             return dets[0]
         else:
