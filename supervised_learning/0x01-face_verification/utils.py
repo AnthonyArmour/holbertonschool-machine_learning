@@ -7,6 +7,7 @@
 
 import numpy as np
 import cv2
+import csv
 
 
 def load_images(images_path, as_array=True):
@@ -34,3 +35,24 @@ def load_images(images_path, as_array=True):
         images = np.stack(images)
 
     return images, filenames
+
+
+def load_csv(csv_path, params={}):
+    """
+       Loads contents of csv as list of lists
+
+       Args:
+        csv_path: the path to csv to load
+        params: parameters to load csv with
+
+       Return:
+        list of lists representing contents of csv
+    """
+    contents = []
+    with open(csv_path, 'r') as fh:
+        reader = csv.reader(fh, params)
+
+        for row in reader:
+            contents.append(row)
+
+    return contents
