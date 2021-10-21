@@ -102,6 +102,6 @@ class FaceAlign():
                 )
             output = cv2.warpAffine(
                 image, transformation,
-                (size, size), flags=cv2.INTER_CUBIC
+                (size, size)
                 )
             return output
