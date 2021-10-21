@@ -68,5 +68,6 @@ class FaceAlign():
         pred = self.shape_predictor(image, detection)
         landmarks = []
         for x in range(68):
-            landmarks.append(np.array([pred.part(x).x, pred.part(x).y]))
+            cord = [pred.part(x).x, pred.part(x).y]
+            landmarks.append(np.array(cord, type=np.float))
         return np.stack(landmarks)
