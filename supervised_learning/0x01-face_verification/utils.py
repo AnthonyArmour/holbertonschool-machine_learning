@@ -27,10 +27,10 @@ def load_images(images_path, as_array=True):
 
     for path in sorted(images_paths):
         image = cv2.imread(images_path+"/"+path)
-        images.append(cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
+        images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         filenames.append(path)
 
     if as_array:
-        images = np.stack(images)
+        images = np.stack(images, axis=0)
 
     return images, filenames
