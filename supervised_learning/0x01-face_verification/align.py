@@ -6,6 +6,7 @@
 
 import numpy as np
 import dlib
+import cv2
 
 
 class FaceAlign():
@@ -71,3 +72,35 @@ class FaceAlign():
             cord = [pred.part(x).x, pred.part(x).y]
             landmarks.append(np.array(cord, dtype=np.float))
         return np.stack(landmarks)
+
+    def align(self, image, landmark_indices, anchor_points, size=96):
+        """
+           Aligns an image for face verification.
+            image: numpy.ndarray - containing the image to be aligned
+            landmark_indices: numpy.ndarray of shape (3,) -
+              containing the indices of the three landmark points
+              that should be used for the affine transformation
+            anchor_points: numpy.ndarray of shape (3, 2) -
+              containing the destination points for the affine
+              transformation, scaled to the range [0, 1]
+            size: desired size of the aligned image
+
+           Return:
+            numpy.ndarray of shape (size, size, 3) -
+            containing the aligned image, or None if no face is detected
+        """
+        detection = self.detect(image)
+        if detection.left() == 0 and detection.top() == 0:
+            return None
+        else:
+            points = anchor_points*size
+            landmarks = self.find_landmarks(image, detection)
+            landmarks = (landmarks[landmark_indices, ...]).astype("float32")
+            transformation = cv2.getAffineTransform(
+                landmarks, points.astype("float32")
+                )
+            output = cv2.warpAffine(
+                image, transformation,
+                (size, size), flags=cv2.INTER_CUBIC
+                )
+            return output
