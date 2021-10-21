@@ -9,6 +9,7 @@ import dlib
 
 
 class FaceAlign():
+    """Face Alignment Class"""
 
     def __init__(self, shape_predictor_path):
         """
