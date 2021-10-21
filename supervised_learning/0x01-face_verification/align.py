@@ -69,5 +69,5 @@ class FaceAlign():
         landmarks = []
         for x in range(68):
             cord = [pred.part(x).x, pred.part(x).y]
-            landmarks.append(np.array(cord, type=np.float))
+            landmarks.append(np.array(cord, dtype=np.float))
         return np.stack(landmarks)
