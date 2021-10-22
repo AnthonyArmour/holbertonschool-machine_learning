@@ -41,6 +41,7 @@ class TrainModel():
 
     def train(self, triplets, epochs=5, batch_size=32,
               validation_split=0.3, verbose=True):
+        """Training Method"""
         history = self.training_model.fit(
             triplets, epochs=epochs, batch_size=batch_size,
             validation_split=validation_split, verbose=verbose
