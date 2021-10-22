@@ -38,3 +38,11 @@ class TrainModel():
             outputs=distances
         )
         self.training_model.compile(optimizer="adam")
+
+    def train(self, triplets, epochs=5, batch_size=32,
+              validation_split=0.3, verbose=True):
+        history = self.training_model.fit(
+            triplets, epochs=epochs, batch_size=batch_size,
+            validation_split=validation_split, verbose=verbose
+        )
+        return history
