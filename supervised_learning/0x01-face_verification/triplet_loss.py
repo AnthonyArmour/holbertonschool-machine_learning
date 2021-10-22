@@ -30,3 +30,9 @@ class TripletLoss(K.layers.Layer):
         dist_ap = tf.reduce_sum(tf.square(inputs[0]-inputs[1]), axis=1)
         dist_an = tf.reduce_sum(tf.square(inputs[0]-inputs[2]), axis=1)
         return tf.maximum((dist_ap - dist_an) + self.alpha, 0.0)
+
+    def call(self, inputs):
+        """Adds loss to graph"""
+        loss = self.triplet_loss(inputs)
+        self.add_loss(loss)
+        return loss
