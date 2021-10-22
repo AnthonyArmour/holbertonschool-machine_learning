@@ -27,6 +27,6 @@ class TripletLoss(K.layers.Layer):
            Return:
             tensor containing losses.
         """
-        dist_ap = np.linalg.norm(inputs[0]-inputs[1], axis=1)
-        dist_an = np.linalg.norm(inputs[0]-inputs[2], axis=1)
-        return tf.maximum(dist_ap - dist_an + self.alpha, 0.0)
+        dist_ap = tf.reduce_sum(tf.square(inputs[0]-inputs[1]), axis=1)
+        dist_an = tf.reduce_sum(tf.square(inputs[0]-inputs[2]), axis=1)
+        return tf.maximum((dist_ap - dist_an) + self.alpha, 0.0)
