@@ -47,3 +47,8 @@ class TrainModel():
             validation_split=validation_split, verbose=verbose
         )
         return history
+
+    def save(self, save_path):
+        """Saves mode to save_path"""
+        self.training_model.save(save_path)
+        return self.base_model
