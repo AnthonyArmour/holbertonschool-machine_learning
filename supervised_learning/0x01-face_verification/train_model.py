@@ -6,6 +6,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.layers import Input
 import tensorflow.keras as K
+import tensorflow.keras.backend as backend
 from triplet_loss import TripletLoss
 
 
@@ -52,3 +53,48 @@ class TrainModel():
         """Saves mode to save_path"""
         self.training_model.save(save_path)
         return self.base_model
+
+    @staticmethod
+    def f1_score(y_true, y_pred):
+        """
+           Calculates F1 score:
+            2*((precision*recall)/(precision+recall))
+
+           Args:
+            y_true: numpy.ndarray of shape (m,) -
+              containing the correct labels
+                m: number of examples
+            y_pred: numpy.ndarray of shape (m,) -
+              containing the predicted labels
+
+           Return:
+            F1_score
+        """
+
+        y_true = tf.convert_to_tensor(value=y_true, dtype='float32')
+        y_pred = tf.convert_to_tensor(value=y_pred, dtype='float32')
+
+        true_positives = backend.sum(backend.clip(y_true * y_pred, 0, 1))
+        possible_positives = backend.sum(backend.clip(y_true, 0, 1))
+        recall = true_positives / (possible_positives + backend.epsilon())
+
+        true_positives = backend.sum(backend.clip(y_true * y_pred, 0, 1))
+        predicted_positives = backend.sum(backend.clip(y_pred, 0, 1))
+        precision = true_positives / (predicted_positives + backend.epsilon())
+
+        F1_score = 2*((precision*recall)/(precision+recall))
+
+        return tf.Session().run(F1_score)
+
+    @staticmethod
+    def accuracy(y_true, y_pred):
+        """
+           Calculates Accuracy
+
+
+        """
+
+        accuracy = sum(map(
+            lambda x, y: x == y == 1, y_true, y_pred
+            ))/sum(y_true)
+        return accuracy
