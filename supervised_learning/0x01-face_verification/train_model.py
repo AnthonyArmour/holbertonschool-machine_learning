@@ -8,7 +8,7 @@ from tensorflow.keras.layers import Input
 import tensorflow.keras as K
 import tensorflow.keras.backend as backend
 from triplet_loss import TripletLoss
-
+import sklearn
 
 class TrainModel():
     """TrainModel class"""
@@ -91,10 +91,25 @@ class TrainModel():
         """
            Calculates Accuracy
 
+           Args:
+            y_true: numpy.ndarray of shape (m,) -
+              containing the correct labels
+                m: number of examples
+            y_pred: numpy.ndarray of shape (m,) -
+              containing the predicted labels
 
+           Return:
+            Accuracy
         """
 
         accuracy = sum(map(
             lambda x, y: x == y == 1, y_true, y_pred
             ))/sum(y_true)
         return accuracy
+
+    def best_tau(self, images, identities, thresholds):
+        """
+           Calculates the best tau to use for a maximal F1 score.
+        """
+
+        tf.keras.me
