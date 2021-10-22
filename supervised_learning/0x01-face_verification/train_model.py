@@ -8,7 +8,6 @@ from tensorflow.keras.layers import Input
 import tensorflow.keras as K
 import tensorflow.keras.backend as backend
 from triplet_loss import TripletLoss
-import sklearn
 
 class TrainModel():
     """TrainModel class"""
