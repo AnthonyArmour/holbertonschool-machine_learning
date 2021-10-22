@@ -26,9 +26,9 @@ class TrainModel():
         target_shape = (96, 96)
         with tf.keras.utils.CustomObjectScope({'tf': tf}):
             self.base_model = K.models.load_model(model_path)
-        anchor_input = Input(name="anchor", shape=target_shape + (3,))
-        positive_input = Input(name="positive", shape=target_shape + (3,))
-        negative_input = Input(name="negative", shape=target_shape + (3,))
+        anchor_input = Input(name="input_1", shape=target_shape + (3,))
+        positive_input = Input(name="input_2", shape=target_shape + (3,))
+        negative_input = Input(name="input_3", shape=target_shape + (3,))
         distances = TripletLoss(alpha)([
             self.base_model(anchor_input), self.base_model(positive_input),
             self.base_model(negative_input)
