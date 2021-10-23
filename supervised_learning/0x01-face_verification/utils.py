@@ -6,6 +6,7 @@
 
 
 import numpy as np
+import tensorflow as tf
 import cv2
 import csv
 
@@ -46,6 +47,7 @@ def load_images(images_path, as_array=True):
     for path in sorted(images_paths):
         image = cv2.imread(images_path+"/"+path)
         if image is None:
+            # print(images_path+"/"+path)
             continue
 
         images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
@@ -129,6 +131,8 @@ def generate_triplets(images, filenames, triplet_names):
 
     for x, file in enumerate(filenames):
         imgs[file] = images[x]
+
+    print(len(triplet_names), "trip names length")
 
     for triplet in triplet_names:
         if (triplet[0]+".jpg" in filenames and

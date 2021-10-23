@@ -37,3 +37,7 @@ class TripletLoss(K.layers.Layer):
         loss = self.triplet_loss(inputs)
         self.add_loss(loss)
         return loss
+
+    def get_config(self):
+        """custom object config"""
+        return {"alpha": self.alpha}

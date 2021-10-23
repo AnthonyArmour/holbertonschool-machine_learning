@@ -9,6 +9,7 @@ import tensorflow.keras as K
 import tensorflow.keras.backend as backend
 from triplet_loss import TripletLoss
 
+
 class TrainModel():
     """TrainModel class"""
 
@@ -23,7 +24,7 @@ class TrainModel():
            Creates new model.
 
         """
-        target_shape = (96, 96)
+        target_shape = (None, None)
         with tf.keras.utils.CustomObjectScope({'tf': tf}):
             self.base_model = K.models.load_model(model_path)
         anchor_input = Input(name="input_1", shape=target_shape + (3,))
@@ -42,6 +43,7 @@ class TrainModel():
     def train(self, triplets, epochs=5, batch_size=32,
               validation_split=0.3, verbose=True):
         """Training Method"""
+        print(triplets[0].shape)
         history = self.training_model.fit(
             triplets, epochs=epochs, batch_size=batch_size,
             validation_split=validation_split, verbose=verbose
@@ -50,7 +52,7 @@ class TrainModel():
 
     def save(self, save_path):
         """Saves mode to save_path"""
-        self.training_model.save(save_path)
+        self.base_model.save(save_path)
         return self.base_model
 
     @staticmethod
@@ -110,5 +112,4 @@ class TrainModel():
         """
            Calculates the best tau to use for a maximal F1 score.
         """
-
-        tf.keras.me
+        pass
