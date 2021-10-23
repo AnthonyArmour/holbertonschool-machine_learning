@@ -104,7 +104,7 @@ class TrainModel():
         """
 
         accuracy = sum(map(
-            lambda x, y: x == y == 1, y_true, y_pred
+            lambda x, y: x == y, y_true, y_pred
             ))/sum(y_true)
         return accuracy
 
