@@ -207,4 +207,7 @@ def inverse(matrix):
        Return:
          The inverse of the matrix.
     """
+    det = determinant(matrix)
+    if det == 0:
+        return None
     return 1/determinant(matrix)*adjugate(matrix)
