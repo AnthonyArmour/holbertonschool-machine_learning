@@ -88,14 +88,76 @@ def determinant(matrix):
         if type(item) is not list:
             raise TypeError("matrix must be a list of lists")
         if len(item) != H and H != 1:
-            raise ValueError("matrix must be a square matrix")
+            raise ValueError("matrix must be a non-empty square matrix")
 
     if H == 1:
         if len(matrix[0]) == 0:
-            return 1
+            raise 1
         elif len(matrix[0]) == 1:
             return matrix[0][0]
         else:
-            raise ValueError("matrix must be a square matrix")
+            raise ValueError("matrix must be a non-empty square matrix")
     else:
         return recurse_determinant(matrix)
+
+
+def minor(matrix):
+    """
+       Calculates minor matrix of a matrix.
+
+       Args:
+         matrix: the matrix to find the minors of.
+
+       Return:
+         the matrix of minors.
+    """
+
+    if type(matrix) is not list:
+        raise TypeError("matrix must be a list of lists")
+
+    H = len(matrix)
+
+    if H == 0:
+        raise TypeError("matrix must be a list of lists")
+
+    for item in matrix:
+        if type(item) is not list:
+            raise TypeError("matrix must be a list of lists")
+        if len(item) != H:
+            raise ValueError("matrix must be a non-empty square matrix")
+
+    if H == 1:
+        return [[1]]
+
+    m, minors = [], []
+
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            m.append(
+                determinant(M_ij(deep_cp(matrix), i, j))
+            )
+
+        minors.append(m.copy())
+        m.clear()
+
+    return minors
+
+
+def cofactor(matrix):
+    """
+       Calculates the cofactor of a matrix.
+
+       Args:
+         matrix: matrix to get cofactor of.
+
+       Return:
+         Cofactor of a matrix.
+    """
+
+    minors = minor(matrix)
+
+    for i in range(len(minors)):
+        for j in range(len(minors[i])):
+            minors[i][j] = minors[i][j] * pow(-1, i+j)
+
+    return minors

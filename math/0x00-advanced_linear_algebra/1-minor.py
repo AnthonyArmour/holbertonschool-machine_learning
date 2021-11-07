@@ -35,6 +35,7 @@ def M_ij(matrix, i, j):
 
     return matrix
 
+
 def deep_cp(mat):
     """Copies list of lists"""
     return [x.copy() for x in mat]
@@ -60,7 +61,7 @@ def recurse_determinant(matrix):
         sub_matrix = M_ij(deep_cp(matrix), 0, x)
         det += flip*num*recurse_determinant(sub_matrix)
         flip = flip * -1
-    
+
     return det
 
 
@@ -77,7 +78,7 @@ def determinant(matrix):
     """
     if type(matrix) is not list:
         raise TypeError("matrix must be a list of lists")
-    
+
     H = len(matrix)
 
     if H == 0:
@@ -99,6 +100,7 @@ def determinant(matrix):
     else:
         return recurse_determinant(matrix)
 
+
 def minor(matrix):
     """
        Calculates minor matrix of a matrix.
@@ -112,7 +114,7 @@ def minor(matrix):
 
     if type(matrix) is not list:
         raise TypeError("matrix must be a list of lists")
-    
+
     H = len(matrix)
 
     if H == 0:
@@ -123,10 +125,10 @@ def minor(matrix):
             raise TypeError("matrix must be a list of lists")
         if len(item) != H:
             raise ValueError("matrix must be a non-empty square matrix")
-    
+
     if H == 1:
-        return [[matrix[0][0]]]
-    
+        return [[1]]
+
     m, minors = [], []
 
     for i in range(len(matrix)):
@@ -137,5 +139,5 @@ def minor(matrix):
 
         minors.append(m.copy())
         m.clear()
-    
+
     return minors
