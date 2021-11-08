@@ -210,4 +210,11 @@ def inverse(matrix):
     det = determinant(matrix)
     if det == 0:
         return None
-    return 1/determinant(matrix)*adjugate(matrix)
+    Inv = []
+    adj = adjugate(matrix)
+
+    for i in range(len(matrix)):
+        r = [1/det*adj[i][j] for j in range(len(matrix[i]))]
+        Inv.append(r.copy())
+
+    return Inv
