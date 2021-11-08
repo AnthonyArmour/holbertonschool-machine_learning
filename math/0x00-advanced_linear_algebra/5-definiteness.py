@@ -16,6 +16,9 @@ def definiteness(matrix):
          Definitness of a matrix.
     """
 
+    if type(matrix) is not np.ndarray:
+        raise TypeError("matrix must be a numpy.ndarray")
+
     try:
         eig, _ = np.linalg.eig(matrix)
 
