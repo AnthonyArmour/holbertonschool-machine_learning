@@ -3,7 +3,7 @@
 ## Tasks
 
 ### [Utils](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-face_verification/utils.py "Utils")
-> Utility package for face verification project.
+> Utility class for face verification project.
 
 Contains:
 * load_images(images_path, as_array=bool)
