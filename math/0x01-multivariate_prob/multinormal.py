@@ -54,7 +54,6 @@ class MultiNormal():
         covariant = np.matmul(deviation.T, deviation)
         return mean.reshape((d, 1)), covariant/X.shape[0]
 
-
     @staticmethod
     def correlation(C):
         """
@@ -73,11 +72,10 @@ class MultiNormal():
         corr[C == 0] = 0
         return corr
 
-
     def pdf(self, x):
         """
            Calculates multivariate pdf at data point.
-        
+
            Args:
             x: numpy.ndarray - shape (d, 1) Data point.
 
