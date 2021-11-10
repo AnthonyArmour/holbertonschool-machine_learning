@@ -11,14 +11,21 @@ from numpy.core.numeric import outer
 
 def correlation(C):
     """
-       Calculates a correlation matrix.
+        Calculates a correlation matrix.
 
-       Args:
+        Args:
         C: numpy.ndarray - Covariant matrix.
 
-       Return:
+        Return:
         numpy.ndarray - Correlation matrix.
     """
+
+    if type(C) is not np.ndarray:
+        raise TypeError("C must be a numpy.ndarray")
+
+    shp = C.shape
+    if len(shp) < 2 or shp[0] != shp[1]:
+        raise ValueError("C must be a 2D square matrix")
 
     Di = np.sqrt(np.diag(C))
     outer_Di = np.outer(Di, Di)
