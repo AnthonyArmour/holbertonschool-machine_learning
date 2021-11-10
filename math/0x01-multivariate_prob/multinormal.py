@@ -85,10 +85,11 @@ class MultiNormal():
             Value of the pdf.
         """
         D = self.mean.shape[0]
+        x1, x2 = x.shape
 
         if type(x) is not np.ndarray:
             raise TypeError("x must be a numpy.ndarray")
-        if len(x.shape) != 2 or x.shape[1] != 1:
+        if len(x.shape) != 2 or x1 != D or x2 != 1:
             raise ValueError(
                 "x must have the shape ({}, 1)".format(D)
                 )
