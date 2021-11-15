@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Module contains MultiNormal Class"""
+"""Module contains MultiNormal Class."""
 
 
 import numpy as np

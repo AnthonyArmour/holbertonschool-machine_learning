@@ -14,13 +14,13 @@ def mean_cov(X):
         a dataset.
 
        Args:
-        X: numpy.ndarray - shape (n, d) containing data set.
+        X: numpy.ndarray - shape (n, d) Containing data set.
             n: Number of data points.
             d: Number of dimensions in each data point.
        Returns: mean, cov:
-        mean: numpy.ndarray - shape (1, d) containing the
+        mean: numpy.ndarray - shape (1, d) Containing the
             mean of the data set.
-        cov: numpy.ndarray - shape (d, d) containing the
+        cov: numpy.ndarray - shape (d, d) Containing the
             covariance matrix of the data set.
     """
     if type(X) is not np.ndarray or len(X.shape) != 2:
