@@ -32,4 +32,4 @@ def mean_cov(X):
     mean = X.sum(axis=0)/X.shape[0]
     deviation = X - mean
     covariant = np.matmul(deviation.T, deviation)
-    return mean[np.newaxis, ...], covariant/X.shape[0]
+    return mean[np.newaxis, ...], covariant/(X.shape[0]-1)

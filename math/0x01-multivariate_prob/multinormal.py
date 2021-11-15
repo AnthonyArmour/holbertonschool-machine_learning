@@ -54,7 +54,7 @@ class MultiNormal():
         mean = X.sum(axis=0)/n
         deviation = X - mean
         covariant = np.matmul(deviation.T, deviation)
-        return mean.reshape((d, 1)), covariant/X.shape[0]
+        return mean.reshape((d, 1)), covariant/(X.shape[0]-1)
 
     @staticmethod
     def correlation(C):
