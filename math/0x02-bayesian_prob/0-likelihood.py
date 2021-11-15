@@ -36,6 +36,7 @@ def binomial_pdf(n, k, P):
     comb = combination(n, k)
     return comb*(P**k)*((1-P)**(n-k))
 
+
 def likelihood(x, n, P):
     """
        Calculates the likelihood of obtaining data (x)
