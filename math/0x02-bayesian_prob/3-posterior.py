@@ -81,7 +81,7 @@ def Intersection(likelihoods, Pr):
          data with the various hypothetical probabilities.
 
        Args:
-        likelihoods: numpy.ndarray
+        likelihoods: numpy.ndarray of likelihoods
         Pr: 1D numpy.ndarray - containing the prior beliefs of P.
 
        Return:
