@@ -75,7 +75,7 @@ def kmeans(X, k, iterations=1000):
 
     """
 
-    if type(X) is not np.ndarray:
+    if type(X) is not np.ndarray or X.ndim < 2:
         return None, None
     if type(k) is not int or k <= 0:
         return None, None
