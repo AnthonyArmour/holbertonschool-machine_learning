@@ -24,6 +24,8 @@ def initialize(X, k):
           for each cluster, or None on failure.
     """
     try:
+        if k <= 0:
+            return None
         _, d = X.shape
 
         low = np.amin(X, axis=0)
