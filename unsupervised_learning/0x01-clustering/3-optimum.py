@@ -25,7 +25,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     Return: results, d_vars, or None, None on failure
         results: list containing the outputs of K-means.
         d_vars: list containing the difference in variance
-          from the smallest cluster size for each cluster size.
+        from the smallest cluster size for each cluster size.
     """
 
     kmeans = __import__('1-kmeans').kmeans

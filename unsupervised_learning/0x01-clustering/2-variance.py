@@ -45,6 +45,9 @@ def variance(X, C):
     if C.shape[1] != X.shape[1]:
         return None
 
+    if C.shape[0] == 1:
+        return ((X-np.mean(X, axis=0))**2).sum()
+
     assignments = Kassignments(X, C)
     Karanged = C[assignments]
 

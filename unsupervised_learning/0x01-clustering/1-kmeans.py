@@ -85,6 +85,9 @@ def kmeans(X, k, iterations=1000):
     clusters = initialize(X, k)
     assignments = np.zeros((X.shape[0],))
 
+    if k == 1:
+        return np.mean(X, axis=0)[np.newaxis, ...], assignments
+
     for i in range(iterations):
         done, assignments = Kassignments(X, clusters, assignments)
 
