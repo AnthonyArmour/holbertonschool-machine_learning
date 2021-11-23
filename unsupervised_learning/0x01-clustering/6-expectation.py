@@ -38,7 +38,7 @@ def expectation(X, pi, m, S):
         return None, None
     if type(pi) is not np.ndarray or pi.ndim != 1:
         return None, None
-    if S.shape[0] != pi.size or pi.sum() != 1:
+    if S.shape[0] != pi.size or np.isclose(pi.sum(), 1) is False:
         return None, None
 
     pdf = __import__('5-pdf').pdf
