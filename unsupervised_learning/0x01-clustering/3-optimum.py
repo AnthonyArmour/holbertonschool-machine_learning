@@ -36,6 +36,10 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         return None, None
     if type(kmin) is not int or kmin <= 0:
         return None, None
+    if kmax is None:
+        kmax = kmin + 1
+    if kmax == kmin:
+        return None, None
     if type(kmax) is not int or kmax <= 0:
         return None, None
     if type(iterations) is not int or iterations <= 0:
@@ -54,4 +58,4 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         results.append((clusters, assignments))
         d_vars.append(variance_diff)
 
-    return results, np.array(d_vars)
+    return results, d_vars
