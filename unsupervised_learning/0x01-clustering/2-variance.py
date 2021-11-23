@@ -39,9 +39,9 @@ def variance(X, C):
     """
 
     if type(X) is not np.ndarray or X.ndim != 2:
-        return None, None
+        return None
     if type(C) is not np.ndarray or C.ndim != 2:
-        return None, None
+        return None
 
     assignments = Kassignments(X, C)
     Karanged = C[assignments]
