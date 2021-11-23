@@ -54,4 +54,4 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         results.append((clusters, assignments))
         d_vars.append(variance_diff)
 
-    return results, d_vars
+    return results, np.array(d_vars)
