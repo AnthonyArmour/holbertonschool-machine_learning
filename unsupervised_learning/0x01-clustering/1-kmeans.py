@@ -101,4 +101,6 @@ def kmeans(X, k, iterations=1000):
             else:
                 clusters[j] = np.mean(X[idx, ...], axis=0)
 
+    _, assignments = Kassignments(X, clusters, assignments)
+
     return clusters, assignments
