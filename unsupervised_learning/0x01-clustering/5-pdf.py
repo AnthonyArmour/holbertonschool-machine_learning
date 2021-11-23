@@ -26,8 +26,6 @@ def pdf(X, m, S):
     each data point.
     """
 
-    D = m.shape[0]
-
     if type(X) is not np.ndarray or X.ndim != 2:
         return None
     if type(m) is not np.ndarray or m.shape[0] != X.shape[1]:
@@ -36,6 +34,8 @@ def pdf(X, m, S):
         return None
     if S.shape[0] != S.shape[1] or S.shape[0] != X.shape[1]:
         return None
+
+    D = m.shape[0]
 
     Px = (2*np.pi)**(D/2)
     Px = 1 / (Px * (np.linalg.det(S)**(1/2)))
