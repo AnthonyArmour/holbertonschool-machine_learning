@@ -25,6 +25,11 @@ def initialize(X, k):
         initialized as identity matrices.
     """
 
+    if type(X) is not np.ndarray or X.ndim != 2:
+        return None, None, None
+    if type(k) is not int or k <= 0:
+        return None, None, None
+
     kmeans = __import__('1-kmeans').kmeans
     d = X.shape[1]
 
