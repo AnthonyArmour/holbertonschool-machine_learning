@@ -38,6 +38,11 @@ def variance(X, C):
         Variance, or None on failure.
     """
 
+    if type(X) is not np.ndarray or X.ndim != 2:
+        return None, None
+    if type(C) is not np.ndarray or C.ndim != 2:
+        return None, None
+
     assignments = Kassignments(X, C)
     Karanged = C[assignments]
 
