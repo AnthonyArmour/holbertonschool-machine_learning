@@ -28,13 +28,19 @@ def pdf(X, m, S):
 
     D = m.shape[0]
 
-    if type(X) is not np.ndarray:
+    if type(X) is not np.ndarray or X.ndim != 2:
+        return None
+    if type(m) is not np.ndarray or m.shape[0] != X.shape[1]:
+        return None
+    if type(S) is not np.ndarray or S.ndim != 2:
+        return None
+    if S.shape[0] != S.shape[1] or S.shape[0] != X.shape[1]:
         return None
 
     Px = (2*np.pi)**(D/2)
     Px = 1 / (Px * (np.linalg.det(S)**(1/2)))
     covI = np.linalg.inv(S)
-    x_mu = X - m.reshape(3, 1).T
+    x_mu = X - m.reshape(D, 1).T
     dot = np.dot(x_mu, covI)
 
     # dot where i == j
