@@ -38,9 +38,9 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         return None, None
     if kmax is None:
         kmax = X.shape[0]
-    if kmax <= kmin:
-        return None, None
     if type(kmax) is not int or kmax <= 0:
+        return None, None
+    if kmax <= kmin:
         return None, None
     if type(iterations) is not int or iterations <= 0:
         return None, None
@@ -50,6 +50,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
 
         if i == kmin:
             org_variance = variance(X, clusters)
+            results.append((clusters, assignments))
             d_vars.append(0.0)
             continue
 
