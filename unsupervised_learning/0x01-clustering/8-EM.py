@@ -70,7 +70,7 @@ def expectation_maximization(
         if abs(Lk[0]-Lk[1]) <= tol:
             if verbose:
                 Verbose(i, Lk[1], end=True)
-            return priors, means, sigmas, posteriors, Lk[1]
+            return priors, means, sigmas, posteriors, Lk[0]
 
         priors, means, sigmas = maximization(X, posteriors)
 
