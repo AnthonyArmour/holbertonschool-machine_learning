@@ -67,11 +67,11 @@ def expectation_maximization(
             X, priors, means, sigmas
         )
 
+        priors, means, sigmas = maximization(X, posteriors)
+
         if abs(Lk[0]-Lk[1]) <= tol:
             Verbose(i, Lk[1], verbose, end=True)
             return priors, means, sigmas, posteriors, Lk[1]
-
-        priors, means, sigmas = maximization(X, posteriors)
 
         Verbose(i, Lk[1], verbose)
 
