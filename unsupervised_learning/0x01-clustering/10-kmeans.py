@@ -1,4 +1,4 @@
-#!/usr/bin/emv python3
+#!/usr/bin/env python3
 """
 Module contains function that uses
 sklearn K-means algorithm.
