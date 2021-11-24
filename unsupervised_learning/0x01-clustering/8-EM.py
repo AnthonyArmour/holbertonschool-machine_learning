@@ -68,16 +68,16 @@ def expectation_maximization(
         )
 
         if abs(Lk[0]-Lk[1]) <= tol:
-            Verbose(i, Lk[1], verbose, end=True)
+            Verbose(i, Lk[1].round(5), verbose, end=True)
             return priors, means, sigmas, posteriors, Lk[1]
 
         priors, means, sigmas = maximization(X, posteriors)
 
-        Verbose(i, Lk[1], verbose)
+        Verbose(i, Lk[1].round(5), verbose)
 
         Lk[0] = Lk[1]
 
-    Verbose(iterations, Lk[1], verbose, end=True)
+    Verbose(iterations, Lk[1].round(5), verbose, end=True)
 
     return priors, means, sigmas, posteriors, Lk[1]
 
@@ -88,4 +88,4 @@ def Verbose(iter, Lk, verbose, end=False):
     if verbose is False:
         return
     if iter % 10 == 0 or end:
-        print("Log Likelihood after {} iterations: {:.5f}".format(iter, Lk))
+        print("Log Likelihood after {} iterations: {}".format(iter, Lk))
