@@ -59,7 +59,8 @@ def BIC(X, kmin, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     if type(verbose) is not bool:
         return None, None, None, None
 
-    EM = __import__('8-EM').expectation_maximization
+    expectation_maximization = __import__('8-EM').expectation_maximization
+    EM = expectation_maximization
 
     Ps, Ls = [], []
     n, d = X.shape
