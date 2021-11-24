@@ -89,4 +89,4 @@ def Verbose(iter, Lk, end=False):
     """Verbose helper function for EM algorithm."""
 
     if iter % 10 == 0 or end:
-        print("Log Likelihood after {} iterations: {}".format(iter, Lk))
+        print("Log Likelihood after {} iterations: {:.5f}".format(iter, Lk))
