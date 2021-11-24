@@ -53,6 +53,13 @@ def maximization(X, g):
         for each cluster.
     """
 
+    if type(X) is not np.ndarray or X.ndim != 2:
+        return None, None, None
+    if type(g) is not np.ndarray or g.ndim != 2:
+        return None, None, None
+    if g.shape[0] <=0 or g.shape[1] != X.shape[0]:
+        return None, None, None
+
     k, n = g.shape
 
     priors = g.sum(axis=1)
