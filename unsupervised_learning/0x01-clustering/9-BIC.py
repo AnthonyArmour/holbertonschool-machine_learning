@@ -73,6 +73,13 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
 
     BICs = np.array(Ps)*np.log(n)-2*np.array(Ls)
     best_k = int(np.argmin(BICs) + kmin)
-    best_results = ((EM(X, best_k, iterations, tol, verbose))[:3])
+    priors, means, sigmas, _, _ = EM(X, best_k, iterations, tol, verbose)
+
+    idxs = np.argsort(priors)[::-1]
+    priors = priors[idxs]
+    means = means[idxs]
+    sigmas = sigmas[idxs, :]
+
+    best_results = (priors, means, sigmas)
 
     return best_k, best_results, np.array(Ls), BICs

@@ -60,11 +60,6 @@ def expectation_maximization(
 
     priors, means, sigmas = initialize(X, k)
 
-    idxs = np.argsort(priors)[::-1]
-    priors = priors[idxs]
-    means = means[idxs]
-    sigmas = sigmas[idxs, :]
-
     # Likelihoods from step t - 1 and current step.
 
     Lk = [0, 0]
