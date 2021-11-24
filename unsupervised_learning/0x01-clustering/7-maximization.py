@@ -59,7 +59,7 @@ def maximization(X, g):
         return None, None, None
     if g.shape[0] <= 0 or g.shape[1] != X.shape[0]:
         return None, None, None
-    if False in np.isclose(g.sum(axis=1), np.ones((g.shape[0]))):
+    if False in np.isclose(g.sum(axis=0), np.ones((g.shape[1]))):
         return None, None, None
 
     k, n = g.shape
