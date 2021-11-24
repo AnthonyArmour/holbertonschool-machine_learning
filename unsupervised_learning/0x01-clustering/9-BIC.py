@@ -9,7 +9,7 @@ using the Bayesian Information criterion.
 import numpy as np
 
 
-def BIC(X, kmin, kmax=None, iterations=1000, tol=1e-5, verbose=False):
+def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     """
     Finds the best number of clusters for a Gaussian Mixture Model
     using the Bayesian Information criterion.
