@@ -57,7 +57,9 @@ def maximization(X, g):
         return None, None, None
     if type(g) is not np.ndarray or g.ndim != 2:
         return None, None, None
-    if g.shape[0] <=0 or g.shape[1] != X.shape[0]:
+    if g.shape[0] <= 0 or g.shape[1] != X.shape[0]:
+        return None, None, None
+    if False in np.isclose(g.sum(axis=1), np.ones((g.shape[0]))):
         return None, None, None
 
     k, n = g.shape
