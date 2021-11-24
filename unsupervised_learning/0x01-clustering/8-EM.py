@@ -69,7 +69,6 @@ def expectation_maximization(
 
         if abs(Lk[0]-Lk[1]) <= tol:
             Verbose(i, Lk[1], verbose, end=True)
-            priors = posteriors.sum(axis=1)/posteriors.shape[1]
             return priors, means, sigmas, posteriors, Lk[1]
 
         priors, means, sigmas = maximization(X, posteriors)
