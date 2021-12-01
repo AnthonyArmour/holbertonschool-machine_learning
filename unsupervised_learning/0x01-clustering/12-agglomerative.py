@@ -4,6 +4,7 @@
 
 import scipy.cluster.hierarchy as Hierarchy
 
+
 def agglomerative(X, dist):
     """
     Agglomerative clustering algorithm.
