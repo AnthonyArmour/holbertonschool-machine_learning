@@ -5,28 +5,28 @@
 
 ### K-Means Algorithm
 
-### [Kmeans]()
+### [Kmeans](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/1-kmeans.py "Kmeans")
 Performs K-means on a dataset.
 
-### [Optimize K]()
+### [Optimize K](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/3-optimum.py "Optimize K")
 Tests for the optimum number of clusters by variance.
 
 ---
 
 ### Multivariate Gaussian Mixture Model
 
-### [Expectation]()
+### [Expectation](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/6-expectation.py "Expectation")
 Calculates the expectation step in the EM algorithm for a GMM.
 
 
-### [Maximization]()
+### [Maximization](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/7-maximization.py "Maximization")
 Calculates the maximization step in the EM algorithm for a GMM.
 
 
-### [Expectation Maximization]()
+### [Expectation Maximization](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/8-EM.py "Expectation Maximization")
 Performs the expectation maximization for a GMM.
 
 
-### [Bayesian Information Criterion]()
+### [Bayesian Information Criterion](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/9-BIC.py "Bayesian Information Criterion")
 Finds the best number of clusters for a GMM using the Bayesian Information Criterion.
 ---
