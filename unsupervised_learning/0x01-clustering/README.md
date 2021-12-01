@@ -28,5 +28,6 @@ Performs the expectation maximization for a GMM.
 
 
 ### [Bayesian Information Criterion](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/9-BIC.py "Bayesian Information Criterion")
-Finds the best number of clusters for a GMM using the Bayesian Information Criterion.
+Finds the best number of clusters for a GMM using the bayesian information criterion.
+
 ---
