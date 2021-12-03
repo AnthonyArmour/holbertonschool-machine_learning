@@ -53,7 +53,7 @@ def forward(Observation, Emission, Transition, Initial):
     F = (Initial.T * Emission[:, Observation[0]]).T
 
     for t in range(1, Observation.shape[0]):
-        rt = F[:, t-1].T * Transition.reshape(n, 1, n)
+        rt = F[:, t-1].T * Transition.T.reshape(n, 1, n)
         rt = rt * Emission[:, Observation[t]].reshape(n, 1, 1)
         F = np.concatenate((F, rt.sum(-1)), axis=1)
 
