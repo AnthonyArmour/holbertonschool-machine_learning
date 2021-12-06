@@ -2,7 +2,7 @@
 
 ## Tasks
 
-### (Markov Chain)["Markov Chain"]
+### [Markov Chain](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/0-markov_chain.py "Markov Chain")
 Determines the probability of a markov chain being in a particular state after a specified number of iterations.
 ``` python
 #!/usr/bin/env python3
@@ -17,7 +17,7 @@ if __name__ == "__main__":
 ```
 ---
 
-### (Regular Chains)["Regular Chains"]
+### [Regular Chains](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/1-regular.py "Regular Chains")
 Determines the steady state probabilities of a regular markov chain.
 ``` python
 #!/usr/bin/env python3
@@ -39,7 +39,7 @@ if __name__ == '__main__':
 ```
 ---
 
-### (Absorbing Chains)["Absorbing Chains"]
+### [Absorbing Chains](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/2-absorbing.py "Absorbing Chains")
 Determines if a markov chain is absorbing.
 ``` python
 #!/usr/bin/env python3
@@ -66,7 +66,7 @@ if __name__ == '__main__':
 ```
 ---
 
-### (The Forward Algorithm)["The Forward Algorithm"]
+### [The Forward Algorithm](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/3-forward.py "The Forward Algorithm")
 Performs the forward algorithm for a hidden markov model.
 ``` python
 #!/usr/bin/env python3
