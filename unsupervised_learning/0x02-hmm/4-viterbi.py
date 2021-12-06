@@ -10,10 +10,12 @@ import numpy as np
 
 def viterbi(Observation, Emission, Transition, Initial):
     """
-    Calculates the most likely sequence of hidden states for a hidden markov model.
+    Calculates the most likely sequence of hidden states for a hidden
+    markov model.
 
     Args:
-        Observation: numpy.ndarray - (T,) that contains the index of the observation.
+        Observation: numpy.ndarray - (T,) that contains the index of the
+        observation.
             T: Number of observations.
         Emission: numpy.ndarray - (N, M) Emission probabilities of a specific
         observation given a hidden state.
@@ -21,11 +23,14 @@ def viterbi(Observation, Emission, Transition, Initial):
             N: Number of hidden states.
             M: Number of all possible observations.
         Transition: 2D numpy.ndarray - (N, N) Transition probabilities.
-            Transition[i, j]: Probability of transitioning from the hidden state i to j.
-        Initial: numpy.ndarray - (N, 1) Probability of starting in a particular hidden state.
+            Transition[i, j]: Probability of transitioning from the hidden
+            state i to j.
+        Initial: numpy.ndarray - (N, 1) Probability of starting in a particular
+        hidden state.
 
     Return: path, P, or None and None
-        path: List of length T containing the most likely sequence of hidden states.
+        path: List of length T containing the most likely sequence of hidden
+        states.
         P: Probability of obtaining the path sequence.
     """
 
@@ -47,10 +52,11 @@ def viterbi(Observation, Emission, Transition, Initial):
     buff = np.zeros((N, T))
 
     for t in range(1, T):
-        mat = (Emission[:, Observation[t]] * Transition.reshape(N, 1, N)).reshape(N, N)
-        mat = (mat * seq_probs[:, t-1].reshape(N, 1))
+        mat = (Emission[:, Observation[t]] * Transition.reshape(N, 1, N))
+        mat = (mat.reshape(N, N) * seq_probs[:, t-1].reshape(N, 1))
 
-        seq_probs = np.concatenate((seq_probs, np.max(mat, axis=0).reshape(N, 1)), axis=1)
+        mx = np.max(mat, axis=0).reshape(N, 1)
+        seq_probs = np.concatenate((seq_probs, mx), axis=1)
         buff[:, t] = np.argmax(mat, axis=0).T
 
     P = np.max(seq_probs[:, T-1])
