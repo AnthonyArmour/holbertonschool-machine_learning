@@ -41,6 +41,9 @@ def regular(P):
         q = np.c_[q, ones]
         QTQ = np.dot(q, q.T)
         bQT = np.ones(dim)
-        return np.linalg.solve(QTQ, bQT)
+        solved = np.linalg.solve(QTQ, bQT)
+        if solved.ndim == 1:
+            return solved[np.newaxis, ...]
+        return solved
     else:
         return None
