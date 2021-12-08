@@ -145,22 +145,28 @@ def EM(Observation, Transition, Emission, Initial):
     # B[i, j] is the probability of generating the future observations from
     # hidden state i at time j.
 
-    Xi = np.zeros((T-1, M, M))
+    Xi = np.zeros((T, M, M))
 
-    for t in range(T-1):
+    for t in range(T):
+        if t == T - 1:
+            op = F[:, t].reshape(M, 1) * Transition * Emission.sum(axis=1)
+            Xi[t, :, :] = op.copy()
+            break
+
         op = F[:, t].reshape(M, 1) * Transition * Emission[:, Observation[t+1]]
         op = op * B[:, t+1]
         Xi[t, :, :] = op.copy()
 
-    Xi = Xi / Xi.sum(axis=(1, 2)).reshape(T-1, 1, 1)
+    Xi = Xi / Xi.sum(axis=(1, 2)).reshape(T, 1, 1)
 
-    Transition = Xi.sum(axis=0) / Xi.sum(axis=(0, 2)).reshape(M, 1)
+    Transition = (Xi[:T-1, :, :].sum(axis=0) /
+                  Xi[:T-1, :, :].sum(axis=(0, 2)).reshape(M, 1))
 
     for k in range(N):
-        idxs = Observation[:T-1] == k
-        Emission[:, k] = Xi[idxs, :, :].sum(axis=(0, 1))/Xi.sum(axis=(0, 1))
+        idxs = Observation[:T] == k
+        Emission[:, k] = Xi[idxs, :, :].sum(axis=(0, 2))/Xi.sum(axis=(0, 2))
 
-    Initial = Xi[0].sum(axis=1)
+    Initial = Xi[0].sum(axis=0)
 
     return Transition, Emission, Initial.reshape(M, 1)
 
