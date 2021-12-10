@@ -19,4 +19,7 @@ plt.suptitle("Exponential Decay of Radioactive Elements")
 plt.xlim(0, 20000)
 plt.plot(x, y2, "g-", label="Ra-226")
 plt.plot(x, y1, "r--", label="C-14")
+
+# Show or save plot
 plt.show()
+# plt.savefig("filename.jpg")
