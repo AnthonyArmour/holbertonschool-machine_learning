@@ -149,7 +149,7 @@ def EM(Observation, Transition, Emission, Initial):
 
     for t in range(T):
         if t == T - 1:
-            op = F[:, t].reshape(M, 1) * Transition * Emission.sum(axis=1)
+            op = F[:, t].reshape(M, 1) * Transition # Emission.sum(axis=1)
             Xi[t, :, :] = op.copy()
             break
 
