@@ -171,3 +171,5 @@ if __name__ == '__main__':
 ```
 ---
 
+### [The Baum-Welch Algorithm]( "The Baum-Welch Algorithm")
+Module contains function that performs the Baum-Welch algorithm for finding locally optimal transition and emission probabilities for a Hidden Markov Model.
