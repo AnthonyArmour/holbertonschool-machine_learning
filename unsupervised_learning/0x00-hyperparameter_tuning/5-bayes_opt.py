@@ -102,4 +102,4 @@ class BayesianOptimization():
             self.gp.update(X_next, Y)
 
         idx = np.argmin(self.gp.Y)
-        return np.array([self.gp.X[idx]]), np.array(self.gp.Y[idx])
+        return self.gp.X[idx], np.array(self.gp.Y[idx])
