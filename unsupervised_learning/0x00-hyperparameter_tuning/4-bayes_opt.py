@@ -65,17 +65,6 @@ class BayesianOptimization():
             potential sample.
         """
 
-        EI, X_next = self.expected_improvement()
-        return X_next, EI
-
-    def expected_improvement(self):
-        """
-        Computes the expected improvement.
-
-        Return:
-            Probs: numpy.ndarray - (ac_samples,) Expected improvement
-            over specific range of inputs.
-        """
         mu, _ = self.gp.predict(self.gp.X)
         sample_mu, sigma = self.gp.predict(self.X_s)
 
@@ -86,7 +75,7 @@ class BayesianOptimization():
 
         numZ = mu_opt - sample_mu - self.xsi
         Z = numZ / sigma
-        E = ((numZ * norm.cdf(Z)) + (sigma * norm.pdf(Z)))
-        E[sigma == 0.0] = 0.0
+        EI = ((numZ * norm.cdf(Z)) + (sigma * norm.pdf(Z)))
+        EI[sigma == 0.0] = 0.0
 
-        return np.array(E), self.X_s[np.argmax(E)]
+        return self.X_s[np.argmax(EI)], np.array(EI)
