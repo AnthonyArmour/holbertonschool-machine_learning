@@ -76,17 +76,17 @@ class BayesianOptimization():
             Probs: numpy.ndarray - (ac_samples,) Expected improvement
             over specific range of inputs.
         """
-
+        mu, _ = self.gp.predict(self.gp.X)
         sample_mu, sigma = self.gp.predict(self.X_s)
-        sigma = sigma ** 0.5
-        if self.minimize:
-            mu_opt = np.min(self.gp.Y)
-        else:
-            mu_opt = np.max(self.gp.Y)
 
-        numZ = sample_mu - mu_opt - self.xsi
+        if self.minimize:
+            mu_opt = np.min(mu)
+        else:
+            mu_opt = np.max(mu)
+
+        numZ = mu_opt - sample_mu - self.xsi
         Z = numZ / sigma
-        E = numZ * norm().cdf(Z) + sigma * norm().pdf(Z)
+        E = ((numZ * norm.cdf(Z)) + (sigma * norm.pdf(Z)))
         E[sigma == 0.0] = 0.0
 
-        return E, self.X_s[np.argmax(E)]
+        return np.array(E), self.X_s[np.argmax(E)]
