@@ -5,7 +5,6 @@ Module contains function that creates an autoencoder network.
 
 
 import tensorflow.keras as keras
-from tensorflow.keras import activations
 
 
 def autoencoder(input_dims, hidden_layers, latent_dims):
