@@ -29,7 +29,6 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
 
     input_layer = keras.Input(shape=(input_dims,))
     encoded_input = keras.Input(shape=(latent_dims,))
-    decoded_input = encoded_input
 
     encoded_layers = Dense(hidden_layers[0], activation="relu")(input_layer)
 
@@ -40,7 +39,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
         latent_dims, activation="relu", activity_regularizer=reg
         )(encoded_layers)
 
-    decoded = Dense(hidden_layers[-1], activation="relu")(decoded_input)
+    decoded = Dense(hidden_layers[-1], activation="relu")(encoded_input)
 
     for x, nodes in enumerate(list(reversed(hidden_layers[:-1]))+[input_dims]):
         if x == len(hidden_layers) - 1:
