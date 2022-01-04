@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 """
 Module contains funtion for creating convolutional
 autoencoder.
