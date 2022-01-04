@@ -27,13 +27,14 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     input_layer = keras.Input(shape=(input_dims,))
     encoded_input = keras.Input(shape=(latent_dims,))
+    decoded_input = encoded_input
 
     encoded_layers = Dense(hidden_layers[0], activation="relu")(input_layer)
 
     for nodes in hidden_layers[1:]+[latent_dims]:
         encoded_layers = Dense(nodes, activation="relu")(encoded_layers)
 
-    decoded = Dense(hidden_layers[-1], activation="relu")(encoded_layers)
+    decoded = Dense(hidden_layers[-1], activation="relu")(decoded_input)
 
     for x, nodes in enumerate(list(reversed(hidden_layers[:-1]))+[input_dims]):
         if x == len(hidden_layers) - 1:
@@ -41,16 +42,11 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         else:
             decoded = Dense(nodes, activation="relu")(decoded)
 
-    autoencoder = keras.Model(input_layer, decoded)
-
     encoder = keras.Model(input_layer, encoded_layers)
 
-    decoder_layer = encoded_input
-    for layer in autoencoder.layers[len(hidden_layers)+2:]:
-        decoder_layer = layer(decoder_layer)
+    decoder = keras.Model(encoded_input, decoded)
 
-    decoder = keras.Model(encoded_input, decoder_layer)
-
+    autoencoder = keras.Model(input_layer, decoder(encoder(input_layer)))
     autoencoder.compile(optimizer="adam", loss="binary_crossentropy")
 
     return encoder, decoder, autoencoder
