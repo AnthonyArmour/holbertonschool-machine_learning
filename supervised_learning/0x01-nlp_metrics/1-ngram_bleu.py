@@ -14,9 +14,11 @@ def gram(sen, start, n):
 
     return [sen[start+i] for i in range(n)]
 
+
 def n_grams(sen, n):
     """Gets an n-gram with tokens of size n."""
     return [gram(sen, i, n) for i in range(len(sen)-n+1)]
+
 
 def ngram_bleu(references, sentence, n):
     """
