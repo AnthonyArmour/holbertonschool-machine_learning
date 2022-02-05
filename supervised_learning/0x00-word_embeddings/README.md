@@ -195,3 +195,20 @@ $ ./main.py
  -1.9074128e-03  7.1639987e-04 -1.3686880e-03  3.7073060e-03]
 ```
 ---
+
+### [ELMo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-word_embeddings/5-elmo "ELMo")
+
+When training an ELMo embedding model, what are you training?
+
+1. The internal weights of the BiLSTM
+2. The character embedding layer
+3. The weights applied to the hidden states
+
+- A. 1, 2, 3
+- B. 1, 2
+- C. 2, 3
+- D. 1, 3
+- E. 1
+- F. 2
+- G. 3
+- H. None of the above
