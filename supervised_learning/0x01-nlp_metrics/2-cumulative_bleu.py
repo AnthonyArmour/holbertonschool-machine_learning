@@ -35,12 +35,7 @@ def bleu(references, sentence, n):
     """
 
     ngrams = n_grams(sentence, n)
-    tot, num_toks, bp = 0, len(ngrams), 1
-
-    min_ref = min([len(ref) for ref in references])
-
-    if len(sentence) <= min_ref:
-        bp = np.exp(1-min_ref/len(sentence))
+    tot, num_toks = 0, len(ngrams)
 
     while len(ngrams) > 0:
         tok = ngrams[0]
@@ -76,4 +71,4 @@ def cumulative_bleu(references, sentence, n):
 
     ps = [bleu(references, sentence, i) for i in range(1, n+1)]
 
-    return bp * np.exp(1/n*sum(ps))
+    return bp * np.exp(np.log(ps).sum()/n)
