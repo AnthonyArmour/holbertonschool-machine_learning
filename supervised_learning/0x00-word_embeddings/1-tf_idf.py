@@ -2,7 +2,7 @@
 """Module contains function for creating TF-IDF embedding."""
 
 
-from sklearn.feature_extraction.text import TfidfVectorizer as TFD
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def tf_idf(sentences, vocab=None):
@@ -22,7 +22,7 @@ def tf_idf(sentences, vocab=None):
         features: List of the features used for embeddings.
     """
 
-    vec = TFD(use_idf=True, vocabulary=vocab)
+    vec = TfidfVectorizer(use_idf=True, vocabulary=vocab)
     X = vec.fit_transform(sentences)
 
     embeddings = X.toarray()
