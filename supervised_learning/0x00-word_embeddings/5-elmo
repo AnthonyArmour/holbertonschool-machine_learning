@@ -1,7 +1,1 @@
 G
-
-But it depends on what the question is truly asking. There is a character embedding that is passed through a convolutional
-layer and trained. There is also a BiDirectional LSTM that is trained. Once trained, the
-language model weights are frozen. Then weights on the hidden representation from the language
-model and a task specific scaling factor are learned. G is the last step and is what sets ELMo
-apart from other algorithms.
