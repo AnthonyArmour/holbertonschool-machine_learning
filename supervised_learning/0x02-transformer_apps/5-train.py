@@ -165,3 +165,5 @@ def train_transformer(N, dm, h, hidden, max_len, batch_size, epochs):
 
         ls, acc = train.train_loss.result(), train.accuracy.result()
         print('Epoch {}: loss {} accuracy {}'.format(epoch + 1, ls, acc))
+
+    return train.transformer
