@@ -9,8 +9,8 @@ Translator = __import__('translator').Translator
 
 
 tf.compat.v1.set_random_seed(0)
-# parameters from paper (6, 512, 8, 2048, 64, 40, 20+)
-transformer = train_transformer(4, 128, 8, 512, 32, 40, 20)
+# parameters from paper (6, 512, 8, 2048, 40, 64, 20+)
+transformer = train_transformer(6, 256, 8, 1028, 40, 64, 20)
 data = Dataset(32, 40)
 translator = Translator(data, transformer)
 
