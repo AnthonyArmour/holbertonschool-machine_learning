@@ -75,7 +75,7 @@ class Dataset():
         f = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus
 
         tokenizer_en = f((en.numpy() for _, en in data),
-                         target_vocab_size=2**15)
+                         target_vocab_size=2**13)
         tokenizer_pt = f((pt.numpy() for pt, _ in data),
                          target_vocab_size=2**13)
         return tokenizer_pt, tokenizer_en

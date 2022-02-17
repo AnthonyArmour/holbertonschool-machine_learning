@@ -59,5 +59,5 @@ class Dataset():
         tokenizer_en = f((en.numpy() for _, en in data),
                          target_vocab_size=2**15)
         tokenizer_pt = f((pt.numpy() for pt, _ in data),
-                         target_vocab_size=2**13)
+                         target_vocab_size=2**15)
         return tokenizer_pt, tokenizer_en
