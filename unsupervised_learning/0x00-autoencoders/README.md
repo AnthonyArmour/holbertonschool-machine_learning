@@ -3,7 +3,7 @@
 # Autoencoders Project
 
 ## Dependencies
-| Tool/Library       | Version |
+| Library/Framework  | Version |
 | ------------------ | ------- |
 | Python             | ^3.7.3  |
 | numpy              | ^1.19.5 |
