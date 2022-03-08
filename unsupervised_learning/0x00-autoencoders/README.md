@@ -2,6 +2,15 @@
 
 # Autoencoders Project
 
+## Dependencies
+| Tool/Library       | Version |
+| ------------------ | ------- |
+| Python             | ^3.7.3  |
+| numpy              | ^1.19.5 |
+| matplotlib         | ^3.4.3  |
+| tensorflow         | ^2.6.0  |
+| keras              | ^2.6.0  |
+
 ## Tasks
 
 ### [Vanilla Autoencoder](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/0-vanilla.py "Valnilla Autoencoder")
