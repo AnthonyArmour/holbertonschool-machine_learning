@@ -2,6 +2,8 @@
 
 # Neural Network Regularization Project
 
+[regularization](https://en.wikipedia.org/wiki/Regularization_(mathematics))
+
 
 ## Tasks
 Covers L2 regularization, dropout gradient descent, and early stopping.
