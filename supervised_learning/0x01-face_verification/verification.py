@@ -8,8 +8,6 @@ from tensorflow.python.keras.utils.generic_utils import CustomObjectScope
 import tensorflow.keras as K
 import tensorflow.keras.backend as backend
 from triplet_loss import TripletLoss
-# import utils
-# from train_model import TrainModel
 
 
 class FaceVerification():

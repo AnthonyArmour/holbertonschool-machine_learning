@@ -1,9 +1,28 @@
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/AnthonyArmoursProfile)
+
+## Dependencies
+| Library/Framework  | Version |
+| ------------------ | ------- |
+| Python             | ^3.7.3  |
+| numpy              | ^1.19.5 |
+| matplotlib         | ^3.4.3  |
+| tensorflow         | ^2.6.0  |
+| keras              | ^2.6.0  |
+| cv2                | ^4.1.0  |
+| dlib               | ^19.17.0 |
+
+
 # Face Verification Project in Keras
+
+[Download FVTriplets.csv](https://intranet.hbtn.io/rltoken/K2eKViOeIaz2t56yN5aUiA "Download FVTriplets.csv")
+[Download Images](https://intranet.hbtn.io/rltoken/HUFcrjudLFdlb1njAwE8xw "Download Images")
+[Download face_verification.h5](https://intranet-projects-files.s3.amazonaws.com/holbertonschool-ml/face_verification.h5 "Download face_verification.h5")
+[Download Shape_Predictor](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2 "Download Shape_Predictor")
 
 ## Tasks
 
 ### [Utils](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-face_verification/utils.py "Utils")
-> Utility class for face verification project.
+Utility class for face verification project.
 
 Contains:
 * load_images(images_path, as_array=bool)
@@ -17,7 +36,7 @@ Contains:
 ---
 
 ### [Align](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-face_verification/align.py "Align")
-> Class built for detecting faces then applying a transformation and rotation for face alignment.
+Class built for detecting faces then applying a transformation and rotation for face alignment.
 
 Contains:
 * detect(image) - Uses dlib.get_frontal_face_detector to detect face in image.
@@ -26,14 +45,14 @@ Contains:
 ---
 
 ### [TripletLoss](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-face_verification/triplet_loss.py "TripletLoss")
-> Class for computing triplet loss for Siamese network. Inherits from keras.layers.Layer.
+Class for computing triplet loss for Siamese network. Inherits from keras.layers.Layer.
 
 Contains:
 * triplet_loss(inputs) - computes triplet loss for each anchor, positive, and negative in inputs.
 ---
 
 ### [TrainModel](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-face_verification/train_model.py "TrainModel")
-> Class that trains Siamese network using triplet loss.
+Class that trains Siamese network using triplet loss.
 
 Contains:
 * train(triplets, epochs, batch_size) - fit method
@@ -53,7 +72,8 @@ Contains:
 # Examples
 
 
-### Face Alignment
+### [Face Alignment](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-face_verification/align.py "Face Alignment")
+Aligns faces and stores them in new directory.
 
 ```python
 from align import FaceAlign
@@ -80,6 +100,11 @@ plt.imshow(image)
 plt.show()
 ```
 
+### Aligned Image
+---
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-face_verification/images/aligned.png)
+---
+
 ### Train Model
 
 ```python
@@ -99,8 +124,12 @@ triplets = [A[:-2], P[:-2], N[:-2]]
 tm = TrainModel('models/face_verification.h5', 0.2)
 tm.train(triplets, epochs=1)
 base_model = tm.save('models/trained_fv.h5')
-print(base_model is tm.base_model)
-print(os.listdir('models'))
+```
+
+```
+Train on 3584 samples, validate on 1536 samples
+Epoch 1/1
+3584/3584 [==============================] - 69s 19ms/step - loss: 0.0053 - val_loss: 0.1373
 ```
 
 ### Verify Faces
@@ -133,7 +162,11 @@ print(fv.verify(test_img_positive, tau=0.5))
 print(fv.verify(test_img_negative, tau=0.5))
 ```
 
-### [Download FVTriplets.csv](https://intranet.hbtn.io/rltoken/K2eKViOeIaz2t56yN5aUiA "Download FVTriplets.csv")
-### [Download Images](https://intranet.hbtn.io/rltoken/HUFcrjudLFdlb1njAwE8xw "Download Images")
-### [Download face_verification.h5](https://intranet-projects-files.s3.amazonaws.com/holbertonschool-ml/face_verification.h5 "Download face_verification.h5")
-### [Download Shape_Predictor](https://intranet.hbtn.io/rltoken/dywCocqd6VbKoVpvUmZXvA "Download Shape_Predictor")
+```
+Positive image: HeimerRojas0.jpg
+Predicted identity: ('HeimerRojas', 0.42472672)
+
+Negative image: KirenSrinivasan.jpg
+Predicted identity: (None, None)
+```
+
