@@ -50,6 +50,7 @@ Training set...
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-1-trainset.png)
 ---
 Convolutional output...
+---
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-1-cnn1.png)
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-1-cnn2.png)
 ---
@@ -88,6 +89,7 @@ Training set...
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-2-trainset2.png)
 ---
 Pooling output...
+---
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-2-pool1.png)
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-2-pool2.png)
 ---
