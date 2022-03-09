@@ -163,10 +163,10 @@ if __name__ == '__main__':
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/images/bayes-info-criterion-2.png)
 ---
 
-### [K-Means Sklearn]( "K-Means Sklearn")
+### [K-Means Sklearn](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/10-kmeans.py "K-Means Sklearn")
 K-means clustering using sklearn.
 
-### [GMM Sklearn]( "GMM Sklearn")
+### [GMM Sklearn](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x01-clustering/11-gmm.py "GMM Sklearn")
 Gaussian mixture model using sklearn.
 
 ---
