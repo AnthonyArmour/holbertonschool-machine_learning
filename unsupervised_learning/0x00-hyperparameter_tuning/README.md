@@ -6,7 +6,7 @@ Used to model a function given a small amount of data points, Gaussian process i
 
 Bayesian optimization is a sequential design strategy for global optimization of black-box functions that does not assume any functional forms. It is usually employed to optimize expensive-to-evaluate functions. It takes a model like a gaussian process to define a posterior and works by finding the sample location that maximizes the expected improvement of the objective function.
 
-![image]()
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-hyperparameter_tuning/Images/plot_posterior.jpg)
 
 In this project, we create a Gaussian process from scratch and use it for Bayesian optimization of a blackbox function. The school project continues the class for each file, the complete classes can be found in 2-gp.py and 5-bayes_opt.py
 
