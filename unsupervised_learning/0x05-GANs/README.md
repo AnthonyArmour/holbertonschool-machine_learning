@@ -5,7 +5,7 @@ A generative adversarial network (GAN) is a class of machine learning frameworks
 
 Gans have been known to create very realistic artificial images of objects and also very convincing artwork.
 
-![image](https://www.google.com/imgres?imgurl=https%3A%2F%2Fneurohive.io%2Fwp-content%2Fuploads%2F2018%2F07%2Fnon-existing-celebrities-generated-with-an-evolving-GAN-network.jpg&imgrefurl=https%3A%2F%2Fneurohive.io%2Fen%2Fstate-of-the-art%2Ffaster-learning-and-better-image-quality-with-evolving-generative-adversarial-networks%2F&tbnid=55o3X3bUvIYblM&vet=12ahUKEwiEiO_N0Ln2AhUUdM0KHcxkCbEQMygdegUIARCWAg..i&docid=jl_S7i25yqW6rM&w=1000&h=509&q=Generative%20Adversarial%20Network&hl=en&ved=2ahUKEwiEiO_N0Ln2AhUUdM0KHcxkCbEQMygdegUIARCWAg)
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x05-GANs/images/gen-people.jpeg)
 
 ## Dependencies
 | Library/Framework  | Version |
