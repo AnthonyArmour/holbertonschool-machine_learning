@@ -1,6 +1,20 @@
-# Project on Markov Chains and Hidden Markov Models
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/AnthonyArmoursProfile)
+
+# Markov Chains and Hidden Markov Models
+Hidden Markov Model (HMM) is a statistical Markov model in which the system being modeled is assumed to be a Markov process. As part of the definition, HMM requires that there be an observable process Y whose outcomes are "influenced" by the outcomes of X in a known way. Since X cannot be observed directly, the goal is to learn about X by observing Y. A hidden markov model is modeled using transition probabilties (the probabilty of transitioning from any hidden state to any other hidden state at a given time step) and emission probabilities (the probability of being in a hidden state given an observation).
+
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/images/HMM.png)
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/images/HMM-2.png)
+
+
+## Dependencies
+| Library/Framework  | Version |
+| ------------------ | ------- |
+| Python             | ^3.7.3  |
+| numpy              | ^1.19.5 |
 
 ## Tasks
+The use case examples are not very intuitive, so check the documentation I provided to understand the how each function works.
 
 ### [Markov Chain](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/0-markov_chain.py "Markov Chain")
 Determines the probability of a markov chain being in a particular state after a specified number of iterations.
@@ -171,5 +185,34 @@ if __name__ == '__main__':
 ```
 ---
 
-### [The Baum-Welch Algorithm]( "The Baum-Welch Algorithm")
+### [The Baum-Welch Algorithm](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/6-baum_welch.py "The Baum-Welch Algorithm")
 Module contains function that performs the Baum-Welch algorithm for finding locally optimal transition and emission probabilities for a Hidden Markov Model.
+
+``` python
+#!/usr/bin/env python3
+
+import numpy as np
+baum_welch = __import__('6-baum_welch').baum_welch
+
+if __name__ == '__main__':
+    np.random.seed(1)
+    Emission = np.array([[0.90, 0.10, 0.00],
+                         [0.40, 0.50, 0.10]])
+    Transition = np.array([[0.60, 0.4],
+                           [0.30, 0.70]])
+    Initial = np.array([0.5, 0.5])
+    Hidden = [np.random.choice(2, p=Initial)]
+    for _ in range(364):
+        Hidden.append(np.random.choice(2, p=Transition[Hidden[-1]]))
+    Hidden = np.array(Hidden)
+    Observations = []
+    for s in Hidden:
+        Observations.append(np.random.choice(3, p=Emission[s]))
+    Observations = np.array(Observations)
+    T_test = np.ones((2, 2)) / 2
+    E_test = np.abs(np.random.randn(2, 3))
+    E_test = E_test / np.sum(E_test, axis=1).reshape((-1, 1))
+    T, E = baum_welch(Observations, T_test, E_test, Initial.reshape((-1, 1)))
+    print(np.round(T, 2))
+    print(np.round(E, 2))
+```
