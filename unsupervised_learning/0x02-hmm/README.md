@@ -3,8 +3,7 @@
 # Markov Chains and Hidden Markov Models
 Hidden Markov Model (HMM) is a statistical Markov model in which the system being modeled is assumed to be a Markov process. As part of the definition, HMM requires that there be an observable process Y whose outcomes are "influenced" by the outcomes of X in a known way. Since X cannot be observed directly, the goal is to learn about X by observing Y. A hidden markov model is modeled using transition probabilties (the probabilty of transitioning from any hidden state to any other hidden state at a given time step) and emission probabilities (the probability of being in a hidden state given an observation).
 
-![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/images/HMM.png)
-![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/images/HMM-2.png)
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x02-hmm/images/hmm.png)
 
 
 ## Dependencies
