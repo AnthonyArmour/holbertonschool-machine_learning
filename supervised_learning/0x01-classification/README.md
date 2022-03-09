@@ -144,7 +144,7 @@ Dev accuracy: 99.57446808510639%
 ---
 
 
-### [Class DeepNeuralNetwork]( "Class DeepNeuralNetwork")
+### [Class DeepNeuralNetwork](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-classification/23-deep_neural_network.py "Class DeepNeuralNetwork")
 Defines and trains a deep neural network performing binary classification.
 
 ``` python
