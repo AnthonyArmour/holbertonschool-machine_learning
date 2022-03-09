@@ -1,6 +1,39 @@
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/AnthonyArmoursProfile)
+
+
 # Recurrent Neural Networks
+Recurrent Neural Networks (RNNs) are state of the art algorithms for sequential data. They are a powerful machine learning technique that achieves an internal memory which makes them perfectly suited for solving problems involving sequential data. RNNs are a robust type of neural network and gain their power by including an internal memory of input history to help make predictions on future time steps. RNNs are used to model data that have temporal dynamics. To understand RNNs it is important to have knowledge of a normal feed-forward neural network.
+
+The meaningful difference between RNNs and traditional feed-forward neural networks is the way that they channel information. In a feed-forward network, the information moves in a single direction: from the input layer, through the hidden layers, to the output layer. The information never touches the same node twice, moving straight through the network. Each prediction is deterministic with respect to the network’s inputs. This is due to it’s set internal parameters which directly influences the forward pass of operations that make up the final prediction. Feed-forward networks only consider the current input and have no memory of previous inputs; thus, having no notion of order in time. The state of a feed-forward network after training could be thought of as “memory” from training, but this has nothing to do with a learned representation of temporal dynamics. They simply can’t remember anything from the past except for their internal weights learned during training. Here’s a truth to get a better picture: every unique input passed through a feed-forward network has the same output every time. In contrast, RNNs, can make a different prediction at a given time step for the same input.
+
+In an RNN the information cycles through a loop. When it makes a prediction, it considers the current input and also what it has observed from previously received inputs. Here is an image representing the architectural difference between a Recurrent Neural Network and a traditional feed-forward neural network.
+
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-RNNs/images/RNN.jpeg)
+
+To put it simply, an RNN adds the immediate past to the present. Thus, an RNN has two inputs: the recurrent past and the present input. Like feed-forward networks, RNNs assign a weight matrix to it’s layer inputs, but differ from traditional networks in their application of weights to previous inputs. Their optimization procedure (backpropagation through time) also sets them apart from traditional feed-forward networks.
+
+To understand backpropagation through time it’s important to understand traditional forward-propagation and backpropagation. These concepts are a lot to dive into, so I will try to be as brief as possible.
+
+
+Forward-propagation is the prediction step of a neural network. It is simply a series of linear and non-linear operations that works on an initial input. The weights associated with each node in the layers of the network parameterize each operation. By the end of a single forward pass a prediction is made, allowing for an error to be calculated with respect to the ground truth that the model should have predicted. The error represents how bad the network’s prediction turned out.
+
+Backpropagation (Backprop) is a machine learning optimization algorithm used for training a neural network. It is used for calculating the gradients of an error function with respect to the network’s weights. The algorithm works it’s way backwards through the layers of the network to find the partial derivatives of the errors with respect to the network’s weights. These derivatives are then used to adjust the weights of the network to decrease prediction error when training on a dataset.
+
+In a basic sense, training a neural network is an iterative algorithm that consists of two steps: first, using forward-propagation, given an input, to make a prediction and calculate an error. Second, performing backprop to adjust the internal parameters of the model with respect to the error, intended to improve the model’s performance in the next iteration.
+
+Backpropagation through time (BPTT) is simply the backpropagation algorithm on an unrolled RNN, allowing the optimization algorithm to take into account the temporal dynamics in the architecture. The BPTT is a necessary adjustment since the error of a given time step depends on the previous time step. Within BPTT the error from the last time step is back propagated to the first time step, while unrolling all the time steps. It’s important to note that BPTT can be computationally expensive with a large number of time steps.
+
+There are two big obstacles that RNNs need to deal with, but it is important to first understand what a gradient is. A gradient is the partial derivative of a function with respect to its inputs. To put it simply, a gradient measures the effect that a small change to a function’s inputs has on the function's output. You can also think of a gradient as the tangent line across a function, or the slope of a function at a given point. The two big problems with standard RNNs are exploding and vanishing gradients. Exploding gradients happen when large error gradients accumulate resulting in the model assigning progressively larger value updates to the model weights. This can often be solved with gradient clipping and gradient squashing. Vanishing gradients, the bigger problem of the two, happens when gradients of layers close to the output become small, increasing the speed at which the gradients of earlier layers will approach zero. This is because, as layers and/or steps increase, the product of gradients calculated in backprop becomes the product of values much smaller than one. Standard RNNs are extremely susceptible to the vanishing gradient problem, but, fortunately, additions like Long Short-Term Memory units (LSTMs) are well suited for solving this problem.
+
+
+## Dependencies
+| Library/Framework  | Version |
+| ------------------ | ------- |
+| Python             | ^3.7.3  |
+| numpy              | ^1.19.5 |
 
 ## Tasks
+This project implements the forward pass of the following recurrent neural network architectures from scratch in numpy. There is nothing visually interesting about this project. More interesting implementations of RNNs using the keras API can be found in the root of this repository.
 
 ### [RNN Cell](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-RNNs/0-rnn_cell.py "RNN Cell")
 Represents a cell of a simple RNN.
