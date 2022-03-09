@@ -1,9 +1,22 @@
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/AnthonyArmoursProfile)
+
 # Word Embeddings Project Using sklearn and gensim
+In natural language processing (NLP), word embedding is a term used for the representation of words for text analysis, typically in the form of a real-valued vector that encodes the meaning of the word such that the words that are closer in the vector space are expected to be similar in meaning. Word embeddings can be obtained using a set of language modeling and feature learning techniques where words or phrases from the vocabulary are mapped to vectors of real numbers. Conceptually it involves the mathematical embedding from space with many dimensions per word to a continuous vector space with a much lower dimension.
+
+## Dependencies
+| Library/Framework  | Version |
+| ------------------ | ------- |
+| Python             | ^3.7.3  |
+| numpy              | ^1.19.5 |
+| tensorflow         | ^2.6.0  |
+| keras              | ^2.6.0  |
+| scipy              | ^1.7.3  |
+| gensim             | ^3.8    |
 
 ## Tasks
 
 ### [Bag of Words](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-word_embeddings/0-bag_of_words.py "Bag of Words")
-Creates a bag of words embedding matrix.
+Creates a bag of words embedding matrix using sklearn.feature_extraction.text.CountVectorizer.
 
 ``` python
 #!/usr/bin/env python3
@@ -39,7 +52,7 @@ $ ./main.py
 ---
 
 ### [TF-IDF](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-word_embeddings/1-tf_idf.py "TF-IDF")
-Creates a TF-IDF embedding.
+Creates a TF-IDF embedding using sklearn.feature_extraction.text.TfidfVectorizer.
 
 ``` python
 #!/usr/bin/env python3
@@ -83,7 +96,7 @@ $ ./main.py
 ---
 
 ### [Word2Vec](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-word_embeddings/2-word2vec.py "Word2Vec")
-Creates and trains a gensim word2vec model.
+Creates and trains a gensim word2vec model using gensim.models.Word2Vec.
 
 ``` python
 #!/usr/bin/env python3
@@ -152,7 +165,7 @@ Using TensorFlow backend.
 ---
 
 ### [FastText](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-word_embeddings/4-fasttext.py "FastText")
-Creates and trains a gensim fastText model.
+Creates and trains a gensim fastText model using gensim.models.FastText.
 
 ``` python
 #!/usr/bin/env python3
