@@ -4,7 +4,7 @@
 
 
 ## Tasks
-Covers L2 regularization, dropout gradient descent and early stopping.
+Covers L2 regularization, dropout gradient descent, and early stopping.
 
 ## Dependencies
 | Library/Framework  | Version |
