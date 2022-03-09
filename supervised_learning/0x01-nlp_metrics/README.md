@@ -1,3 +1,5 @@
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/AnthonyArmoursProfile)
+
 # NLP BLEU Score Evaluation Metric
 
 [BLEU Score](https://en.wikipedia.org/wiki/BLEU)
