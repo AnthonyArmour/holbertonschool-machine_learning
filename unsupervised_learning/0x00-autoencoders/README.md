@@ -1,7 +1,7 @@
 [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/AnthonyArmoursProfile)
 
 # Autoencoders Project
-Autoencoders are an unsupervised learning technique and are a type of artificial neural network used to learn efficient codings of unlabeled data. It is essentially a learned dimensionality reduction technique. The encoding is validated and refined by learning to regenerate the input from the encoding. In this project, we learned to build autoencoder models using the keras framework on the mnist dataset.
+Autoencoders are an unsupervised learning technique and are a type of artificial neural network used to learn efficient codings of unlabeled data. It is essentially a learned dimensionality reduction technique, where the reduced dimensions exists in the latent vector space. The encoding is validated and refined by learning to regenerate the input from the encoding. In this project, we learned to build autoencoder models using the keras framework on the mnist dataset.
 
 ## Dependencies
 | Library/Framework  | Version |
