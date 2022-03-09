@@ -42,9 +42,10 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     encoded_layers = Dense(hidden_layers[0], activation="relu")(input_layer)
 
-    for nodes in hidden_layers[1:]+[latent_dims]:
+    for nodes in hidden_layers[1:]:
         encoded_layers = Dense(nodes, activation="relu")(encoded_layers)
 
+    encoded_layers = Dense(latent_dims)(encoded_layers)
     z_mean = Dense(latent_dims)(encoded_layers)
     z_log_sigma = Dense(latent_dims)(encoded_layers)
     Z = keras.layers.Lambda(sampling)([z_mean, z_log_sigma])
