@@ -46,6 +46,7 @@ if __name__ == "__main__":
     plt.show()
 ```
 Training set...
+---
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-1-trainset.png)
 ---
 Convolutional output...
@@ -82,6 +83,7 @@ if __name__ == "__main__":
     plt.show()
 ```
 Training set...
+---
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-2-trainset1.png)
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-cnn/images/cnn-2-trainset2.png)
 ---
