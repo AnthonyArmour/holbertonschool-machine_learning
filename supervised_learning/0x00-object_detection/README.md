@@ -1,39 +1,61 @@
-# Object Detection Project
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/AnthonyArmoursProfile)
 
-Using the yolo v3 algorithm to perform object detection.
+# Object Detection Project
+Object detection is a computer technology related to computer vision and image processing that deals with detecting instances of semantic objects of a certain class (such as humans, buildings, or cars) in digital images and videos. Well-researched domains of object detection include face detection and pedestrian detection. Object detection has applications in many areas of computer vision, including image retrieval and video surveillance.
+
+
+## Dependencies
+| Library/Framework  | Version |
+| ------------------ | ------- |
+| Python             | ^3.7.3  |
+| numpy              | ^1.19.5 |
+| tensorflow         | ^2.6.0  |
+| keras              | ^2.6.0  |
+| cv2                | ^4.1.0  |
 
 ## Tasks:
+In this project I use the yolo v3 algorithm to perform object detection. There are multiple files building on the same class because of the structure of the assignment provided by Holberton school. The entire Yolo class can be found in 7-yolo.py which is linked below. The class methods are documented if you would like to know the inner workings.
 
-### [0. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/0-yolo.py "0. Yolo")
-> Create class constructor for Yolo
----
+### [Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/7-yolo.py "Yolo")
 
-### [1. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/1-yolo.py#:~:text=def%20process_outputs(self%2C%20outputs%2C%20image_size)%3A "1. Yolo")
-> process_outputs(self, outputs, image_size): Organize and package output predictions.
----
+``` python
+#!/usr/bin/env python3
 
-### [2. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/2-yolo.py#:~:text=filter_boxes(self%2C%20boxes%2C%20box_confidences%2C%20box_class_probs)%3A "2. Yolo")
-> filter_boxes(self, boxes, box_confidences, box_class_probs): Filter out top box_confidence score to find box coordinates and classes with highest probabilites.
----
+if __name__ == '__main__':
+    import numpy as np
+    Yolo = __import__('7-yolo').Yolo
 
-### [3. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/3-yolopy#:~:text=def%20non_max_suppression(self%2C%20filtered_boxes%2C%20box_classes%2C%20box_scores)%3A "2. Yolo")
-> non_max_suppression(self, filtered_boxes, box_classes, box_scores): Performs non max suppression on an input of filtered box coordinates, and sorted by class and box score, respectively.
----
-
-### [4. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/4-yolo.py#:~:text=def%20load_images(folder_path)%3A "4. Yolo")
-> load_images(folder_path): Loading images
----
-
-### [5. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/5-yolo.py#:~:text=preprocess_images(self%2C%20images)%3A "5. Yolo")
-> preprocess_images(self, images): Process images for yolo algorithm
----
-
-### [6. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/6-yolo.py#:~:text=show_boxes(self%2C%20image%2C%20boxes%2C%20box_classes%2C%20box_scores%2C%20file_name)%3A "6. Yolo")
-> show_boxes(self, image, boxes, box_classes, box_scores, file_name): Displays the image with all boundary boxes, class names, and box scores.
----
-
-### [7. Yolo](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/7-yolo.py#:~:text=predict(self%2C%20folder_path)%3A "7. Yolo")
-> predict(self, folder_path): Makes detections on images included in folder referenced by <folder_path>.
+    np.random.seed(0)
+    anchors = np.array([[[116, 90], [156, 198], [373, 326]],
+                        [[30, 61], [62, 45], [59, 119]],
+                        [[10, 13], [16, 30], [33, 23]]])
+    yolo = Yolo('./data/yolo.h5', './data/coco_classes.txt', 0.6, 0.5, anchors)
+    predictions, image_paths = yolo.predict('./data/yolo')
+```
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/images/yolo-1.png)
+```
+Press the s button to save image:
+```
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/images/yolo-2.png)
+```
+Press the s button to save image:
+```
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/images/yolo-3.png)
+```
+Press the s button to save image:
+```
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/images/yolo-4.png)
+```
+Press the s button to save image:
+```
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/images/yolo-5.png)
+```
+Press the s button to save image:
+```
+![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x00-object_detection/images/yolo-6.png)
+```
+Press the s button to save image:
+```
 ---
 
 
