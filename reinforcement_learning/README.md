@@ -1,1 +1,1 @@
-# Directory Containing Reinforcement Projects
+# Directory Containing Reinforcement Learning Projects
