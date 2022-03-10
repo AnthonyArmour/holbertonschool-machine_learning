@@ -69,7 +69,6 @@ Press the s button to save image:
 ```
 Press the s button to save image:
 ```
----
 
 :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond:
 
@@ -196,16 +195,12 @@ Real Translation:  so i 'll just share with you some stories very quickly of som
 Input: este é o primeiro livro que eu fiz.
 Prediction: this is the first book i did .
 Real Translation:  this is the first book i've ever done.
+```
 
+<details>
+<summary>Results from test set!</summary>
 
-
-
-
-------------------------------------------
-
-
-
-
+```
 From Test Set:
 
 Input: depois , podem fazer-se e testar-se previsões .
@@ -336,8 +331,8 @@ Input: mt : oh , 365 , o número de dias num ano , o número de dias entre cada 
 Prediction: mt : oh , 36 , number 5 , the number of days ago , the number of days between every birthday .
 Real translation:  mt : oh , 365 , the number of days in a year , the number of days between each birthday .
 ```
+</details>
 
----
 
 :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond: :small_blue_diamond:
 
