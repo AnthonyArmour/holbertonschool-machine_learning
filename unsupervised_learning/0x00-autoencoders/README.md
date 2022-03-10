@@ -52,6 +52,7 @@ plt.show()
 ```
 
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/images/autoencoders-0.png)
+
 ---
 
 ### [Sparse Encoder](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/1-sparse.py "Sparse Encoder")
@@ -91,6 +92,7 @@ for i in range(10):
 plt.show()
 ```
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/images/autoencoders-1.png)
+
 ---
 
 ### [Convolutional Autoencoder](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/2-convolutional.py "Convolutional Autoencoder")
@@ -132,6 +134,7 @@ for i in range(10):
 plt.show()
 ```
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/images/autoencoders-2.png)
+
 ---
 
 ### [Variational Autoencoder](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/3-variational.py "Variational Autoencoder")
@@ -186,4 +189,5 @@ plt.show()
 ```
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/images/autoencoder-3-1.png)
 ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/unsupervised_learning/0x00-autoencoders/images/autoencoder-3-2.png)
+
 ---
