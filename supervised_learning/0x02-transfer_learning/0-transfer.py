@@ -84,3 +84,4 @@ history = model.fit(
     batch_size=300, epochs=5, verbose=True)
 
 model.save("cifar10.h5")
+print("saved to ./cifar10.h5")
