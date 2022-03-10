@@ -1,7 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
-import time
 
 
 def get_secant(x, y, p1, p2, srng):
@@ -204,7 +203,7 @@ class GradientDescent():
     if show:
       plt.show()
     elif save:
-      fig.savefig("/content/{}".format(save))
+      fig.savefig("./animations/{}".format(save))
 
   def plot_derivative(self, d, loss, p, ax=None, show=True, label="b"):
     x = np.linspace(p-1.5, p+1.5, 60)
@@ -263,7 +262,7 @@ class OptimizationAnimation():
     self.ax.view_init(45, -100)
     self.ax.legend((sc,), ("Gradient",), scatterpoints=1)
 
-  def make_animation(self, func, file="/content/optimization.gif", interval=750, d3=False):
+  def make_animation(self, func, file="./animations/optimization.gif", interval=750, d3=False):
     if d3:
       fig = plt.figure()
       ax = plt.axes(projection='3d')
@@ -284,7 +283,7 @@ if __name__ == "__main__":
     # fig.set_figwidth(10)
     # animation = Animation(ax)
     # ani = FuncAnimation(fig, animation.secant_to_tangent, frames=121, interval=100)
-    # ani.save("/content/secant_to_tangent.gif", writer="pillow")
+    # ani.save("./animations/secant_to_tangent.gif", writer="pillow")
 
 
     # ***slope and intercept animation***
@@ -296,23 +295,23 @@ if __name__ == "__main__":
     # GD.w = np.array(GD.w)
     # GD.loss_space()
     # OptAni = OptimizationAnimation(GD.w, GD.b, np.amax(GD.y)+5, func=GD.plot_residuals, obj=GD)
-    # OptAni.make_animation(OptAni.linear_regression, file="/content/slope_intercept_fit.gif", interval=80)
-    # OptAni.make_animation(OptAni.gradient_descent, file="/content/slope_intercept_optimization.gif", interval=125, d3=True)
+    # OptAni.make_animation(OptAni.linear_regression, file="./animations/slope_intercept_fit.gif", interval=80)
+    # OptAni.make_animation(OptAni.gradient_descent, file="./animations/slope_intercept_optimization.gif", interval=125, d3=True)
 
 
     # ***Intercept animation***
-    # GD = GradientDescent(0.4, 3)
-    # bias = GD.optimize_intercept()
-    # GD.plot_residuals(0.4, bias, show=False, save="linear_regression.png")
-    # GD.plot_residuals(0.4, GD.b[0], show=False, save="start_linear_regression.png")
-    # GD.b.append(bias)
-    # GD.b = np.array(GD.b)
-    # GD.loss_space()
-    # GD.intercept_losses = np.array(GD.intercept_losses)
-    # GD.w = np.full((GD.b.size), 0.4)
-    # OptAni = OptimizationAnimation(GD.w, GD.b, np.amax(GD.y)+5, func=GD.plot_residuals, obj=GD)
-    # OptAni.make_animation(OptAni.linear_regression, file="/content/intercept_fit.gif", interval=150)
-    # OptAni.lim = np.amax(GD.intercept_losses)+2
-    # OptAni.make_animation(OptAni.intercept_derivative, file="/content/intercept_optimization.gif", interval=150)
+    GD = GradientDescent(0.4, 3)
+    bias = GD.optimize_intercept()
+    GD.plot_residuals(0.4, bias, show=False, save="linear_regression.png")
+    GD.plot_residuals(0.4, GD.b[0], show=False, save="start_linear_regression.png")
+    GD.b.append(bias)
+    GD.b = np.array(GD.b)
+    GD.loss_space()
+    GD.intercept_losses = np.array(GD.intercept_losses)
+    GD.w = np.full((GD.b.size), 0.4)
+    OptAni = OptimizationAnimation(GD.w, GD.b, np.amax(GD.y)+5, func=GD.plot_residuals, obj=GD)
+    OptAni.make_animation(OptAni.linear_regression, file="./animations/intercept_fit.gif", interval=150)
+    OptAni.lim = np.amax(GD.intercept_losses)+2
+    OptAni.make_animation(OptAni.intercept_derivative, file="./animations/intercept_optimization.gif", interval=150)
 
     pass
