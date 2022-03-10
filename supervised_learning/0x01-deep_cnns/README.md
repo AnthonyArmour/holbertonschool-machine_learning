@@ -36,6 +36,9 @@ if __name__ == '__main__':
     model.summary()
 ```
 
+<details>
+  <summary>Model Summary</summary>
+
 ```
 __________________________________________________________________________________________________
 Layer (type)                    Output Shape         Param #     Connected to                     
@@ -66,6 +69,8 @@ Trainable params: 124,384
 Non-trainable params: 0
 __________________________________________________________________________________________________
 ```
+</details>
+
 
 ### [inception_network](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-deep_cnns/1-inception_network.py "inception_network")
 Builds an inception block as described in [Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842.pdf)
@@ -82,6 +87,9 @@ if __name__ == '__main__':
     model = inception_network()
     model.summary()
 ```
+
+<details>
+  <summary>Model Summary</summary>
 
 ```
 __________________________________________________________________________________________________
@@ -285,7 +293,7 @@ Trainable params: 6,998,552
 Non-trainable params: 0
 __________________________________________________________________________________________________
 ```
-
+</details>
 
 ### [identity_block](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-deep_cnns/2-identity_block.py "identity_block")
 Builds an identity block as described in [Deep Residual Learning for Image Recognition](https://arxiv.org/pdf/1512.03385.pdf)
@@ -304,6 +312,9 @@ if __name__ == '__main__':
     model = K.models.Model(inputs=X, outputs=Y)
     model.summary()
 ```
+
+<details>
+  <summary>Model Summary</summary>
 
 ```
 __________________________________________________________________________________________________
@@ -337,6 +348,7 @@ Trainable params: 70,784
 Non-trainable params: 768
 __________________________________________________________________________________________________
 ```
+</details>
 
 ### [projection_block](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-deep_cnns/3-projection_block.py "projection_block")
 Builds a projection block as described in [Deep Residual Learning for Image Recognition](https://arxiv.org/pdf/1512.03385.pdf)
@@ -355,6 +367,9 @@ if __name__ == '__main__':
     model = K.models.Model(inputs=X, outputs=Y)
     model.summary()
 ```
+
+<details>
+  <summary>Model Summary</summary>
 
 ```
 __________________________________________________________________________________________________
@@ -392,6 +407,7 @@ Trainable params: 56,128
 Non-trainable params: 1,280
 __________________________________________________________________________________________________
 ```
+</details>
 
 
 ### [resnet50](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-deep_cnns/4-resnet50.py "resnet50")
@@ -409,6 +425,9 @@ if __name__ == '__main__':
     model = resnet50()
     model.summary()
 ```
+
+<details>
+  <summary>Model Summary</summary>
 
 ```
 __________________________________________________________________________________________________
@@ -785,6 +804,7 @@ Trainable params: 25,583,592
 Non-trainable params: 53,120
 __________________________________________________________________________________________________
 ```
+</details>
 
 ### [dense_block](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-deep_cnns/5-dense_block.py "dense_block")
 Builds a dense block as described in [Densely Connected Convolutional Networks](https://arxiv.org/pdf/1608.06993.pdf)
@@ -805,6 +825,9 @@ if __name__ == '__main__':
     print(nb_filters)
 
 ```
+
+<details>
+  <summary>Model Summary</summary>
 
 ```
 __________________________________________________________________________________________________
@@ -908,6 +931,7 @@ Non-trainable params: 3,264
 __________________________________________________________________________________________________
 256
 ```
+</details>
 
 ### [transition_layer](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-deep_cnns/6-transition_layer.py "transition_layer")
 Builds a transition layer as described in [Densely Connected Convolutional Networks](https://arxiv.org/pdf/1608.06993.pdf)
@@ -925,6 +949,9 @@ if __name__ == '__main__':
     model.summary()
     print(nb_filters)
 ```
+
+<details>
+  <summary>Model Summary</summary>
 
 ```
 _________________________________________________________________
@@ -946,6 +973,7 @@ Non-trainable params: 512
 _________________________________________________________________
 128
 ```
+</details>
 
 ### [densenet121](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/supervised_learning/0x01-deep_cnns/7-densenet121.py "densenet121")
 Builds the DenseNet-121 architecture as described in [Densely Connected Convolutional Networks](https://arxiv.org/pdf/1608.06993.pdf)
@@ -961,6 +989,9 @@ if __name__ == '__main__':
     model = densenet121(32, 0.5)
     model.summary()
 ```
+
+<details>
+  <summary>Model Summary</summary>
 
 ```
 __________________________________________________________________________________________________
@@ -1879,3 +1910,4 @@ Trainable params: 7,986,926
 Non-trainable params: 81,478
 __________________________________________________________________________________________________
 ```
+</details>
