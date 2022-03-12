@@ -1,4 +1,14 @@
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/AnthonyArmoursProfile)
+
 # Q-Learning project
+Q learning project for the game FrozenLake.
+
+## Dependencies
+| Library/Framework  | Version |
+| ------------------ | ------- |
+| Python             | ^3.7.3  |
+| numpy              | ^1.19.5 |
+| gym                | ^0.20.0 |
 
 # Tasks
 
@@ -118,4 +128,33 @@ Q = q_init(env)
 Q, total_rewards  = train(env, Q)
 print(play(env, Q))
 ```
+---
+
+---
+SFF
+FHH
+FFG
+
+  (Down)
+SFF
+FHH
+FFG
+
+  (Down)
+SFF
+FHH
+FFG
+
+  (Right)
+SFF
+FHH
+FFG
+
+  (Right)
+SFF
+FHH
+FFG
+
+1.0
+
 ---
