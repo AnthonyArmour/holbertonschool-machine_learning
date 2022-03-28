@@ -17,7 +17,7 @@ linked lectures
 
 ---
 
-[![Model-Free-Prediction](https://img.youtube.com/vi/PnHCvfgC_ZA&list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ&index=4/0.jpg)](https://www.youtube.com/watch?v=PnHCvfgC_ZA&list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ&index=4)
+[![Model-Free-Prediction](https://img.youtube.com/vi/PnHCvfgC_ZA&/0.jpg)](https://www.youtube.com/watch?v=PnHCvfgC_ZA&list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ&index=4)
 
 [![Model-Free-Control](https://img.youtube.com/vi/0g4j2k_Ggc4/0.jpg)](https://www.youtube.com/watch?v=0g4j2k_Ggc4)
 
