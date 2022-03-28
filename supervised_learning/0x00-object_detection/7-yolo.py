@@ -97,8 +97,8 @@ class Yolo():
             box_confidence.append(self.sigmoid(output[..., 4:5]))
             class_probs.append(self.sigmoid(output[..., 5:]))
 
-        inputW = self.model.input.shape[1].value
-        inputH = self.model.input.shape[2].value
+        inputW = self.model.input.shape[1]
+        inputH = self.model.input.shape[2]
 
         # Predicted boundary box
         for x, box in enumerate(boxes):
@@ -259,8 +259,8 @@ class Yolo():
               the original height and width of the images
                 2 => (image_height, image_width)
         """
-        inputW = self.model.input.shape[1].value
-        inputH = self.model.input.shape[2].value
+        inputW = self.model.input.shape[1]
+        inputH = self.model.input.shape[2]
         pimages, image_sizes = None, None
         channels = None
         dims = (inputH, inputW)
