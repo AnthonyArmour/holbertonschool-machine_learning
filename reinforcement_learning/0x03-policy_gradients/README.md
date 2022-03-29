@@ -31,8 +31,13 @@ linked lecture
 
 ## Results
 
-[!image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/reinforcement_learning/0x03-policy_gradients/assets/reward.jpg)
-[!gif](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/reinforcement_learning/0x03-policy_gradients/assets/CartPole.gif)
+![image](/assets/reward.jpg)
+
+![gif](/assets/CartPole.gif)
+
+<!-- ![image](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/reinforcement_learning/0x03-policy_gradients/assets/reward.jpg)
+
+![gif](https://github.com/AnthonyArmour/holbertonschool-machine_learning/blob/master/reinforcement_learning/0x03-policy_gradients/assets/CartPole.gif) -->
 
 ---
 
