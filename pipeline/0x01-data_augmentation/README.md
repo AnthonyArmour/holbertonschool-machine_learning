@@ -62,7 +62,7 @@ Computes a random crop of an image.
 
 Before Crop             |  After crop
 :-------------------------:|:-------------------------:
-![](images/before_crop.jpg)  |  ![](images/crop.jpg)
+![](images/before_random_crop.jpg)  |  ![](images/random_crop.jpg)
 
 ``` python
 import tensorflow as tf
