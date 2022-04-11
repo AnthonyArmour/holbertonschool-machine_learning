@@ -273,7 +273,8 @@ def pca_color(image, alphas):
 
     Args:
         image: tf.Tensor - Image to change.
-        max_delta: amount the hue should change.
+        alphas: array of length 3 containing the amount that
+        each channel should change.
 
     Return: tf.Tensor - Changed image.
     """
