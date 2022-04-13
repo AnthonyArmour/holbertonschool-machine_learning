@@ -19,3 +19,9 @@ Before Hue Change             |  After Hue Change
 Before Random Eraser             |  After Random Eraser
 :-------------------------:|:-------------------------:
 ![](images/before_eraser.jpg)  |  ![](images/eraser.jpg)
+
+---
+
+## Gan
+![](images/gen_0.png)    ![](images/gen_1.png)    ![](images/gen_2.png)    ![](images/gen_3.png)    ![](images/gen_4.png)
+![](images/gen_5.png)    ![](images/gen_6.png)    ![](images/gen_7.png)    ![](images/gen_8.png)    ![](images/gen_9.png)
