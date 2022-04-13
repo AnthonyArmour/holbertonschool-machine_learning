@@ -16,3 +16,6 @@ Before Brightness Change             |  After Brightness Change
 Before Hue Change             |  After Hue Change
 :-------------------------:|:-------------------------:
 ![](images/before_hue.jpg)  |  ![](images/hue.jpg)
+Before Random Eraser             |  After Random Eraser
+:-------------------------:|:-------------------------:
+![](images/before_eraser.jpg)  |  ![](images/eraser.jpg)
