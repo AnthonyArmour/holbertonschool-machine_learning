@@ -379,3 +379,10 @@ if __name__ == "__main__":
         image = eraser(image)
         save_img("./images/eraser.jpg", image)
 ```
+
+---
+
+
+## GAN 37 epochs into training (27 hours in)
+![](images/gen_0.png)    ![](images/gen_1.png)    ![](images/gen_2.png)    ![](images/gen_3.png)    ![](images/gen_4.png)
+![](images/gen_5.png)    ![](images/gen_6.png)    ![](images/gen_7.png)    ![](images/gen_8.png)    ![](images/gen_9.png)
