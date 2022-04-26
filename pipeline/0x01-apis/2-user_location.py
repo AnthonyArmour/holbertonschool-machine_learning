@@ -9,21 +9,25 @@ import sys
 import requests
 from time import time
 
+if __name__ == "__main__":
 
-path = sys.argv[1]
+    if len(sys.argv) < 2:
+        exit()
 
-info = requests.get(path)
-print(info.headers, "\n")
+    path = sys.argv[1]
 
-if info.status_code == 403:
-    tm = int(info.headers["X-Ratelimit-Reset"])
-    mins = round((tm - time()) / 60)
-    print("Reset in {} min".format(mins))
-elif info.status_code == 404:
-    print("Not Found")
-else:
-    loc = info.json()["location"]
-    if loc:
-        print(loc)
-    else:
+    info = requests.get(path)
+    print(info.headers, "\n")
+
+    if info.status_code == 403:
+        tm = int(info.headers["X-Ratelimit-Reset"])
+        mins = round((tm - time()) / 60)
+        print("Reset in {} min".format(mins))
+    elif info.status_code == 404:
         print("Not Found")
+    else:
+        loc = info.json()["location"]
+        if loc:
+            print(loc)
+        else:
+            print("Not Found")
