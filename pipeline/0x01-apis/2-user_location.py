@@ -17,7 +17,6 @@ if __name__ == "__main__":
     path = sys.argv[1]
 
     info = requests.get(path)
-    print(info.headers, "\n")
 
     if info.status_code == 403:
         tm = int(info.headers["X-Ratelimit-Reset"])
