@@ -23,10 +23,10 @@ if __name__ == "__main__":
         mins = round((tm - time()) / 60)
         print("Reset in {} min".format(mins))
     elif info.status_code == 404:
-        print("Not Found")
+        print("Not found")
     else:
         loc = info.json()["location"]
         if loc:
             print(loc)
         else:
-            print("Not Found")
+            print("Not found")
