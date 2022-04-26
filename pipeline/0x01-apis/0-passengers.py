@@ -22,19 +22,26 @@ def availableShips(passengerCount):
         List of ship names, else empty list.
     """
 
-    criteria_met = []
+    criteria_met, nextP = [], True
 
     info = requests.get("https://swapi-api.hbtn.io/api/starships/")
     info = info.json()
     ships = info["results"]
 
-    for obj in ships:
-        try:
-            obj["passengers"] = obj["passengers"].replace(",", "")
-            if int(obj["passengers"]) >= passengerCount:
-                criteria_met.append(obj["name"])
-        except Exception:
-            pass
+    while nextP:
+
+        for obj in ships:
+            try:
+                obj["passengers"] = obj["passengers"].replace(",", "")
+                if int(obj["passengers"]) >= passengerCount:
+                    criteria_met.append(obj["name"])
+            except Exception:
+                pass
+
+        nextP = info["next"]
+        if nextP:
+            info = requests.get(nextP).json()
+            ships = info["results"]
 
     return criteria_met
 

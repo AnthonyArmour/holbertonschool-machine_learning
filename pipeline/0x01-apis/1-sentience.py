@@ -19,22 +19,29 @@ def sentientPlanets():
         List of home planets.
     """
 
-    criteria_met = []
+    criteria_met, nextP = [], True
 
     info = requests.get("https://swapi-api.hbtn.io/api/species/")
     info = info.json()
     species = info["results"]
 
-    for obj in species:
-        try:
-            world = obj["homeworld"]
-            if world is None:
-                criteria_met.append("unknown")
-            else:
-                world_info = requests.get(world).json()
-                criteria_met.append(world_info["name"])
-        except Exception:
-            pass
+    while nextP:
+
+        for obj in species:
+            try:
+                world = obj["homeworld"]
+                if world is None:
+                    criteria_met.append("unknown")
+                else:
+                    world_info = requests.get(world).json()
+                    criteria_met.append(world_info["name"])
+            except Exception:
+                pass
+
+        nextP = info["next"]
+        if nextP:
+            info = requests.get(nextP).json()
+            species = info["results"]
 
     return criteria_met
 
