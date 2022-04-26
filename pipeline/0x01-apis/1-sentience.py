@@ -31,7 +31,8 @@ def sentientPlanets():
             try:
                 world = obj["homeworld"]
                 if world is None:
-                    criteria_met.append("unknown")
+                    pass
+                    # criteria_met.append("unknown")
                 else:
                     world_info = requests.get(world).json()
                     criteria_met.append(world_info["name"])
