@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Module contains function insert_school."""
 
 from pymongo import MongoClient

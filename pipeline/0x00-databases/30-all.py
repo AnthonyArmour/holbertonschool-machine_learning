@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Module contains function for listing all mongodb documents"""
 
 from pymongo import MongoClient

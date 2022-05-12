@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Contains function schools_by_topic."""
 
 from pymongo import MongoClient
